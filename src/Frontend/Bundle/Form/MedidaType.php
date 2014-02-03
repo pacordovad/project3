@@ -21,7 +21,7 @@ class MedidaType extends AbstractType
                     return $er->createQueryBuilder('u')
                         ->orderBy('u.posicionFigura', 'ASC');
                 }))
-            ->add('largo')
+            ->add('largo',"text",array("label"=>"Alto"))
             ->add('ancho')
             ->add('posicion', "choice", array("choices"=>array_combine(range(1,30),range(1,30)),"label"=>"Posición"))
         ;

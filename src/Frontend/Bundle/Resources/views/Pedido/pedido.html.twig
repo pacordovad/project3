@@ -18,7 +18,7 @@
             <td style="width: 20%">{{ entity.fechaActualizacion|date('Y-m-d H:i:s') }}</td>
         </tr>
         <tr>
-            <td style="width: 60%"></td>
+            <td style="width: 60%"><h1>Pedido</h1></td>
             <td style="width: 20%"><label>Usuario &uacute;ltima actualizaci&oacute;n</label></td>
             <td style="width: 20%">{{ entity.ultimaActualizacionUsuarioPk }}</td>
         </tr>
@@ -85,6 +85,10 @@
         </tr>
     </table>
     <table style="width: 100%">
+        <tr>
+            <td style="width: 20%"><label>Fecha de entrega</label></td>
+            <td style="width: 80%">{{ entity.fechaMaximaEntrega|date('Y-m-d H:i:s') }}</td>
+        </tr>
         <tr>
             <td style="width: 20%"><label>Notas</label></td>
             <td style="width: 80%">{{ entity.notas }}</td>

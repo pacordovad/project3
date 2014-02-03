@@ -62,6 +62,7 @@
                         <td>{{ form_label(form.medidaPk) }}</td>
                         <td>
                             <select id="dimensionhidden" style="display: none">
+                                <option></option>
                                 {% for dimension in dimensiones %}
                                 <option value="{{ dimension.id }}" data-figura="{{ dimension.figuraPk.Id }}" data-alto="{{ dimension.largo }}" data-ancho="{{ dimension.ancho }}" {% if dimensionId != null and dimensionId == dimension.id %}selected{% endif %}>{{ dimension }}</option>
                                 {% endfor %}
@@ -69,6 +70,7 @@
                             </select>
                             
                             <select id="dimension" onchange="setDimension()">
+                                <option></option>
                                 {% for dimension in dimensiones %}
                                 <option value="{{ dimension.id }}" data-alto="{{ dimension.largo }}" data-ancho="{{ dimension.ancho }}" {% if dimensionId != null and dimensionId == dimension.id %}selected{% endif %}>{{ dimension }}</option>
                                 {% endfor %}
@@ -76,8 +78,8 @@
                             </select>
                             <span id="medidas-extra">
                                 <br/>
-                                <input type="number" id="dimensionX" value="{% if dimensionX != null %}{{ dimensionX }}{% else %}0{% endif %}" style="width: 70px"/>&nbsp;&nbsp;x&nbsp;&nbsp; 
-                                <input type="number" id="dimensionY" value="{% if dimensionY != null %}{{ dimensionY }}{% else %}0{% endif %}" style="width: 70px"/>
+                                <input type="number" id="dimensionY" value="{% if dimensionY != null %}{{ dimensionY }}{% else %}0{% endif %}" style="width: 70px"/>&nbsp;&nbsp;x&nbsp;&nbsp;
+                                <input type="number" id="dimensionX" value="{% if dimensionX != null %}{{ dimensionX }}{% else %}0{% endif %}" style="width: 70px"/>
                             </span>
                         </td>
                     </tr>
@@ -85,6 +87,7 @@
                         <td>{{ form_label(form.tipoCalidadPk) }}</td>
                         <td>
                             <select id="tipo-calidad">
+                                <option></option>
                                 {% for tipoCalidad in tiposCalidad %}
                                 <option data-nombre="{{ tipoCalidad }}" data-valor="{{ tipoCalidad.valor }}" value="{{ tipoCalidad.id }}" {% if tipoCalidadId != null and tipoCalidadId == tipoCalidad.id %}selected{% endif %}>{{ tipoCalidad }}</option>
                                 {% endfor %}

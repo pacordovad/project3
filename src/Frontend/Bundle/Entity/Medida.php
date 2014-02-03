@@ -157,7 +157,7 @@ class Medida
     }
     
     public function __toString() {
-        return $this->figuraPk.' ('.$this->ancho.' x '.$this->largo.')';
+        return $this->figuraPk.' ('.$this->largo.' x '.$this->ancho.')';
     }
 
 }

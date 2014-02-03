@@ -359,7 +359,7 @@ class Pedido
      */
     public function getIdRecur()
     {
-        return "RECUR-".$this->id;
+        return "RECUR".$this->id;
     }
 
     /**

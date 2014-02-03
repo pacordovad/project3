@@ -5,25 +5,27 @@
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title>{% block title %}Sistema de Control de Producci&oacute;n{% endblock %}</title>
         {% stylesheets 
-            '@FrontendBundle/Resources/public/css/jquery.dataTables.css'
-            '@FrontendBundle/Resources/public/css/bootstrap.min.css'
+            'bundles/frontend/css/jquery.dataTables.css'
+            filter='cssrewrite'
+        %}
+            <link rel="stylesheet" href="{{ asset_url }}" />
+        {% endstylesheets %}
+        {% stylesheets 
+            'bundles/frontend/css/bootstrap.min.css'
             '@FrontendBundle/Resources/public/css/bootstrap-theme.min.css'
             '@FrontendBundle/Resources/public/css/main.css'
-            output='styles.css'
+            filter='cssrewrite'
         %}
             <link rel="stylesheet" href="{{ asset_url }}" />
         {% endstylesheets %}
         {% javascripts
             '@FrontendBundle/Resources/public/js/jquery-1.10.2.js'
             '@FrontendBundle/Resources/public/js/main.js'
-            output='jquerymain.js'
         %}
             <script type="text/javascript" src="{{ asset_url }}"></script>
         {% endjavascripts %}
         {% stylesheets 
-                'bundles/frontend/css/jquery-ui-1.10.3.custom.min.css'
-                output='css/jqueryui.css' 
-                filter="cssrewrite"
+                '@FrontendBundle/Resources/public/css/jquery-ui-1.10.3.custom.min.css'
         %}
             <link rel="stylesheet" href="{{ asset_url }}" />
         {% endstylesheets %}
@@ -41,10 +43,10 @@
                 </div>
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
-                        {% if is_granted("ROLE_ADMINISTRADOR") %}<li><a href="{{ url("pedido_control") }}">Control</a></li>{% endif %}
-                        {% if is_granted("ROLE_ADMINISTRADOR") %}<li><a href="{{ url("pedido_cobros") }}">Cobros</a></li>{% endif %}
-                        <li><a href="{{ url("pedido_produccion") }}">Produccion</a></li>
-                        <li><a href="{{ url("tarea") }}">Tareas</a></li>
+                        <li class="controlm {% block controlm %}{% endblock %}"><a href="{{ url("pedido_control") }}">Control</a></li>
+                        {% if is_granted("ROLE_ADMINISTRADOR") %}<li class="cobrosm {% block cobrosm %}{% endblock %}"><a href="{{ url("pedido_cobros") }}">Cobros</a></li>{% endif %}
+                        <li class="produccionm {% block produccionm %}{% endblock %}"><a href="{{ url("pedido_produccion") }}">Produccion</a></li>
+                        <li class="tareasm {% block taream %}{% endblock %}"><a href="{{ url("tarea") }}">Tareas</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         {% if is_granted("ROLE_ADMINISTRADOR") %}
@@ -117,6 +119,11 @@
         <!-- Bootstrap core JavaScript
         ================================================== -->
         <!-- Placed at the end of the document so the pages load faster -->
+        {% javascripts
+            '@FrontendBundle/Resources/public/js/jquery.dataTables-1.9.4.min.js'
+        %}
+            <script type="text/javascript" src="{{ asset_url }}"></script>
+        {% endjavascripts %}
         {% javascripts
             '@FrontendBundle/Resources/public/js/bootstrap-3.0.0.min.js'
             '@FrontendBundle/Resources/public/js/jquery.dataTables-1.9.4.min.js'

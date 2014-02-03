@@ -1,5 +1,7 @@
 {% extends 'FrontendBundle:Layouts:base.html.twig' %}
 
+{% block produccionm %}selected{% endblock %}
+
 {% block body -%}
 
     <h3>Productos</h3>
@@ -189,10 +191,10 @@
                 <td style="display: none">{{ entity.pedidoPk.conceptoFactura }}</td>
                 <td>{{ entity.productoPk.categoriaPk }}</td>
                 <td>{{ entity.nombreProducto }}</td>
-                <td>{{ entity.cantidad }}</td>
+                <td class="highlighted">{{ entity.cantidad }}</td>
                 <td>{{ entity.alto }}</td>
                 <td>{{ entity.ancho }}</td>
-                <td>{{ entity.tipoCalidadPk }}</td>
+                <td class="highlighted">{{ entity.tipoCalidadPk }}</td>
                 <td>{{ entity.pedidoPk.coordinadorUsuarioPk }}</td>
                 <td>{{ entity.pedidoPk.delegado1UsuarioPk }}</td>
                 
@@ -290,7 +292,7 @@
         $.fn.dataTableExt.afnFiltering.push(
             function( oSettings, aData, iDataIndex ) {
                     var iCoordinador = document.getElementById('categoria').value.toLowerCase();
-                    var iVersion = aData[6].toLowerCase();
+                    var iVersion = aData[7].toLowerCase();
                     if (iVersion.indexOf(iCoordinador) !== -1)
                     {
                         return true;
@@ -301,17 +303,6 @@
         $.fn.dataTableExt.afnFiltering.push(
             function( oSettings, aData, iDataIndex ) {
                     var iCoordinador = document.getElementById('calidad').value.toLowerCase();
-                    var iVersion = aData[11].toLowerCase();
-                    if (iVersion.indexOf(iCoordinador) !== -1)
-                    {
-                        return true;
-                    }
-                    return false;
-                }
-            );
-        $.fn.dataTableExt.afnFiltering.push(
-            function( oSettings, aData, iDataIndex ) {
-                    var iCoordinador = document.getElementById('coordinador').value.toLowerCase();
                     var iVersion = aData[12].toLowerCase();
                     if (iVersion.indexOf(iCoordinador) !== -1)
                     {
@@ -322,8 +313,19 @@
             );
         $.fn.dataTableExt.afnFiltering.push(
             function( oSettings, aData, iDataIndex ) {
+                    var iCoordinador = document.getElementById('coordinador').value.toLowerCase();
+                    var iVersion = aData[13].toLowerCase();
+                    if (iVersion.indexOf(iCoordinador) !== -1)
+                    {
+                        return true;
+                    }
+                    return false;
+                }
+            );
+        $.fn.dataTableExt.afnFiltering.push(
+            function( oSettings, aData, iDataIndex ) {
                     var iCoordinador = document.getElementById('producto').value.toLowerCase();
-                    var iVersion = aData[7].toLowerCase();
+                    var iVersion = aData[8].toLowerCase();
                     if (iVersion.indexOf(iCoordinador) !== -1)
                     {
                         return true;

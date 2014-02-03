@@ -46,7 +46,7 @@ security:
 
     access_control:
         - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/pedido/tableroControl, roles: ROLE_ADMINISTRADOR }
+        - { path: ^/pedido/tableroControl, roles: ROLE_OPERADOR }
         - { path: ^/pedido/tableroCobros, roles: ROLE_ADMINISTRADOR }
         - { path: ^/pedido/greportegeneralpuntos, roles: ROLE_ADMINISTRADOR }
         - { path: ^/pedido/[^/]+/[^/]+/greportegeneral, roles: ROLE_ADMINISTRADOR }

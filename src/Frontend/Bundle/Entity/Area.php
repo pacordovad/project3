@@ -124,7 +124,7 @@ class Area
     }
     
     public function getEmpresaArea(){
-        return $this->nombreArea.", ".$this->empresaPk;
+        return $this->empresaPk.", ".$this->nombreArea;
     }
     
     public function __toString() {
