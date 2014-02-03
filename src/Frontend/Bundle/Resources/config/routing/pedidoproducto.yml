@@ -1,0 +1,29 @@
+#pedidoproducto:
+#    pattern:  /
+#    defaults: { _controller: "FrontendBundle:PedidoProducto:new" }
+
+#pedidoproducto_create:
+#    pattern:  /crear
+#    defaults: { _controller: "FrontendBundle:PedidoProducto:create" }
+#    requirements: { _method: post }
+
+#pedidoproducto_edit:
+#    pattern:  /{id}/editar
+#    defaults: { _controller: "FrontendBundle:PedidoProducto:edit" }
+
+#pedidoproducto_update:
+#    pattern:  /{id}/actualizar
+#    defaults: { _controller: "FrontendBundle:PedidoProducto:update" }
+#    requirements: { _method: post|put }
+
+#pedidoproducto_delete:
+#    pattern:  /{id}/eliminar
+#    defaults: { _controller: "FrontendBundle:PedidoProducto:delete" }
+    
+pedidoproductoxml:
+    pattern:  /{productoSeleccionadoId}/{nombreProducto}/{cantidad}/{dimensionId}/{dimensionX}/{dimensionY}/{cortesia}/{tipoCalidadId}/{pedidoPk}/seleccion
+    defaults: { _controller: "FrontendBundle:PedidoProducto:pedidoProducto", productoSeleccionadoId:'-', nombreProducto:'-', cantidad:'-', dimensionId:'-', dimensionX:'-', dimensionY:'-', cortesia:'-', tipoCalidadId:'-', pedidoPk:'-' }
+    
+pedidoproductoeditlink:
+    pattern:  /{productoSeleccionadoId}/{nombreProducto}/{cantidad}/{dimensionId}/{dimensionX}/{dimensionY}/{cortesia}/{tipoCalidadId}/{pedidoPk}/editlink
+    defaults: { _controller: "FrontendBundle:PedidoProducto:getEditLink", productoSeleccionadoId:'-', nombreProducto:'-', cantidad:'-', dimensionId:'-', dimensionX:'-', dimensionY:'-', cortesia:'-', tipoCalidadId:'-', pedidoPk:'-' }

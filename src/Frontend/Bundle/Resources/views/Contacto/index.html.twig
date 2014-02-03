@@ -1,0 +1,48 @@
+{% block body -%}
+
+    <h3>Contactos</h3>
+    
+    <table class="records_list" id="datatable_crud_posicion">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Posici&oacute;n</th>
+                <th>Area</th>
+                <th>Nombre</th>
+                <th>Cargo</th>
+                <th>Ciudad</th>
+                <th>Teléfono convencional</th>
+                <th>Celular</th>
+                <th>Correos</th>
+                <th>Observaciones</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in entities %}
+            <tr>
+                <td><a href="{{ path('contacto_edit', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                <td>{{ entity.posicion }}</td>
+                <td>{{ entity.areaPk.empresaArea }}</td>
+                <td>{{ entity.nombresContacto }} {{ entity.apellidosContacto }}</td>
+                <td>{{ entity.cargoPk }}</td>
+                <td>{{ entity.ciudadPk.ciudadPais }}</td>
+                <td>{{ entity.telefono }} {% if entity.extension is not empty %}Ext. {{ entity.extension }}{% endif%}</td>
+                <td>
+                    {% if entity.celular1 is not empty %}Movistar: <b>{{ entity.celular1 }}</b><br/>{% endif %}
+                    {% if entity.celular2 is not empty %}Porta: <b>{{ entity.celular2 }}</b>{% endif %} 
+                </td>
+                <td>
+                    {% if entity.correoTrabajo is not empty %}Trabajo: <b>{{ entity.correoTrabajo }}</b><br/>{% endif %} 
+                    {% if entity.correoAlternativo is not empty %}Alternativo: <b>{{ entity.correoAlternativo }}</b>{% endif %} 
+                </td>
+                <td>{{ entity.observaciones }}</td>
+                <td>
+                    <a href="{{ path('contacto_edit', { 'id': entity.id }) }}" class="btn btn-primary">Editar</a>
+                    <a href="{{ path('contacto_delete', { 'id': entity.id }) }}" class="btn btn-danger" onclick="return confirmar()">Eliminar</a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

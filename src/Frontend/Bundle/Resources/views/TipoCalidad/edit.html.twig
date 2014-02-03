@@ -1,0 +1,10 @@
+{% extends 'FrontendBundle:Layouts:base.html.twig' %}
+
+{% block body -%}
+    <h1>Tipos de Calidades</h1>
+    <br/>
+    {{ form(edit_form) }}
+    <a href="{{ path('tipocalidad') }}">Regresar</a>
+    <br/>
+    {{ render(controller('FrontendBundle:TipoCalidad:index')) }}
+{% endblock %}

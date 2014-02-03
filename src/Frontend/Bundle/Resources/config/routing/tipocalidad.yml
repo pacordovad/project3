@@ -1,0 +1,21 @@
+tipocalidad:
+    pattern:  /
+    defaults: { _controller: "FrontendBundle:TipoCalidad:new" }
+
+tipocalidad_create:
+    pattern:  /crear
+    defaults: { _controller: "FrontendBundle:TipoCalidad:create" }
+    requirements: { _method: post }
+
+tipocalidad_edit:
+    pattern:  /{id}/editar
+    defaults: { _controller: "FrontendBundle:TipoCalidad:edit" }
+
+tipocalidad_update:
+    pattern:  /{id}/actualizar
+    defaults: { _controller: "FrontendBundle:TipoCalidad:update" }
+    requirements: { _method: post|put }
+
+tipocalidad_delete:
+    pattern:  /{id}/eliminar
+    defaults: { _controller: "FrontendBundle:TipoCalidad:delete" }

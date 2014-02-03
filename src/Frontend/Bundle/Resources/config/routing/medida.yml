@@ -1,0 +1,21 @@
+medida:
+    pattern:  /
+    defaults: { _controller: "FrontendBundle:Medida:new" }
+
+medida_create:
+    pattern:  /crear
+    defaults: { _controller: "FrontendBundle:Medida:create" }
+    requirements: { _method: post }
+
+medida_edit:
+    pattern:  /{id}/editar
+    defaults: { _controller: "FrontendBundle:Medida:edit" }
+
+medida_update:
+    pattern:  /{id}/actualizar
+    defaults: { _controller: "FrontendBundle:Medida:update" }
+    requirements: { _method: post|put }
+
+medida_delete:
+    pattern:  /{id}/eliminar
+    defaults: { _controller: "FrontendBundle:Medida:delete" }

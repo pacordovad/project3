@@ -1,0 +1,10 @@
+{% extends 'FrontendBundle:Layouts:base.html.twig' %}
+
+{% block body -%}
+    <h1>Categorias</h1>
+    <br/>
+    {{ form(edit_form) }}
+    <a href="{{ path('categoria') }}">Regresar</a>
+    <br/>
+    {{ render(controller('FrontendBundle:Categoria:index')) }}
+{% endblock %}

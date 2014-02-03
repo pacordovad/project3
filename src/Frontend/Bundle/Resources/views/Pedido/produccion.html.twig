@@ -1,0 +1,368 @@
+{% extends 'FrontendBundle:Layouts:base.html.twig' %}
+
+{% block body -%}
+
+    <h3>Productos</h3>
+
+    <div class="row">
+        <a href="{{ path("pedido") }}" class="btn btn-primary" style="float: right; margin-bottom: 30px">Nuevo Pedido</a>
+    </div>
+    <div class="row">
+        <div class="col-md-1">
+            <label for="empresa">Empresa</label>
+        </div>
+        <div class="col-md-4">
+            <select id="empresa">
+                <option value="" selected="selected"></option>
+                {% for empresa in empresas %}
+                    <option value="{{ empresa }}" data-empresaid="{{ empresa.id }}">{{ empresa }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="col-md-1">
+            <label for="categoria">Categoria</label>
+        </div>
+        <div class="col-md-3">
+            <select id="categoria">
+                <option value="" selected="selected"></option>
+                {% for categoria in categorias %}
+                    <option value="{{ categoria }}">{{ categoria }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="col-md-1">
+            <label for="producto">Producto</label>
+        </div>
+        <div class="col-md-2">
+            <select id="producto">
+                <option value="" selected="selected"></option>
+                {% for producto in productos %}
+                    <option value="{{ producto.nombreProducto }}">{{ producto.nombreProducto }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-1">
+            <label for="area">Area</label>
+        </div>
+        <div class="col-md-4">
+            <select id="areahidden" style="display: none">
+                <option data-empresa="-1" value="" selected="selected"></option>
+                {% for area in areas %}
+                    <option data-empresa="{{ area.empresaPk.id }}" value="{{ area.empresaArea }}">{{ area.empresaArea }}</option>
+                {% endfor %}
+            </select>
+            <select id="area">
+                <option data-empresa="-1" value="" selected="selected"></option>
+                {% for area in areas %}
+                    <option data-empresa="{{ area.empresaPk.id }}" value="{{ area.empresaArea }}">{{ area.empresaArea }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="col-md-1">
+            <label for="calidad">Calidad</label>
+        </div>
+        <div class="col-md-3">
+            <select id="calidad">
+                <option value="" selected="selected"></option>
+                {% for calidad in calidades %}
+                    <option value="{{ calidad }}">{{ calidad }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="col-md-1">
+            <label for="medida">Medidas</label>
+        </div>
+        <div class="col-md-2">
+            <select id="medida">
+                <option value="" selected="selected"></option>
+                {% for medida in medidas %}
+                    <option value="{{ medida }}">{{ medida }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+    <div class="row">
+        
+        <div class="col-md-1">
+            <label for="paso">Paso</label>&nbsp;&nbsp;&nbsp;&nbsp;
+        </div>
+        <div class="col-md-4">
+            <select id="paso" {% if not (is_granted('ROLE_ADMINISTRADOR') or is_granted("ROLE_COORDINADOR")) %}disabled{% endif %}>
+                <option value="" selected="selected"></option>
+                {% for paso in pasos %}
+                    <option value="{{ paso }}">{{ paso }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="col-md-1">
+            <label for="coordinador">Coordinador</label>
+        </div>
+        <div class="col-md-3">
+            <select id="coordinador">
+                <option value="" selected="selected"></option>
+                {% for coordinador in coordinadores %}
+                    <option value="{{ coordinador }}">{{ coordinador }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="col-md-1">
+            <label for="codigo">C&oacute;digo pedido</label>
+        </div>
+        <div class="col-md-2">
+            <input type="text" id="codigo"/>
+        </div>
+    </div>
+    
+    <br/>
+    <input type="hidden" id="loading-gif" value="{{ asset('images/loader-small.gif') }}"/>
+    <table class="tColapse records_list" id="datatable_crud" style="font-size: 11px">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th style="display: none">Empresa</th>
+                <th style="display: none">Area</th>
+                <th style="display: none">Paso</th>
+                <th style="display: none">Medida</th>
+                <th>C&oacute;digo pedido</th>
+                <th style="display: none">Concepto</th>
+                <th>Categor&iacute;a</th>
+                <th>Producto</th>
+                <th>Cantidad</th>
+                <th>Alto (cm)</th>
+                <th>Ancho (cm)</th>
+                <th>Calidad</th>
+                <th>Coordinador</th>
+                <th>Delegado 1</th>
+                <th>1</th>
+                <th>2</th>
+                <th>3</th>
+                <th>4</th>
+                <th>5</th>
+                <th>6</th>
+                <th>7</th>
+                <th>8</th>
+                <th>9</th>
+                <th>10</th>
+                <th>11</th>
+                <th>Delegado 2</th>
+                <th>12</th>
+                <th>13</th>
+                <th>14</th>
+                <th>15</th>
+                <th>Delegado 3</th>
+                <th>16</th>
+                <th></th>
+                <th>Notas</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% set i = 1 %}
+        {% for entity in entities %}
+            <tr>
+                <td>{{ i }}{% set i = i + 1 %}</td>
+                <td style="display: none">{{ entity.pedidoPk.contactoPk.areaPk.empresaPk }}</td>
+                <td style="display: none">{{ entity.pedidoPk.contactoPk.areaPk.empresaArea }}</td>
+                <td style="display: none">{{ entity.pedidoPk.pasoPedidosPk }}</td>
+                <td style="display: none">{{ entity.medidaPk }}</td>
+                <td>
+                    <span id="tc{{ i }}">{{ entity.pedidoPk.idRecur }}</span>
+                    <div class="tooltip" style="display: none">
+                        <div class="tooltip-inner" id="tci{{ i }}">
+                            {{ entity.pedidoPk.conceptoFactura }}
+                        </div>
+                        <div class="tooltip-arrow"></div>
+                    </div>
+                    <script type="text/javascript">
+                        jQuery(document).ready(function() {
+                            var popc{{ i }} = $("#tci{{ i }}").html();
+                            $("#tc{{ i }}").popover({
+                                title: 'Conceptos',
+                                trigger:'hover click',
+                                content: popc{{ i }},
+                                html:true
+                            });
+                        });
+                    </script>
+                </td>
+                <td style="display: none">{{ entity.pedidoPk.conceptoFactura }}</td>
+                <td>{{ entity.productoPk.categoriaPk }}</td>
+                <td>{{ entity.nombreProducto }}</td>
+                <td>{{ entity.cantidad }}</td>
+                <td>{{ entity.alto }}</td>
+                <td>{{ entity.ancho }}</td>
+                <td>{{ entity.tipoCalidadPk }}</td>
+                <td>{{ entity.pedidoPk.coordinadorUsuarioPk }}</td>
+                <td>{{ entity.pedidoPk.delegado1UsuarioPk }}</td>
+                
+                <td><input type="checkbox" name="pedidoProducto_{{ entity.id }}" {% if app.user.id != entity.pedidoPk.delegado1UsuarioPk.id %}disabled="disabled"{% endif %} value="{{ entity.paso1 }}" {% if entity.paso1 %}checked{% endif %} onchange="actualizaProduccionPedidoProducto('{{ url("pedido_actualiza_produccion",{id: entity.id,paso:"1"}) }}',this,'{{ entity.id }}')"></td>
+                <td><input type="checkbox" name="pedidoProducto_{{ entity.id }}" {% if app.user.id != entity.pedidoPk.delegado1UsuarioPk.id %}disabled="disabled"{% endif %} value="{{ entity.paso2 }}" {% if entity.paso2 %}checked{% endif %} onchange="actualizaProduccionPedidoProducto('{{ url("pedido_actualiza_produccion",{id: entity.id,paso:"2"}) }}',this,'{{ entity.id }}')"></td>
+                <td><input type="checkbox" name="pedidoProducto_{{ entity.id }}" {% if app.user.id != entity.pedidoPk.delegado1UsuarioPk.id %}disabled="disabled"{% endif %} value="{{ entity.paso3 }}" {% if entity.paso3 %}checked{% endif %} onchange="actualizaProduccionPedidoProducto('{{ url("pedido_actualiza_produccion",{id: entity.id,paso:"3"}) }}',this,'{{ entity.id }}')"></td>
+                <td><input type="checkbox" name="pedidoProducto_{{ entity.id }}" {% if app.user.id != entity.pedidoPk.delegado1UsuarioPk.id %}disabled="disabled"{% endif %} value="{{ entity.paso4 }}" {% if entity.paso4 %}checked{% endif %} onchange="actualizaProduccionPedidoProducto('{{ url("pedido_actualiza_produccion",{id: entity.id,paso:"4"}) }}',this,'{{ entity.id }}')"></td>
+                <td><input type="checkbox" name="pedidoProducto_{{ entity.id }}" {% if app.user.id != entity.pedidoPk.delegado1UsuarioPk.id %}disabled="disabled"{% endif %} value="{{ entity.paso5 }}" {% if entity.paso5 %}checked{% endif %} onchange="actualizaProduccionPedidoProducto('{{ url("pedido_actualiza_produccion",{id: entity.id,paso:"5"}) }}',this,'{{ entity.id }}')"></td>
+                <td><input type="checkbox" name="pedidoProducto_{{ entity.id }}" {% if app.user.id != entity.pedidoPk.delegado1UsuarioPk.id %}disabled="disabled"{% endif %} value="{{ entity.paso6 }}" {% if entity.paso6 %}checked{% endif %} onchange="actualizaProduccionPedidoProducto('{{ url("pedido_actualiza_produccion",{id: entity.id,paso:"6"}) }}',this,'{{ entity.id }}')"></td>
+                <td><input type="checkbox" name="pedidoProducto_{{ entity.id }}" {% if app.user.id != entity.pedidoPk.delegado1UsuarioPk.id %}disabled="disabled"{% endif %} value="{{ entity.paso7 }}" {% if entity.paso7 %}checked{% endif %} onchange="actualizaProduccionPedidoProducto('{{ url("pedido_actualiza_produccion",{id: entity.id,paso:"7"}) }}',this,'{{ entity.id }}')"></td>
+                <td><input type="checkbox" name="pedidoProducto_{{ entity.id }}" {% if app.user.id != entity.pedidoPk.delegado1UsuarioPk.id %}disabled="disabled"{% endif %} value="{{ entity.paso8 }}" {% if entity.paso8 %}checked{% endif %} onchange="actualizaProduccionPedidoProducto('{{ url("pedido_actualiza_produccion",{id: entity.id,paso:"8"}) }}',this,'{{ entity.id }}')"></td>
+                <td><input type="checkbox" name="pedidoProducto_{{ entity.id }}" {% if app.user.id != entity.pedidoPk.delegado1UsuarioPk.id %}disabled="disabled"{% endif %} value="{{ entity.paso9 }}" {% if entity.paso9 %}checked{% endif %} onchange="actualizaProduccionPedidoProducto('{{ url("pedido_actualiza_produccion",{id: entity.id,paso:"9"}) }}',this,'{{ entity.id }}')"></td>
+                <td><input type="checkbox" name="pedidoProducto_{{ entity.id }}" {% if app.user.id != entity.pedidoPk.delegado1UsuarioPk.id %}disabled="disabled"{% endif %} value="{{ entity.paso10 }}" {% if entity.paso10 %}checked{% endif %} onchange="actualizaProduccionPedidoProducto('{{ url("pedido_actualiza_produccion",{id: entity.id,paso:"10"}) }}',this,'{{ entity.id }}')"></td>
+                <td><input type="checkbox" name="pedidoProducto_{{ entity.id }}" {% if app.user.id != entity.pedidoPk.delegado1UsuarioPk.id %}disabled="disabled"{% endif %} value="{{ entity.paso11 }}" {% if entity.paso11 %}checked{% endif %} onchange="actualizaProduccionPedidoProducto('{{ url("pedido_actualiza_produccion",{id: entity.id,paso:"11"}) }}',this,'{{ entity.id }}')"></td>
+                
+                <td>{{ entity.pedidoPk.delegado2UsuarioPk }}</td>
+                
+                <td><input type="checkbox" name="pedidoProducto_{{ entity.id }}" {% if app.user.id != entity.pedidoPk.delegado2UsuarioPk.id %}disabled="disabled"{% endif %} value="{{ entity.paso12 }}" {% if entity.paso12 %}checked{% endif %} onchange="actualizaProduccionPedidoProducto('{{ url("pedido_actualiza_produccion",{id: entity.id,paso:"12"}) }}',this,'{{ entity.id }}')"></td>
+                <td><input type="checkbox" name="pedidoProducto_{{ entity.id }}" {% if app.user.id != entity.pedidoPk.delegado2UsuarioPk.id %}disabled="disabled"{% endif %} value="{{ entity.paso13 }}" {% if entity.paso13 %}checked{% endif %} onchange="actualizaProduccionPedidoProducto('{{ url("pedido_actualiza_produccion",{id: entity.id,paso:"13"}) }}',this,'{{ entity.id }}')"></td>
+                <td><input type="checkbox" name="pedidoProducto_{{ entity.id }}" {% if app.user.id != entity.pedidoPk.delegado2UsuarioPk.id %}disabled="disabled"{% endif %} value="{{ entity.paso14 }}" {% if entity.paso14 %}checked{% endif %} onchange="actualizaProduccionPedidoProducto('{{ url("pedido_actualiza_produccion",{id: entity.id,paso:"14"}) }}',this,'{{ entity.id }}')"></td>
+                <td><input type="checkbox" name="pedidoProducto_{{ entity.id }}" {% if app.user.id != entity.pedidoPk.delegado2UsuarioPk.id %}disabled="disabled"{% endif %} value="{{ entity.paso15 }}" {% if entity.paso15 %}checked{% endif %} onchange="actualizaProduccionPedidoProducto('{{ url("pedido_actualiza_produccion",{id: entity.id,paso:"15"}) }}',this,'{{ entity.id }}')"></td>
+                
+                <td>{{ entity.pedidoPk.delegado3UsuarioPk }}</td>
+                
+                <td><input type="checkbox" name="pedidoProducto_{{ entity.id }}" {% if app.user.id != entity.pedidoPk.delegado3UsuarioPk.id %}disabled="disabled"{% endif %} value="{{ entity.paso11 }}" {% if entity.paso16 %}checked{% endif %} onchange="actualizaProduccionPedidoProducto('{{ url("pedido_actualiza_produccion",{id: entity.id,paso:"16"}) }}',this,'{{ entity.id }}')"></td>
+                <td><span id="loading_{{ entity.id }}"></span></td>
+                <td>
+                    {% if entity.pedidoPk.notas is defined and entity.pedidoPk.notas!="" %}
+                        <!-- Button trigger modal -->
+                        <button style="font-size: 12px; padding: 5px 11px;" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#notas{{entity.pedidoPk.id}}">
+                          <span class="glyphicon glyphicon-list-alt"></span>
+                        </button>
+                        <!-- Modal -->
+                        <div class="modal fade" id="notas{{entity.pedidoPk.id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                          <div class="modal-dialog">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                <h4 class="modal-title" id="myModalLabel">Notas pedido <span style="color: #3276b1">{{ entity.pedidoPk.id }}</span></h4>
+                              </div>
+                              <div class="modal-body" style="font-size: 150%">
+                                    {{ entity.pedidoPk.notas }}
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                              </div>
+                            </div><!-- /.modal-content -->
+                          </div><!-- /.modal-dialog -->
+                        </div><!-- /.modal -->
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    
+{% endblock %}
+    
+{% block javascripts %}
+    <script type="text/javascript">
+        /* Custom filtering function which will filter data in column four between two values */
+        $.fn.dataTableExt.afnFiltering.push(
+            function( oSettings, aData, iDataIndex ) {
+                    var iEmpresa = document.getElementById('empresa').value.toLowerCase();
+                    var iVersion = aData[1].toLowerCase();
+                    if (iVersion.indexOf(iEmpresa) !== -1)
+                    {
+                            return true;
+                    }
+                    return false;
+                }
+            );
+        $.fn.dataTableExt.afnFiltering.push(
+            function( oSettings, aData, iDataIndex ) {
+                    var iArea = document.getElementById('area').value.toLowerCase();
+                    var iVersion = aData[2].toLowerCase();
+                    if (iVersion.indexOf(iArea) !== -1)
+                    {
+                            return true;
+                    }
+                    return false;
+                }
+            );
+        $.fn.dataTableExt.afnFiltering.push(
+            function( oSettings, aData, iDataIndex ) {
+                    var iPaso = document.getElementById('paso').value.toLowerCase();
+                    var iVersion = aData[3].toLowerCase();
+                    if (iVersion.indexOf(iPaso) !== -1)
+                    {
+                            return true;
+                    }
+                    return false;
+                }
+            );
+        $.fn.dataTableExt.afnFiltering.push(
+            function( oSettings, aData, iDataIndex ) {
+                    var iCoordinador = document.getElementById('categoria').value.toLowerCase();
+                    var iVersion = aData[6].toLowerCase();
+                    if (iVersion.indexOf(iCoordinador) !== -1)
+                    {
+                        return true;
+                    }
+                    return false;
+                }
+            );
+        $.fn.dataTableExt.afnFiltering.push(
+            function( oSettings, aData, iDataIndex ) {
+                    var iCoordinador = document.getElementById('calidad').value.toLowerCase();
+                    var iVersion = aData[11].toLowerCase();
+                    if (iVersion.indexOf(iCoordinador) !== -1)
+                    {
+                        return true;
+                    }
+                    return false;
+                }
+            );
+        $.fn.dataTableExt.afnFiltering.push(
+            function( oSettings, aData, iDataIndex ) {
+                    var iCoordinador = document.getElementById('coordinador').value.toLowerCase();
+                    var iVersion = aData[12].toLowerCase();
+                    if (iVersion.indexOf(iCoordinador) !== -1)
+                    {
+                        return true;
+                    }
+                    return false;
+                }
+            );
+        $.fn.dataTableExt.afnFiltering.push(
+            function( oSettings, aData, iDataIndex ) {
+                    var iCoordinador = document.getElementById('producto').value.toLowerCase();
+                    var iVersion = aData[7].toLowerCase();
+                    if (iVersion.indexOf(iCoordinador) !== -1)
+                    {
+                        return true;
+                    }
+                    return false;
+                }
+            );
+        $.fn.dataTableExt.afnFiltering.push(
+            function( oSettings, aData, iDataIndex ) {
+                    var iCoordinador = document.getElementById('medida').value.toLowerCase();
+                    var iVersion = aData[4].toLowerCase();
+                    if (iVersion.indexOf(iCoordinador) !== -1)
+                    {
+                        return true;
+                    }
+                    return false;
+                }
+            );
+        $.fn.dataTableExt.afnFiltering.push(
+            function( oSettings, aData, iDataIndex ) {
+                    var iCodigo = document.getElementById('codigo').value.toLowerCase();
+                    var iVersion = aData[5].toLowerCase();
+                    if (iVersion.indexOf(iCodigo) !== -1)
+                    {
+                        return true;
+                    }
+                    return false;
+                }
+            );
+        $(document).ready(function() {
+            $('#empresa').change( function() { window.dataTable.fnDraw(); filtraAreas(); } );
+            $('#area').change( function() { window.dataTable.fnDraw(); } );
+            $('#paso').change( function() { window.dataTable.fnDraw(); } );
+            $('#categoria').change( function() { window.dataTable.fnDraw(); } );
+            $('#calidad').change( function() { window.dataTable.fnDraw(); } );
+            $('#coordinador').change( function() { window.dataTable.fnDraw(); } );
+            $('#producto').change( function() { window.dataTable.fnDraw(); } );
+            $('#medida').change( function() { window.dataTable.fnDraw(); } );
+            $('#codigo').keyup( function() { window.dataTable.fnDraw(); } );
+        } );
+    </script>
+{% endblock %}

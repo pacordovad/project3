@@ -1,0 +1,21 @@
+pais:
+    pattern:  /
+    defaults: { _controller: "FrontendBundle:Pais:new" }
+
+pais_create:
+    pattern:  /crear
+    defaults: { _controller: "FrontendBundle:Pais:create" }
+    requirements: { _method: post }
+
+pais_edit:
+    pattern:  /{id}/editar
+    defaults: { _controller: "FrontendBundle:Pais:edit" }
+
+pais_update:
+    pattern:  /{id}/actualizar
+    defaults: { _controller: "FrontendBundle:Pais:update" }
+    requirements: { _method: post|put }
+
+pais_delete:
+    pattern:  /{id}/eliminar
+    defaults: { _controller: "FrontendBundle:Pais:delete" }

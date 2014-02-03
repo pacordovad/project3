@@ -1,0 +1,47 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>PedidoProducto</h1>
+
+    <table class="record_properties">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ entity.id }}</td>
+            </tr>
+            <tr>
+                <th>Nombreproducto</th>
+                <td>{{ entity.nombreProducto }}</td>
+            </tr>
+            <tr>
+                <th>Cantidad</th>
+                <td>{{ entity.cantidad }}</td>
+            </tr>
+            <tr>
+                <th>Alto</th>
+                <td>{{ entity.alto }}</td>
+            </tr>
+            <tr>
+                <th>Ancho</th>
+                <td>{{ entity.ancho }}</td>
+            </tr>
+            <tr>
+                <th>Cortesia</th>
+                <td>{{ entity.cortesia }}</td>
+            </tr>
+            <tr>
+                <th>Precioventa</th>
+                <td>{{ entity.precioVenta }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('pedidoproducto_edit', { 'id': entity.id }) }}">
+            Editar
+        </a>
+    </li>
+    <li>{{ form(delete_form) }}</li>
+</ul>
+{% endblock %}

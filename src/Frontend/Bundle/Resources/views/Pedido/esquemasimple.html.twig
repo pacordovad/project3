@@ -1,0 +1,76 @@
+{% extends 'FrontendBundle:Layouts:simple.html.twig' %}
+
+{% block body -%}
+    <table style="width: 100%">
+        <tr>
+            <td style="width: 60%"></td>
+            <td style="width: 20%"><label>C&oacute;digo de pedido<label></td>
+            <td style="width: 20%"><span style="color: #3276b1; font-size: 150%">{{ entity.id }}</span></td>
+        </tr>
+        <tr>
+            <td style="width: 60%"></td>
+            <td style="width: 20%"><label>Fecha de registro</label></td>
+            <td style="width: 20%">{{ entity.fechaRegistro|date('Y-m-d H:i:s') }}</td>
+        </tr>
+        <tr>
+            <td style="width: 60%"></td>
+            <td style="width: 20%"><label>Fecha de &uacute;ltima actualizaci&oacute;n</label></td>
+            <td style="width: 20%">{{ entity.fechaActualizacion|date('Y-m-d H:i:s') }}</td>
+        </tr>
+        <tr>
+            <td style="width: 60%"></td>
+            <td style="width: 20%"><label>Usuario &uacute;ltima actualizaci&oacute;n</label></td>
+            <td style="width: 20%">{{ entity.ultimaActualizacionUsuarioPk }}</td>
+        </tr>
+        <tr>
+            <td style="width: 60%"><h1>Esquema de Producción</h1></td>
+            <td style="width: 20%"></td>
+            <td style="width: 20%"></td>
+        </tr>
+    </table>
+    <hr/>
+    <table style="width: 100%">
+        <tr>
+            <td style="width: 20%"><label>Empresa</label></td>
+            <td style="width: 40%">{{ entity.contactoPk.areaPk.empresaPk }}</td>
+            <td style="width: 20%"><label>RUC<label></td>
+            <td style="width: 40%">{{ entity.contactoPk.areaPk.empresaPk.ruc }}</td>
+        </tr>
+        <tr>
+            <td style="width: 20%"><label>Direcci&oacute;n</label></td>
+            <td style="width: 40%">{{ entity.contactoPk.areaPk.empresaPk.direccion }}</td>
+            <td style="width: 20%"><label>Telf</label></td>
+            <td style="width: 40%">{{ entity.contactoPk.areaPk.empresaPk.telefono }}</td>
+        </tr>
+        <tr>
+            <td style="width: 20%"><label>&Aacute;rea</label></td>
+            <td style="width: 40%">{{ entity.contactoPk.areaContacto }}</td>
+            <td style="width: 20%"><label>Etapa</label></td>
+            <td style="width: 40%">{% render controller("FrontendBundle:Area:etapa", { 'areaId' : entity.contactoPk.areaPk.id }) %}</td>
+        </tr>
+    </table>
+    <hr/>
+    {% set i = 0 %}
+    <table style="width: 100%">
+        <tr>
+    {% for pedidoProducto in productos %}
+        {% if i%5 == 0 %}
+            </tr>
+            <tr>
+        {% endif %}
+        <td style="width: 20%">
+            <b>{{ pedidoProducto.nombreProducto }}</b><br/>
+            Facturados:  {{ pedidoProducto.numFacturados }}<br/>
+            Cortesia: {{ pedidoProducto.numCortesias }}<br/>
+            {% if file_exists(web_path~'/uploads/productos/p'~pedidoProducto.productoPk.id~'.'~pedidoProducto.productoPk.imagenExtension) %}
+                <img src="{{ image('@FrontendBundle/Resources/public/uploads/productos/p'~pedidoProducto.productoPk.id~'.'~pedidoProducto.productoPk.imagenExtension).cropResize(100,100) }}" /></td>
+            {% endif %}
+        </td>
+        {% set i = i + 1 %}
+    {% endfor%}
+        </tr>
+    </table>
+    <script type="text/javascript">
+        window.print();
+    </script>
+{% endblock %}

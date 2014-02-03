@@ -1,0 +1,89 @@
+frontend_homepage:
+    pattern:  /
+    defaults: { _controller: FrontendBundle:Default:index }
+
+login:
+    path:   /login
+    defaults:  { _controller: FrontendBundle:Security:login }
+    
+login_check:
+    path:   /auth
+
+logout:
+    path:   /salir
+
+FrontendBundle_categoria:
+        resource: "@FrontendBundle/Resources/config/routing/categoria.yml"
+        prefix:   /categoria
+        
+FrontendBundle_empresa:
+        resource: "@FrontendBundle/Resources/config/routing/empresa.yml"
+        prefix:   /empresa
+
+FrontendBundle_area:
+        resource: "@FrontendBundle/Resources/config/routing/area.yml"
+        prefix:   /area
+        
+FrontendBundle_pais:
+        resource: "@FrontendBundle/Resources/config/routing/pais.yml"
+        prefix:   /pais
+        
+FrontendBundle_region:
+        resource: "@FrontendBundle/Resources/config/routing/region.yml"
+        prefix:   /region
+        
+FrontendBundle_provincia:
+        resource: "@FrontendBundle/Resources/config/routing/provincia.yml"
+        prefix:   /provincia
+        
+FrontendBundle_ciudad:
+        resource: "@FrontendBundle/Resources/config/routing/ciudad.yml"
+        prefix:   /ciudad
+
+FrontendBundle_cargo:
+        resource: "@FrontendBundle/Resources/config/routing/cargo.yml"
+        prefix:   /cargo
+        
+FrontendBundle_figura:
+        resource: "@FrontendBundle/Resources/config/routing/figura.yml"
+        prefix:   /figura
+        
+FrontendBundle_tipocalidad:
+        resource: "@FrontendBundle/Resources/config/routing/tipocalidad.yml"
+        prefix:   /tipocalidad
+        
+FrontendBundle_medida:
+        resource: "@FrontendBundle/Resources/config/routing/medida.yml"
+        prefix:   /medida
+        
+FrontendBundle_pasopedido:
+        resource: "@FrontendBundle/Resources/config/routing/pasopedido.yml"
+        prefix:   /pasopedido
+        
+FrontendBundle_usuario:
+        resource: "@FrontendBundle/Resources/config/routing/usuario.yml"
+        prefix:   /usuario
+        
+FrontendBundle_producto:
+        resource: "@FrontendBundle/Resources/config/routing/producto.yml"
+        prefix:   /producto
+        
+FrontendBundle_contacto:
+        resource: "@FrontendBundle/Resources/config/routing/contacto.yml"
+        prefix:   /contacto
+        
+FrontendBundle_pedido:
+        resource: "@FrontendBundle/Resources/config/routing/pedido.yml"
+        prefix:   /pedido
+        
+FrontendBundle_pedidoproducto:
+        resource: "@FrontendBundle/Resources/config/routing/pedidoproducto.yml"
+        prefix:   /pedidoproducto
+        
+FrontendBundle_tarea:
+        resource: "@FrontendBundle/Resources/config/routing/tarea.yml"
+        prefix:   /tarea
+        
+FrontendBundle_reportes:
+        resource: "@FrontendBundle/Resources/config/routing/reportes.yml"
+        prefix:   /reportes

@@ -1,0 +1,110 @@
+/* 
+    Document   : main
+    Created on : Oct 12, 2013, 12:37:21 PM
+    Author     : Andres
+    Description: Purpose of the stylesheet follows.
+*/
+
+.crud-table td{
+    padding-right: 10px;
+    padding-bottom: 10px;
+    padding-top: 0px;
+}
+
+/* ------ Mix ------ */
+
+#Grid{
+    width: 398px;
+    margin: 0px;
+    padding: 0px;
+    overflow: scroll;
+    overflow-x: hidden;
+    max-height: 500px;
+}
+
+#Grid:after{
+    content: '';
+    display: inline-block;
+    width: 100%;
+}
+
+#Grid .mix{
+    display: none;
+    opacity: 0;
+    vertical-align: top;
+    text-align: center;
+    width: 100px;
+    height: 160px;
+    font-size: 10px;
+    color: #000000;
+    margin-bottom: 10px;
+    margin-left: 18px;
+}
+
+#Grid .mix{
+    display: none;
+    opacity: 0;
+    vertical-align: top;
+    text-align: center;
+    width: 100px;
+    height: 160px;
+    font-size: 10px;
+    color: #000000;
+    margin-bottom: 10px;
+    margin-left: 18px;
+}
+
+#Grid .mix a{
+    text-decoration: none;
+    color: #000000;
+}
+
+#Grid .mix a span{
+    height: 20px;
+}
+
+#Grid .mix.seleccionado{
+    background: #3297fd;
+    color: #FFFFFF;
+    outline: 5px solid #3297fd;
+    font-weight: bold;
+}
+
+#Grid .mix.seleccionado a{
+    color: #FFFFFF;
+}
+
+#Grid .gap{
+    display: inline-block;
+    width: 200px;
+}
+
+/* ------ Pedido producto -------*/
+
+.pPedidoProducto{
+    width: 800px;
+}
+
+.tProductoPedido td{
+    vertical-align: top;
+    padding-bottom: 20px;
+    padding-right: 10px;
+}
+
+/* ------ Tabla colapse --------*/
+.tColapse td{
+    padding: 1px !important;    
+}
+
+.tColapse th{
+    padding: 1px !important;    
+}
+
+.records_list td:last-child{
+    text-align: right;
+}
+
+.crud-table{
+    border: 10px solid #eeefff;
+    background-color: #eeefff;
+}

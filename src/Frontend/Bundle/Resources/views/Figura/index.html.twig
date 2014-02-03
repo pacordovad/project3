@@ -1,0 +1,28 @@
+{% block body -%}
+
+    <h3>Figuras</h3>
+    
+    <table class="records_list" id="datatable_crud_posicion">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Posici&oacute;n</th>
+                <th>Nombre figura</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in entities %}
+            <tr>
+                <td><a href="{{ path('figura_edit', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                <td>{{ entity.posicionFigura }}</td>
+                <td>{{ entity.nombreFigura }}</td>
+                <td>                        <a href="{{ path('figura_edit', { 'id': entity.id }) }}" class="btn btn-primary">Editar</a>
+                                    <a href="{{ path('figura_delete', { 'id': entity.id }) }}" class="btn btn-danger" onclick="return confirmar()">Eliminar</a>
+
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

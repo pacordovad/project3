@@ -1,0 +1,60 @@
+{% extends 'FrontendBundle:Layouts:simple.html.twig' %}
+
+{% block body -%}
+    <h3>Reporte General de Pedidos</h3>
+    <table style="width: 100%">
+        <tr>
+            <td style="width: 20%"><label>Empresa</label></td>
+            <td style="width: 40%">{{ empresa }}</td>
+            <td style="width: 20%"><label>Total Etapas</label></td>
+            <td style="width: 40%">{{ etapas }}</td>
+        </tr>
+        <tr>
+            <td style="width: 20%"><label>Fecha reporte</label></td>
+            <td style="width: 40%">{{ "now"|date('Y-m-d H:i:s') }}</td>
+            <td style="width: 20%"><label>Total (USD)</label></td>
+            <td style="width: 40%">{{ total }}</td>
+        </tr>
+    </table>
+    <hr/>
+    {% for area in areas %}
+        <label>Nombre &Aacute;rea</label>&nbsp;{{ area }}<br/>
+        <label>C&oacute;digo</label>&nbsp;{{ area.id }}<br/>
+        <label>Etapas</label>&nbsp;{{ area.etapa }}<br/>
+        <table style="width: 100%">
+            <tr>
+                <th style="width: 10%">#</th>
+                <th style="width: 15%">C&oacute;digo</th>
+                <th style="width: 15%">Fecha</th>
+                <th style="width: 10%">#Prod</th>
+                <th style="width: 15%">Coordinador</th>
+                <th style="width: 20%">Concepto</th>
+                <th style="width: 15%">Total</th>
+            </tr>
+            {% set i = 1 %}
+            {% set totalArea = 0 %}
+            {% for pedido in area.pedidos %}
+            <tr>
+                <td style="width: 10%">{{ i }}{% set i = i + 1 %}</td>
+                <td style="width: 15%">{{ pedido.idRecur }}</td>
+                <td style="width: 15%">{{ pedido.fechaRegistro|date('Y-m-d H:i:s') }}</td>
+                <td style="width: 10%">{{ pedido.pedidoProducto|length }}</td>
+                <td style="width: 15%">{{ pedido.coordinadorUsuarioPk }}</td>
+                <td style="width: 20%">{{ pedido.conceptoFactura }}</td>
+                <td style="width: 15%">{{ pedido.total }}</td>
+                {% set totalArea = totalArea + pedido.total %}
+            </tr>
+            {% endfor %}
+            <tr>
+                <th style="width: 10%"></th>
+                <th style="width: 15%"></th>
+                <th style="width: 15%"></th>
+                <th style="width: 10%"></th>
+                <th style="width: 15%"></th>
+                <th style="width: 20%; border-top: 1px solid">Total</th>
+                <th style="width: 15%; border-top: 1px solid">{{ totalArea }}</th>
+            </tr>
+        </table>
+        <hr/>
+    {% endfor%}
+{% endblock %}

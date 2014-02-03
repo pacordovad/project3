@@ -1,0 +1,25 @@
+area:
+    pattern:  /
+    defaults: { _controller: "FrontendBundle:Area:new" }
+
+area_create:
+    pattern:  /crear
+    defaults: { _controller: "FrontendBundle:Area:create" }
+    requirements: { _method: post }
+
+area_edit:
+    pattern:  /{id}/editar
+    defaults: { _controller: "FrontendBundle:Area:edit" }
+
+area_update:
+    pattern:  /{id}/actualizar
+    defaults: { _controller: "FrontendBundle:Area:update" }
+    requirements: { _method: post|put }
+
+area_delete:
+    pattern:  /{id}/eliminar
+    defaults: { _controller: "FrontendBundle:Area:delete" }
+    
+area_etapa:
+    pattern:  /{areaId}/etapa
+    defaults: { _controller: "FrontendBundle:Area:etapa" }

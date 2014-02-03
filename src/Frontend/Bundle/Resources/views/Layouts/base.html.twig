@@ -1,0 +1,150 @@
+{# app/Resources/views/base.html.twig #}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>{% block title %}Sistema de Control de Producci&oacute;n{% endblock %}</title>
+        {% stylesheets 
+            '@FrontendBundle/Resources/public/css/jquery.dataTables.css'
+            '@FrontendBundle/Resources/public/css/bootstrap.min.css'
+            '@FrontendBundle/Resources/public/css/bootstrap-theme.min.css'
+            '@FrontendBundle/Resources/public/css/main.css'
+            output='styles.css'
+        %}
+            <link rel="stylesheet" href="{{ asset_url }}" />
+        {% endstylesheets %}
+        {% javascripts
+            '@FrontendBundle/Resources/public/js/jquery-1.10.2.js'
+            '@FrontendBundle/Resources/public/js/main.js'
+            output='jquerymain.js'
+        %}
+            <script type="text/javascript" src="{{ asset_url }}"></script>
+        {% endjavascripts %}
+        {% stylesheets 
+                'bundles/frontend/css/jquery-ui-1.10.3.custom.min.css'
+                output='css/jqueryui.css' 
+                filter="cssrewrite"
+        %}
+            <link rel="stylesheet" href="{{ asset_url }}" />
+        {% endstylesheets %}
+        {% block estilos %}
+        {% endblock %}
+        <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" />
+    </head>     
+    <body>
+        <input type="hidden" id="loading-base-gif" value="{{ asset('images/loader.gif') }}"/>
+        <input type="hidden" id="loading-small-base-gif" value="{{ asset('images/loader-small.gif') }}"/>
+        <!-- Fixed navbar -->
+        <div class="navbar navbar-default navbar-static-top">
+            <div class="container">
+                <div class="navbar-header">
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        {% if is_granted("ROLE_ADMINISTRADOR") %}<li><a href="{{ url("pedido_control") }}">Control</a></li>{% endif %}
+                        {% if is_granted("ROLE_ADMINISTRADOR") %}<li><a href="{{ url("pedido_cobros") }}">Cobros</a></li>{% endif %}
+                        <li><a href="{{ url("pedido_produccion") }}">Produccion</a></li>
+                        <li><a href="{{ url("tarea") }}">Tareas</a></li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        {% if is_granted("ROLE_ADMINISTRADOR") %}
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Opciones administraci&oacute;n <b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="{{ url("producto") }}">Productos</a></li>
+                                <li><a href="{{ url("categoria") }}">Categor&iacute;as</a></li>
+                                <li><a href="{{ url("figura") }}">Figuras</a></li>
+                                <li><a href="{{ url("tipocalidad") }}">Tipos de calidad</a></li>
+                                <li><a href="{{ url("medida") }}">Medidas</a></li>
+                                <li class="divider"></li>
+                                <li><a href="{{ url("empresa") }}">Empresas</a></li>
+                                <li><a href="{{ url("area") }}">&Aacute;reas</a></li>
+                                <li><a href="{{ url("contacto") }}">Contactos</a></li>
+                                <li class="divider"></li>
+                                <li><a href="{{ url("usuario") }}">Usuarios</a></li>
+                                <li class="divider"></li>
+                                <li><a href="{{ url("pasopedido") }}">Pasos de pedidos</a></li>
+                                <li class="divider"></li>
+                                <li><a href="{{ url("pais") }}">Pa&iacute;ses</a></li>
+                                <li><a href="{{ url("region") }}">Regiones</a></li>
+                                <li><a href="{{ url("provincia") }}">Provincias</a></li>
+                                <li><a href="{{ url("ciudad") }}">Ciudades</a></li>
+                                <li><a href="{{ url("cargo") }}">Cargos</a></li>
+                            </ul>
+                        </li>
+                        {% endif %}
+                        {% if is_granted("ROLE_ADMINISTRADOR") %}
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reportes<b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#" onclick="muestraMenuReportePedidos(event,'{{ url("menupedido") }}')">Reportes por pedido</a></li>
+                                <li><a href="#" onclick="muestraMenuReporteGeneral(event,'{{ url("menugeneral") }}')">Reportes generales</a></li>
+                            </ul>
+                        </li>
+                        {% endif %}
+                        <li><a href="{{ url("logout") }}">Bienvenido {{ app.user.nombres }}, salir</a></li>
+                    </ul>
+                </div><!--/.nav-collapse -->
+            </div>
+        </div>
+
+        <div class="container">
+            {% for flashMessage in app.session.flashbag.get('success') %}
+                <div class="alert alert-dismissable alert-success">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    {{ flashMessage }}
+                </div>
+            {% endfor %}
+            {% for flashMessage in app.session.flashbag.get('warning') %}
+                <div class="alert alert-dismissable alert-warning">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    {{ flashMessage }}
+                </div>
+            {% endfor %}
+            {% for flashMessage in app.session.flashbag.get('info') %}
+                <div class="alert alert-dismissable alert-warning">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    {{ flashMessage }}
+                </div>
+            {% endfor %}
+            <div>
+                <h1></h1>
+                {% block body %}{% endblock %}
+            </div>
+        </div> <!-- /container -->
+
+        {% include "FrontendBundle:Layouts:modal.html.twig" %}
+        <!-- Bootstrap core JavaScript
+        ================================================== -->
+        <!-- Placed at the end of the document so the pages load faster -->
+        {% javascripts
+            '@FrontendBundle/Resources/public/js/bootstrap-3.0.0.min.js'
+            '@FrontendBundle/Resources/public/js/jquery.dataTables-1.9.4.min.js'
+            '@FrontendBundle/Resources/public/js/jquery.mixitup.min.js'
+            '@FrontendBundle/Resources/public/js/jquery.scrollTo.min.js'
+            '@FrontendBundle/Resources/public/js/modal.js'
+            '@FrontendBundle/Resources/public/js/popover.js'
+            '@FrontendBundle/Resources/public/js/button.js'
+            '@FrontendBundle/Resources/public/js/jquery-ui-1.10.3.custom.min.js'
+        %}
+            <script type="text/javascript" src="{{ asset_url }}"></script>
+        {% endjavascripts %}
+        <script type="text/javascript">
+            $(document).ready(function() {
+                window.dataTable = $('#datatable_crud').dataTable({
+                        "oLanguage": {
+                            "sUrl": '{{ asset('js/datatables.spanish.txt') }}'
+                        }
+                });
+                window.dataTable2 = $('#datatable_crud_posicion').dataTable({
+                        "aaSorting": [[ 1, "asc" ]],    
+                        "oLanguage": {
+                            "sUrl": '{{ asset('js/datatables.spanish.txt') }}'
+                        }
+                });
+            });
+        </script>
+        {% block javascripts %}
+        {% endblock %}
+    </body>
+</html>

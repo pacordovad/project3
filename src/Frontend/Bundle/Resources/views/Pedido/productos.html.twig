@@ -1,0 +1,108 @@
+{% extends 'FrontendBundle:Layouts:base.html.twig' %}
+
+{% block body -%}
+
+<h3>Productos del pedido <span style="color: #3276b1; font-size: 120%">{{ pedido.idRecur }}</span></h3>
+    <input type="hidden" id="loading-gif" value="{{ asset('images/loader-small.gif') }}"/>
+    <table class="tColapse records_list" id="datatable_crud" style="font-size: 11px">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>C&oacute;digo pedido</th>
+                <th>Categor&iacute;a</th>
+                <th>Producto</th>
+                <th>Cantidad</th>
+                <th>Alto (cm)</th>
+                <th>Ancho (cm)</th>
+                <th>Calidad</th>
+                <th>Coordinador</th>
+                <th>Delegado 1</th>
+                <th>1</th>
+                <th>2</th>
+                <th>3</th>
+                <th>4</th>
+                <th>5</th>
+                <th>6</th>
+                <th>7</th>
+                <th>8</th>
+                <th>9</th>
+                <th>10</th>
+                <th>11</th>
+                <th>Delegado 2</th>
+                <th>12</th>
+                <th>13</th>
+                <th>14</th>
+                <th>15</th>
+                <th>Delegado 3</th>
+                <th>16</th>
+                <th>Notas</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% set i = 1 %}
+        {% for entity in entities %}
+            <tr>
+                <td>{{ i }}{% set i = i + 1 %}</td>
+                <td>{{ pedido.idRecur }}</td>
+                <td>{{ entity.productoPk.categoriaPk }}</td>
+                <td>{{ entity.nombreProducto }}</td>
+                <td>{{ entity.cantidad }}</td>
+                <td>{{ entity.alto }}</td>
+                <td>{{ entity.ancho }}</td>
+                <td>{{ entity.tipoCalidadPk }}</td>
+                <td>{{ pedido.coordinadorUsuarioPk }}</td>
+                <td>{{ pedido.delegado1UsuarioPk }}</td>
+                
+                <td><input type="checkbox" name="pedidoProducto_{{ entity.id }}" disabled="disabled" value="{{ entity.paso1 }}" {% if entity.paso1 %}checked{% endif %}></td>
+                <td><input type="checkbox" name="pedidoProducto_{{ entity.id }}" disabled="disabled" value="{{ entity.paso2 }}" {% if entity.paso2 %}checked{% endif %}></td>
+                <td><input type="checkbox" name="pedidoProducto_{{ entity.id }}" disabled="disabled" value="{{ entity.paso3 }}" {% if entity.paso3 %}checked{% endif %}></td>
+                <td><input type="checkbox" name="pedidoProducto_{{ entity.id }}" disabled="disabled" value="{{ entity.paso4 }}" {% if entity.paso4 %}checked{% endif %}></td>
+                <td><input type="checkbox" name="pedidoProducto_{{ entity.id }}" disabled="disabled" value="{{ entity.paso5 }}" {% if entity.paso5 %}checked{% endif %}></td>
+                <td><input type="checkbox" name="pedidoProducto_{{ entity.id }}" disabled="disabled" value="{{ entity.paso6 }}" {% if entity.paso6 %}checked{% endif %}></td>
+                <td><input type="checkbox" name="pedidoProducto_{{ entity.id }}" disabled="disabled" value="{{ entity.paso7 }}" {% if entity.paso7 %}checked{% endif %}></td>
+                <td><input type="checkbox" name="pedidoProducto_{{ entity.id }}" disabled="disabled" value="{{ entity.paso8 }}" {% if entity.paso8 %}checked{% endif %}></td>
+                <td><input type="checkbox" name="pedidoProducto_{{ entity.id }}" disabled="disabled" value="{{ entity.paso9 }}" {% if entity.paso9 %}checked{% endif %}></td>
+                <td><input type="checkbox" name="pedidoProducto_{{ entity.id }}" disabled="disabled" value="{{ entity.paso10 }}" {% if entity.paso10 %}checked{% endif %}></td>
+                <td><input type="checkbox" name="pedidoProducto_{{ entity.id }}" disabled="disabled" value="{{ entity.paso11 }}" {% if entity.paso11 %}checked{% endif %}></td>
+                
+                <td>{{ pedido.delegado2UsuarioPk }}</td>
+                
+                <td><input type="checkbox" name="pedidoProducto_{{ entity.id }}" disabled="disabled" value="{{ entity.paso12 }}" {% if entity.paso12 %}checked{% endif %}></td>
+                <td><input type="checkbox" name="pedidoProducto_{{ entity.id }}" disabled="disabled" value="{{ entity.paso13 }}" {% if entity.paso13 %}checked{% endif %}></td>
+                <td><input type="checkbox" name="pedidoProducto_{{ entity.id }}" disabled="disabled" value="{{ entity.paso14 }}" {% if entity.paso14 %}checked{% endif %}></td>
+                <td><input type="checkbox" name="pedidoProducto_{{ entity.id }}" disabled="disabled" value="{{ entity.paso15 }}" {% if entity.paso15 %}checked{% endif %}></td>
+                
+                <td>{{ pedido.delegado3UsuarioPk }}</td>
+                
+                <td><input type="checkbox" name="pedidoProducto_{{ entity.id }}" disabled="disabled" value="{{ entity.paso11 }}" {% if entity.paso16 %}checked{% endif %}></td>
+
+                <td>
+                    {% if pedido.notas is defined and pedido.notas!="" %}
+                        <!-- Button trigger modal -->
+                        <button style="font-size: 12px; padding: 5px 11px;" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#notas{{pedido.id}}">
+                          <span class="glyphicon glyphicon-list-alt"></span>
+                        </button>
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <!-- Modal -->
+    <div class="modal fade" id="notas{{pedido.id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title" id="myModalLabel">Notas pedido <span style="color: #3276b1">{{ pedido.id }}</span></h4>
+          </div>
+          <div class="modal-body" style="font-size: 150%">
+                {{ pedido.notas }}
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+{% endblock %}

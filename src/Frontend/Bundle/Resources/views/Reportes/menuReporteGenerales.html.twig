@@ -1,0 +1,44 @@
+<form action="{{ url("reporte_general") }}" method="POST" id="forma_reporte_pedidos" target="_newtab">
+    <div class="row">
+        <div class="col-md-2">
+            <label for="empresa-reporte">Empresa</label>
+        </div>
+        <div class="col-md-4">
+            <select id="empresa-reporte" name="empresa-reporte">
+                {% for empresa in empresas %}
+                    <option value="{{ empresa.id }}">{{ empresa }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2">
+            <label for="area-reporte">Area</label>
+        </div>
+        <div class="col-md-4">
+            <select id="area-reporte" name="area-reporte">
+                <option value="-1" selected="selected"></option>
+                {% for area in areas %}
+                    <option value="{{ area.id }}">{{ area.empresaArea }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2">
+            <label for="tipo-reporte">Tipo reporte</label>
+        </div>
+        <div class="col-md-4">
+            <select id="tipo-reporte" name="tipo-reporte">
+                <option value="1">Reporte General de Pedidos</option>
+                <option value="2">Reporte General de Puntos</option>
+            </select>
+        </div>
+    </div>
+</form>
+<script type="text/javascript">
+    $("#submit-boton-modal").unbind();
+    $("#submit-boton-modal").click(function() {
+        $("#forma_reporte_pedidos").submit();
+    });
+</script>

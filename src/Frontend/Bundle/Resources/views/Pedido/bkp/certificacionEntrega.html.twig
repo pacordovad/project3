@@ -1,0 +1,156 @@
+{% extends 'FrontendBundle:Layouts:simple.html.twig' %}
+
+{% block body -%}
+    <table style="width: 100%">
+        <tr>
+            <td style="width: 60%"></td>
+            <td style="width: 20%"><label>C&oacute;digo de pedido<label></td>
+            <td style="width: 20%"><span style="color: #3276b1; font-size: 150%">{{ entity.id }}</span></td>
+        </tr>
+        <tr>
+            <td style="width: 60%"></td>
+            <td style="width: 20%"><label>Fecha de registro</label></td>
+            <td style="width: 20%">{{ entity.fechaRegistro|date('Y-m-d H:i:s') }}</td>
+        </tr>
+    </table>
+    <div class="row">
+        <div class="col-md-7"></div>
+        <div class="col-md-3"><label>C&oacute;digo de pedido<label></div>
+        <div class="col-md-2"><span style="color: #3276b1; font-size: 150%">{{ entity.id }}</span></div>
+    </div>
+    <div class="row">
+        <div class="col-md-7"></div>
+        <div class="col-md-3"><label>Fecha de registro</label></div>
+        <div class="col-md-2">{{ entity.fechaRegistro|date('Y-m-d H:i:s') }}</div>
+    </div>
+    <div class="row">
+        <div class="col-md-7"></div>
+        <div class="col-md-3"><label>Fecha de &uacute;ltima actualizaci&oacute;n</label></div>
+        <div class="col-md-2">{{ entity.fechaActualizacion|date('Y-m-d H:i:s') }}</div>
+    </div>
+    <div class="row">
+        <div class="col-md-7"><h1>Certificaci&oacute;n de Entrega</h1></div>
+        <div class="col-md-3"><label>Usuario &uacute;ltima actualizaci&oacute;n</label></div>
+        <div class="col-md-2">{{ entity.ultimaActualizacionUsuarioPk }}</div>
+    </div>
+    <hr/>
+    <div class="row">
+        <div class="col-md-2"><label>Empresa</label></div>
+        <div class="col-md-4">
+            {{ entity.contactoPk.areaPk.empresaPk }}
+        </div>
+        <div class="col-md-2"><label>RUC<label></div>
+        <div class="col-md-4" id="ruc_empresa">{{ entity.contactoPk.areaPk.empresaPk.ruc }}</div>
+    </div>
+    <div class="row">
+        <div class="col-md-2"><label>Direcci&oacute;n</label></div>
+        <div class="col-md-4" id="direccion_empresa">{{ entity.contactoPk.areaPk.empresaPk.direccion }}</div>
+        <div class="col-md-2"><label>Telf</label></div>
+        <div class="col-md-4" id="telf_empresa">{{ entity.contactoPk.areaPk.empresaPk.telefono }}</div>
+    </div>
+    <div class="row">
+        <div class="col-md-2"><label>&Aacute;rea</label></div>
+        <div class="col-md-4">
+            {{ entity.contactoPk.areaContacto }}
+        </div>
+        <div class="col-md-2"><label>Etapa</label></div>
+        <div class="col-md-4">
+            {% render controller("FrontendBundle:Area:etapa", { 'areaId' : entity.contactoPk.areaPk.id }) %}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-4"></div>
+        <div class="col-md-2"><label>Fecha reporte</label></div>
+        <div class="col-md-4">
+            {{ "now"|date('Y-m-d H:i:s') }}
+        </div>
+    </div>
+    <hr/>
+    <h3>Productos</h3>
+    <div class="row">
+    {% set i = 1 %}
+    {% set cantidad = 0 %}
+    <div class="row" style="font-weight: bold">
+        <div class="col-md-1">#</div>
+        <div class="col-md-3">Producto</div>
+        <div class="col-md-1">Cantidad</div>
+        <div class="col-md-1">Alto (cm)</div>
+        <div class="col-md-1">Ancho (cm)</div>
+        <div class="col-md-2">Calidad</div>
+        <div class="col-md-1">Entregado</div>
+    </div>
+    {% for pedidoProducto in entity.pedidoProducto %}
+        {% if pedidoProducto.cortesia != true %}
+            <div class="row">
+                <div class="col-md-1" style="text-align: center">{{ i }}</div>
+                <div class="col-md-3">{{ pedidoProducto.nombreProducto }}</div>
+                <div class="col-md-1">{{ pedidoProducto.cantidad }}</div>
+                <div class="col-md-1">{{ pedidoProducto.alto }}</div>
+                <div class="col-md-1">{{ pedidoProducto.ancho }}</div>
+                <div class="col-md-2">{{ pedidoProducto.tipoCalidadPk }}</div>
+                <div class="col-md-1"><input type="checkbox" /></div>
+            </div>
+            {% set i = i+1 %}
+            {% set cantidad = cantidad + pedidoProducto.cantidad %}
+        {% endif %}
+    {% endfor%}
+    <div class="row" style="font-weight: bold">
+        <div class="col-md-1"></div>
+        <div class="col-md-3"></div>
+        <div class="col-md-1" style="border-top: 1px solid">{{ cantidad }}</div>
+        <div class="col-md-1"></div>
+        <div class="col-md-1"></div>
+        <div class="col-md-2"></div>
+        <div class="col-md-1"></div>
+    </div>
+    </div>
+    <hr/>
+    <h3>Productos de Cortes&iacute;a</h3>
+    <div class="row">
+    <div class="row" style="font-weight: bold">
+        <div class="col-md-1" style="text-align: center">#</div>
+        <div class="col-md-3">Producto</div>
+        <div class="col-md-1">Cantidad</div>
+        <div class="col-md-1">Alto (cm)</div>
+        <div class="col-md-1">Ancho (cm)</div>
+        <div class="col-md-2">Calidad</div>
+        <div class="col-md-1">Entregado</div>
+    </div>
+    {% set i = 1 %}
+    {% set cantidad = 0 %}
+    {% for pedidoProducto in entity.pedidoProducto %}
+        {% if pedidoProducto.cortesia == true %}
+            <div class="row">
+                <div class="col-md-1" style="text-align: center">{{ i }}</div>
+                <div class="col-md-3">{{ pedidoProducto.nombreProducto }}</div>
+                <div class="col-md-1">{{ pedidoProducto.cantidad }}</div>
+                <div class="col-md-1">{{ pedidoProducto.alto }}</div>
+                <div class="col-md-1">{{ pedidoProducto.ancho }}</div>
+                <div class="col-md-2">{{ pedidoProducto.tipoCalidadPk }}</div>
+                <div class="col-md-1"><input type="checkbox" /></div>
+            </div>
+            {% set i = i+1 %}
+            {% set cantidad = cantidad + pedidoProducto.cantidad %}
+        {% endif %}
+    {% endfor%}
+    <div class="row" style="font-weight: bold">
+        <div class="col-md-1"></div>
+        <div class="col-md-3"></div>
+        <div class="col-md-1" style="border-top: 1px solid">{{ cantidad }}</div>
+        <div class="col-md-1"></div>
+        <div class="col-md-1"></div>
+        <div class="col-md-2"></div>
+        <div class="col-md-1"></div>
+    </div>
+    </div>
+    <br/><br/><br/><br/><br/><br/>
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-4" style="border-top: 1px solid;font-weight: bold; text-align: center">Firma Autorizada</div>
+        <div class="col-md-2"></div>
+        <div class="col-md-4" style="border-top: 1px solid;font-weight: bold; text-align: center">Cliente</div>
+        <div class="col-md-1"></div>
+    </div>
+    <br/><br/><br/>
+{% endblock %}

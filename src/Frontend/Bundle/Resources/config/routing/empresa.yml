@@ -1,0 +1,21 @@
+empresa:
+    pattern:  /
+    defaults: { _controller: "FrontendBundle:Empresa:new" }
+
+empresa_create:
+    pattern:  /crear
+    defaults: { _controller: "FrontendBundle:Empresa:create" }
+    requirements: { _method: post }
+
+empresa_edit:
+    pattern:  /{id}/editar
+    defaults: { _controller: "FrontendBundle:Empresa:edit" }
+
+empresa_update:
+    pattern:  /{id}/actualizar
+    defaults: { _controller: "FrontendBundle:Empresa:update" }
+    requirements: { _method: post|put }
+
+empresa_delete:
+    pattern:  /{id}/eliminar
+    defaults: { _controller: "FrontendBundle:Empresa:delete" }

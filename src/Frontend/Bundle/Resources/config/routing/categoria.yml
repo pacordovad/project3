@@ -1,0 +1,21 @@
+categoria:
+    pattern:  /
+    defaults: { _controller: "FrontendBundle:Categoria:new" }
+
+categoria_create:
+    pattern:  /crear
+    defaults: { _controller: "FrontendBundle:Categoria:create" }
+    requirements: { _method: post }
+
+categoria_edit:
+    pattern:  /{id}/editar
+    defaults: { _controller: "FrontendBundle:Categoria:edit" }
+
+categoria_update:
+    pattern:  /{id}/actualizar
+    defaults: { _controller: "FrontendBundle:Categoria:update" }
+    requirements: { _method: post|put }
+
+categoria_delete:
+    pattern:  /{id}/eliminar
+    defaults: { _controller: "FrontendBundle:Categoria:delete" }

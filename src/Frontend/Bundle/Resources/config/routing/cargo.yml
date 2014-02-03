@@ -1,0 +1,21 @@
+cargo:
+    pattern:  /
+    defaults: { _controller: "FrontendBundle:Cargo:new" }
+
+cargo_create:
+    pattern:  /crear
+    defaults: { _controller: "FrontendBundle:Cargo:create" }
+    requirements: { _method: post }
+
+cargo_edit:
+    pattern:  /{id}/editar
+    defaults: { _controller: "FrontendBundle:Cargo:edit" }
+
+cargo_update:
+    pattern:  /{id}/actualizar
+    defaults: { _controller: "FrontendBundle:Cargo:update" }
+    requirements: { _method: post|put }
+
+cargo_delete:
+    pattern:  /{id}/eliminar
+    defaults: { _controller: "FrontendBundle:Cargo:delete" }

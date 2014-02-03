@@ -1,0 +1,149 @@
+{% extends 'FrontendBundle:Layouts:simple.html.twig' %}
+
+{% block body -%}
+    <table style="width: 100%">
+        <tr>
+            <td style="width: 60%"></td>
+            <td style="width: 20%"><label>C&oacute;digo de pedido<label></td>
+            <td style="width: 20%"><span style="color: #3276b1; font-size: 150%">{{ entity.id }}</span></td>
+        </tr>
+        <tr>
+            <td style="width: 60%"></td>
+            <td style="width: 20%"><label>Fecha de registro</label></td>
+            <td style="width: 20%">{{ entity.fechaRegistro|date('Y-m-d H:i:s') }}</td>
+        </tr>
+        <tr>
+            <td style="width: 60%"></td>
+            <td style="width: 20%"><label>Fecha de &uacute;ltima actualizaci&oacute;n</label></td>
+            <td style="width: 20%">{{ entity.fechaActualizacion|date('Y-m-d H:i:s') }}</td>
+        </tr>
+        <tr>
+            <td style="width: 60%"></td>
+            <td style="width: 20%"><label>Usuario &uacute;ltima actualizaci&oacute;n</label></td>
+            <td style="width: 20%">{{ entity.ultimaActualizacionUsuarioPk }}</td>
+        </tr>
+        <tr>
+            <td style="width: 60%"><h1>Listado de Productos</h1></td>
+            <td style="width: 20%"></td>
+            <td style="width: 20%"></td>
+        </tr>
+    </table>
+    <hr/>
+    <table style="width: 100%">
+        <tr>
+            <td style="width: 20%"><label>Empresa</label></td>
+            <td style="width: 40%">{{ entity.contactoPk.areaPk.empresaPk }}</td>
+            <td style="width: 20%"><label>RUC<label></td>
+            <td style="width: 40%">{{ entity.contactoPk.areaPk.empresaPk.ruc }}</td>
+        </tr>
+        <tr>
+            <td style="width: 20%"><label>Direcci&oacute;n</label></td>
+            <td style="width: 40%">{{ entity.contactoPk.areaPk.empresaPk.direccion }}</td>
+            <td style="width: 20%"><label>Telf</label></td>
+            <td style="width: 40%">{{ entity.contactoPk.areaPk.empresaPk.telefono }}</td>
+        </tr>
+        <tr>
+            <td style="width: 20%"><label>&Aacute;rea</label></td>
+            <td style="width: 40%">{{ entity.contactoPk.areaContacto }}</td>
+            <td style="width: 20%"><label>Etapa</label></td>
+            <td style="width: 40%">{% render controller("FrontendBundle:Area:etapa", { 'areaId' : entity.contactoPk.areaPk.id }) %}</td>
+        </tr>
+    </table>
+    <hr/>
+    <h3>Productos</h3>
+    <table style="width: 100%;">
+        <tr>
+            <th>#</th>
+            <th>Producto</th>
+            <th>Cantidad</th>
+            <th>Alto (cm)</th>
+            <th>Ancho (cm)</th>
+            <th>Calidad</th>
+            <th>V. Unit</th>
+            <th>Total</th>
+        </tr>
+        {% set i = 1 %}
+        {% set cantidad = 0 %}
+        {% set total = 0 %}
+        {% for pedidoProducto in entity.pedidoProducto %}
+            {% if pedidoProducto.cortesia != true %}
+                <tr>
+                    <td>{{ i }}</td>
+                    <td>{{ pedidoProducto.nombreProducto }}</td>
+                    <td>{{ pedidoProducto.cantidad }}{% set cantidad = cantidad + pedidoProducto.cantidad %}</td>
+                    <td>{{ pedidoProducto.alto }}</td>
+                    <td>{{ pedidoProducto.ancho }}</td>
+                    <td>{{ pedidoProducto.tipoCalidadPk }}</td>
+                    <td>{{ pedidoProducto.precioVenta }}</td>
+                    <td>{{ pedidoProducto.total }}{% set total = total + pedidoProducto.total %}</td>
+                </tr>
+                {% set i = i + 1 %}
+            {% endif %}
+        {% endfor %}
+        <tr id="tot-row-cortesia">
+            <th></th>
+            <th></th>
+            <th id="tot-cantidad-cortesia" style="border-top: 1px solid">{{ cantidad }}</th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th id="tot-precio-cortesia" style="border-top: 1px solid">{{ total }}</th>
+        </tr>
+    </table>
+    {% set hayCortesias = false %}
+    {% for pedidoProducto in entity.pedidoProducto %}
+        {% if pedidoProducto.cortesia == true %}
+            {% set hayCortesias = true %}
+        {% endif %}
+    {% endfor %}
+    {% if entity.aplicaConcepto2 and hayCortesias == true %}
+    <br/>
+    <h4>Productos de Cortes&iacute;a</h4>
+    <table style="width: 100%;">
+        <tr>
+            <th>#</th>
+            <th>Producto</th>
+            <th>Cantidad</th>
+            <th>Alto (cm)</th>
+            <th>Ancho (cm)</th>
+            <th>Calidad</th>
+            <th>V. Unit</th>
+            <th>Total</th>
+        </tr>
+        {% set i = 1 %}
+        {% set cantidad = 0 %}
+        {% set total = 0 %}
+        {% for pedidoProducto in entity.pedidoProducto %}
+            {% if pedidoProducto.cortesia == true %}
+                <tr>
+                    <td>{{ i }}</td>
+                    <td>{{ pedidoProducto.nombreProducto }}</td>
+                    <td>{{ pedidoProducto.cantidad }}{% set cantidad = cantidad + pedidoProducto.cantidad %}</td>
+                    <td>{{ pedidoProducto.alto }}</td>
+                    <td>{{ pedidoProducto.ancho }}</td>
+                    <td>{{ pedidoProducto.tipoCalidadPk }}</td>
+                    <td>{{ pedidoProducto.precioVenta }}</td>
+                    <td>{{ pedidoProducto.total }}{% set total = total + pedidoProducto.total %}</td>
+                </tr>
+                {% set i = i + 1 %}
+            {% endif %}
+        {% endfor %}
+        <tr id="tot-row-cortesia">
+            <th></th>
+            <th></th>
+            <th id="tot-cantidad-cortesia" style="border-top: 1px solid">{{ cantidad }}</th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th id="tot-precio-cortesia" style="border-top: 1px solid">{{ total }}</th>
+        </tr>
+    </table>
+    <br/>
+    <br/>
+    {% endif %}
+    <script type="text/javascript">
+        window.print();
+    </script>
+{% endblock %}

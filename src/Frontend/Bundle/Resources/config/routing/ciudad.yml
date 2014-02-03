@@ -1,0 +1,21 @@
+ciudad:
+    pattern:  /
+    defaults: { _controller: "FrontendBundle:Ciudad:new" }
+
+ciudad_create:
+    pattern:  /crear
+    defaults: { _controller: "FrontendBundle:Ciudad:create" }
+    requirements: { _method: post }
+
+ciudad_edit:
+    pattern:  /{id}/editar
+    defaults: { _controller: "FrontendBundle:Ciudad:edit" }
+
+ciudad_update:
+    pattern:  /{id}/actualizar
+    defaults: { _controller: "FrontendBundle:Ciudad:update" }
+    requirements: { _method: post|put }
+
+ciudad_delete:
+    pattern:  /{id}/eliminar
+    defaults: { _controller: "FrontendBundle:Ciudad:delete" }

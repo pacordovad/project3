@@ -1,0 +1,125 @@
+{#
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>{% block title %}Sistema de Control de Producci&oacute;n{% endblock %}</title>
+        {% stylesheets 
+            '@FrontendBundle/Resources/public/css/jquery.dataTables.css'
+            '@FrontendBundle/Resources/public/css/main.css'
+            '@FrontendBundle/Resources/public/css/bootstrap.min.css'
+            '@FrontendBundle/Resources/public/css/bootstrap-theme.min.css'
+            output='styles.css'
+        %}
+            <link rel="stylesheet" href="{{ asset_url }}" />
+        {% endstylesheets %}
+        <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" />
+    </head>
+<body>
+#}
+    <div class="pPedidoProducto" id="pPedidoProducto" data-editurl="{{ path('pedidoproductoeditlink') }}">
+        <div class="row">
+            <!-- Productos -->
+            <div class="col-md-6" style="border-right: 1px solid #eee">
+                <label for="selectProducto">Categoria</label>
+                <select id="selectProducto" onchange="chSelectProducto(this)">
+                    <option value="all">Mostrar todas</option>
+                    {% for categoria in categorias %}
+                    <option value="{{ categoria.id }}">{{ categoria }}</option>
+                    {% endfor %}
+                </select>
+                <br/><br/>
+                <ul id="Grid">
+                {% for entity in productos %}
+                    <li id="li-{{ entity.id }}" class="mix {{ entity.categoriaPK.id }} {% if productoSeleccionadoId != null and productoSeleccionadoId == entity.id %}seleccionado{% endif %}" data-nombre="{{ entity }}" data-id="{{ entity.id }}" data-categoria="{{ entity.categoriaPk }}">
+                        <a href="#" id="lia-{{ entity.id }}" data-figura="{{ entity.figuraPk.id }}">
+                            <span>{{ entity.nombreImagen }}</span>
+                            <img src="{{ image('@FrontendBundle/Resources/public/uploads/productos/p'~entity.id~'.'~entity.imagenExtension).cropResize(100,100) }}" />
+                        </a>
+                        <script type="text/javascript">
+                            $('#lia-{{ entity.id }}').on('click', function(e) {
+                                e.preventDefault();
+                                productoCambio('{{ entity.id }}');
+                            });
+                        </script>
+                    </li>
+                {% endfor %}
+                </ul>
+                <input type="hidden" name="productoSeleccionadoId" id="productoSeleccionadoId" value="{% if productoSeleccionadoId != null %}{{ productoSeleccionadoId }}{% endif %}"/>
+            </div>
+                
+            <!-- Campos -->
+            <div class="col-md-6">
+                <table class="tProductoPedido">
+                    <tr>
+                        <td>{{ form_label(form.nombreProducto) }}</td>
+                        <td><input type="text" id="nombreProducto" value="{% if nombreProducto != null%}{{ nombreProducto }}{% endif %}"/></td>
+                    </tr>
+                    <tr>
+                        <td>{{ form_label(form.cantidad) }}</td>
+                        <td><input type="number" id="cantidad" value="{% if cantidad != null%}{{ cantidad }}{% endif %}"/></td>
+                    </tr>
+                    <tr>
+                        <td>{{ form_label(form.medidaPk) }}</td>
+                        <td>
+                            <select id="dimensionhidden" style="display: none">
+                                {% for dimension in dimensiones %}
+                                <option value="{{ dimension.id }}" data-figura="{{ dimension.figuraPk.Id }}" data-alto="{{ dimension.largo }}" data-ancho="{{ dimension.ancho }}" {% if dimensionId != null and dimensionId == dimension.id %}selected{% endif %}>{{ dimension }}</option>
+                                {% endfor %}
+                                <option value="0" data-figura="-1" data-ancho="1" data-alto="1" {% if dimensionId == "0" %}selected{% endif %}>No estándar</option>
+                            </select>
+                            
+                            <select id="dimension" onchange="setDimension()">
+                                {% for dimension in dimensiones %}
+                                <option value="{{ dimension.id }}" data-alto="{{ dimension.largo }}" data-ancho="{{ dimension.ancho }}" {% if dimensionId != null and dimensionId == dimension.id %}selected{% endif %}>{{ dimension }}</option>
+                                {% endfor %}
+                                <option value="0" data-ancho="1" data-alto="1" {% if dimensionId == "0" %}selected{% endif %}>No estándar</option>
+                            </select>
+                            <span id="medidas-extra">
+                                <br/>
+                                <input type="number" id="dimensionX" value="{% if dimensionX != null %}{{ dimensionX }}{% else %}0{% endif %}" style="width: 70px"/>&nbsp;&nbsp;x&nbsp;&nbsp; 
+                                <input type="number" id="dimensionY" value="{% if dimensionY != null %}{{ dimensionY }}{% else %}0{% endif %}" style="width: 70px"/>
+                            </span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>{{ form_label(form.tipoCalidadPk) }}</td>
+                        <td>
+                            <select id="tipo-calidad">
+                                {% for tipoCalidad in tiposCalidad %}
+                                <option data-nombre="{{ tipoCalidad }}" data-valor="{{ tipoCalidad.valor }}" value="{{ tipoCalidad.id }}" {% if tipoCalidadId != null and tipoCalidadId == tipoCalidad.id %}selected{% endif %}>{{ tipoCalidad }}</option>
+                                {% endfor %}
+                            </select>
+                            <input type="hidden" id="pedidoPk" value="{% if pedidoPk != null %}{{ pedidoPk }}{% endif %}"/>
+                            <input type="hidden" id="cortesia" value="{% if cortesia != null %}{{ cortesia }}{% endif %}"/>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    {% for entity in productos %}
+        <script type="text/javascript">
+            {% if productoSeleccionadoId != null and productoSeleccionadoId == entity.id %}
+            productoCambio('{{ entity.id }}');
+            {% endif %}
+        </script>
+    {% endfor %}
+{#
+        {% javascripts
+            '@FrontendBundle/Resources/public/js/jquery-1.10.2.js'
+            '@FrontendBundle/Resources/public/js/bootstrap-3.0.0.min.js'
+            '@FrontendBundle/Resources/public/js/jquery.dataTables-1.9.4.min.js'
+            '@FrontendBundle/Resources/public/js/jquery.mixitup.min.js'
+            '@FrontendBundle/Resources/public/js/jquery.scrollTo.min.js'
+            '@FrontendBundle/Resources/public/js/main.js'
+        %}
+            <script type="text/javascript" src="{{ asset_url }}"></script>
+        {% endjavascripts %}
+        <script type="text/javascript">
+            modalPedidoProductoLoaded();
+        </script>
+    
+    
+    </body>
+</html>
+#}

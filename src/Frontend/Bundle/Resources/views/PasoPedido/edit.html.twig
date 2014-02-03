@@ -1,0 +1,10 @@
+{% extends 'FrontendBundle:Layouts:base.html.twig' %}
+
+{% block body -%}
+    <h1>Pasos de Pedidos</h1>
+    <br/>
+    {{ form(edit_form) }}
+    <a href="{{ path('pasopedido') }}">Regresar</a>
+    <br/>
+    {{ render(controller('FrontendBundle:PasoPedido:index')) }}
+{% endblock %}

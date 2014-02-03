@@ -1,0 +1,46 @@
+{% extends 'FrontendBundle:Layouts:simple.html.twig' %}
+
+{% block body -%}
+    <h3>Reporte General de Puntos</h3>
+    <table style="width: 100%">
+        <tr>
+            <td style="width: 20%"><label>Empresa</label></td>
+            <td style="width: 40%">Todas</td>
+            <td style="width: 20%"><label>&Aacute;rea</label></td>
+            <td style="width: 40%">Todas</td>
+        </tr>
+        <tr>
+            <td style="width: 20%"><label>Fecha reporte</label></td>
+            <td style="width: 40%">{{ "now"|date('Y-m-d H:i:s') }}</td>
+            <td style="width: 20%"><label>Total puntos</label></td>
+            <td style="width: 40%">{{ totalpuntos }}</td>
+        </tr>
+    </table>
+    <hr/>
+    <table style="width: 100%">
+        <tr>
+            <th style="width: 30%"></th>
+            <th style="width: 10%">#</th>
+            <th style="width: 15%">Mes</th>
+            <th style="width: 10%">Puntos</th>
+            <th style="width: 35%"></th>
+        </tr>
+        {% set i = 1 %}
+        {% for resultado in resultados %}
+            <tr>
+                <th style="width: 30%"></th>
+                <td style="width: 10%">{{ i }}{% set i = i + 1 %}</td>
+                <td style="width: 15%">{{ resultado["mes"] }} {{ resultado["anio"] }}</td>
+                <td style="width: 10%">{{ resultado["puntos"] }}</td>
+                <th style="width: 35%"></th>
+            </tr>
+        {% endfor%}
+        <tr>
+            <th style="width: 30%"></th>
+            <th style="width: 10%"></th>
+            <th style="width: 15%; border-top: 1px solid">Total</th>
+            <th style="width: 10%; border-top: 1px solid">{{ totalpuntos }}</th>
+            <th style="width: 35%"></th>
+        </tr>
+    </table>
+{% endblock %}

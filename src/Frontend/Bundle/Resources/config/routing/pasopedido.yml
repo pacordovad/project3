@@ -1,0 +1,21 @@
+pasopedido:
+    pattern:  /
+    defaults: { _controller: "FrontendBundle:PasoPedido:new" }
+
+pasopedido_create:
+    pattern:  /crear
+    defaults: { _controller: "FrontendBundle:PasoPedido:create" }
+    requirements: { _method: post }
+
+pasopedido_edit:
+    pattern:  /{id}/editar
+    defaults: { _controller: "FrontendBundle:PasoPedido:edit" }
+
+pasopedido_update:
+    pattern:  /{id}/actualizar
+    defaults: { _controller: "FrontendBundle:PasoPedido:update" }
+    requirements: { _method: post|put }
+
+pasopedido_delete:
+    pattern:  /{id}/eliminar
+    defaults: { _controller: "FrontendBundle:PasoPedido:delete" }

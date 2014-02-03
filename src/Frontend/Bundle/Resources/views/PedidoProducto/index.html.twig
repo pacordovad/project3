@@ -1,0 +1,36 @@
+{% block body -%}
+
+    <h3>PedidoProductos</h3>
+    
+    <table class="records_list" id="datatable_crud">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nombreproducto</th>
+                <th>Cantidad</th>
+                <th>Alto</th>
+                <th>Ancho</th>
+                <th>Cortesia</th>
+                <th>Precioventa</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in entities %}
+            <tr>
+                <td><a href="{{ path('pedidoproducto_edit', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                <td>{{ entity.nombreProducto }}</td>
+                <td>{{ entity.cantidad }}</td>
+                <td>{{ entity.alto }}</td>
+                <td>{{ entity.ancho }}</td>
+                <td>{{ entity.cortesia }}</td>
+                <td>{{ entity.precioVenta }}</td>
+                <td>                        <a href="{{ path('pedidoproducto_edit', { 'id': entity.id }) }}" class="btn btn-primary">Editar</a>
+                                    <a href="{{ path('pedidoproducto_delete', { 'id': entity.id }) }}" class="btn btn-danger" onclick="return confirmar()">Eliminar</a>
+
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

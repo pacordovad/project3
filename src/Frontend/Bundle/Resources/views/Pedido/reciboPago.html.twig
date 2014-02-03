@@ -1,0 +1,99 @@
+{% extends 'FrontendBundle:Layouts:simple.html.twig' %}
+
+{% block body -%}
+    <table style="width: 100%">
+        <tr>
+            <td style="width: 60%"></td>
+            <td style="width: 20%"><label>C&oacute;digo de pedido<label></td>
+            <td style="width: 20%"><span style="color: #3276b1; font-size: 150%">{{ entity.id }}</span></td>
+        </tr>
+        <tr>
+            <td style="width: 60%"></td>
+            <td style="width: 20%"><label>Fecha de registro</label></td>
+            <td style="width: 20%">{{ entity.fechaRegistro|date('Y-m-d H:i:s') }}</td>
+        </tr>
+        <tr>
+            <td style="width: 60%"></td>
+            <td style="width: 20%"><label>Fecha de &uacute;ltima actualizaci&oacute;n</label></td>
+            <td style="width: 20%">{{ entity.fechaActualizacion|date('Y-m-d H:i:s') }}</td>
+        </tr>
+        <tr>
+            <td style="width: 60%"></td>
+            <td style="width: 20%"><label>Usuario &uacute;ltima actualizaci&oacute;n</label></td>
+            <td style="width: 20%">{{ entity.ultimaActualizacionUsuarioPk }}</td>
+        </tr>
+        <tr>
+            <td style="width: 60%">
+                <h1>Recibo de Pago</h1>
+                {% if entity.financiamiento is not null and entity.financiamiento != "" and entity.financiamiento > 0 %}
+                <h4>Pago # &nbsp;&nbsp;&nbsp;/ {{ entity.financiamiento }}</h4>
+                {% endif %}
+            </td>
+            <td style="width: 20%"></td>
+            <td style="width: 20%"></td>
+        </tr>
+    </table>
+    <hr/>
+    <table style="width: 100%">
+        <tr>
+            <td style="width: 20%"><label>Empresa</label></td>
+            <td style="width: 40%">{{ entity.contactoPk.areaPk.empresaPk }}</td>
+            <td style="width: 20%"><label>RUC<label></td>
+            <td style="width: 40%">{{ entity.contactoPk.areaPk.empresaPk.ruc }}</td>
+        </tr>
+        <tr>
+            <td style="width: 20%"><label>Direcci&oacute;n</label></td>
+            <td style="width: 40%">{{ entity.contactoPk.areaPk.empresaPk.direccion }}</td>
+            <td style="width: 20%"><label>Telf</label></td>
+            <td style="width: 40%">{{ entity.contactoPk.areaPk.empresaPk.telefono }}</td>
+        </tr>
+        <tr>
+            <td style="width: 20%"><label>&Aacute;rea</label></td>
+            <td style="width: 40%">{{ entity.contactoPk.areaContacto }}</td>
+            <td style="width: 20%"><label>Etapa</label></td>
+            <td style="width: 40%">{% render controller("FrontendBundle:Area:etapa", { 'areaId' : entity.contactoPk.areaPk.id }) %}</td>
+        </tr>
+    </table>
+    <hr/>
+    <table style="width: 100%">
+        <tr>
+            <td style="width: 60%"><label>Concepto</label></td>
+            <td><label>Valor</label></td>
+            <td>{{ entity.cuota }}</td>
+        </tr>
+        <tr>
+            <td style="width: 60%"></td>
+            <td><label>Subtotal</label></td>
+            <td>{{ entity.cuota }}</td>
+        </tr>
+        <tr>
+            <td style="width: 60%"></td>
+            <td><label>IVA (12%)</label></td>
+            <td>{{ entity.ivaCuota }}</td>
+        </tr>
+        <tr>
+            <td style="width: 60%"></td>
+            <td><label>Total</label></td>
+            <td>{{ entity.totalCuota }}</td>
+        </tr>
+    </table>
+    <table style="width: 100%">
+        <tr>
+            <td style="width: 20%"><label>Notas</label></td>
+            <td style="width: 80%">{{ entity.notas }}</td>
+        </tr>
+    </table>
+    <br/><br/><br/><br/><br/><br/>
+    <table style="width: 100%">
+        <tr>
+            <td style="width: 10%"></td>
+            <td style="border-top: 1px solid;font-weight: bold; text-align: center; width: 40%">Firma Autorizada</td>
+            <td style="width: 20%"></td>
+            <td style="border-top: 1px solid;font-weight: bold; text-align: center; width: 40%">Cliente</td>
+            <td style="width: 10%"></td>
+        </tr>
+    </table>
+    <script type="text/javascript">
+        window.print();
+    </script>
+{% endblock %}

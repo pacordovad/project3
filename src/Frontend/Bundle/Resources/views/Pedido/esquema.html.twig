@@ -1,0 +1,68 @@
+{% extends 'FrontendBundle:Layouts:base.html.twig' %}
+
+{% block body -%}
+    <div class="row">
+        <div class="col-md-7"></div>
+        <div class="col-md-3"><label>C&oacute;digo de pedido<label></div>
+        <div class="col-md-2"><span style="color: #3276b1; font-size: 150%">{{ entity.idRecur }}</span></div>
+    </div>
+    <div class="row">
+        <div class="col-md-7"></div>
+        <div class="col-md-3"><label>Fecha de registro</label></div>
+        <div class="col-md-2">{{ entity.fechaRegistro|date('Y-m-d H:i:s') }}</div>
+    </div>
+    <div class="row">
+        <div class="col-md-7"></div>
+        <div class="col-md-3"><label>Fecha de &uacute;ltima actualizaci&oacute;n</label></div>
+        <div class="col-md-2">{{ entity.fechaActualizacion|date('Y-m-d H:i:s') }}</div>
+    </div>
+    <div class="row">
+        <div class="col-md-7"><h1>Esquema pedido</h1></div>
+        <div class="col-md-3"><label>Usuario &uacute;ltima actualizaci&oacute;n</label></div>
+        <div class="col-md-2">{{ entity.ultimaActualizacionUsuarioPk }}</div>
+    </div>
+    <hr/>
+    <div class="row">
+        <div class="col-md-2"><label>Empresa</label></div>
+        <div class="col-md-4">
+            {{ entity.contactoPk.areaPk.empresaPk }}
+        </div>
+        <div class="col-md-2"><label>RUC<label></div>
+        <div class="col-md-4" id="ruc_empresa">{{ entity.contactoPk.areaPk.empresaPk.ruc }}</div>
+    </div>
+    <div class="row">
+        <div class="col-md-2"><label>Direcci&oacute;n</label></div>
+        <div class="col-md-4" id="direccion_empresa">{{ entity.contactoPk.areaPk.empresaPk.direccion }}</div>
+        <div class="col-md-2"><label>Telf</label></div>
+        <div class="col-md-4" id="telf_empresa">{{ entity.contactoPk.areaPk.empresaPk.telefono }}</div>
+    </div>
+    <div class="row">
+        <div class="col-md-2"><label>&Aacute;rea</label></div>
+        <div class="col-md-4">
+            {{ entity.contactoPk.areaContacto }}
+        </div>
+        <div class="col-md-2"><label>Etapa</label></div>
+        <div class="col-md-4">
+            {% render controller("FrontendBundle:Area:etapa", { 'areaId' : entity.contactoPk.areaPk.id }) %}
+        </div>
+    </div>
+    <hr/>
+    {% set i = 0 %}
+    <div class="row">
+    {% for pedidoProducto in productos %}
+        {% if i%6 == 0 %}
+            </div>
+            <div class="row">
+        {% endif %}
+        <div class="col-md-2">
+            <b>{{ pedidoProducto.nombreProducto }}</b><br/>
+            Facturados:  {{ pedidoProducto.numFacturados }}<br/>
+            Cortesia: {{ pedidoProducto.numCortesias }}<br/>
+            {% if file_exists(web_path~'/uploads/productos/p'~pedidoProducto.productoPk.id~'.'~pedidoProducto.productoPk.imagenExtension) %}
+                <img src="{{ image('@FrontendBundle/Resources/public/uploads/productos/p'~pedidoProducto.productoPk.id~'.'~pedidoProducto.productoPk.imagenExtension).cropResize(100,100) }}" /></td>
+            {% endif %}
+        </div>
+        {% set i = i + 1 %}
+    {% endfor%}
+    </div>
+{% endblock %}

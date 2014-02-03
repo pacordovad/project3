@@ -1,0 +1,84 @@
+{% block body -%}
+
+    <h3>Pedidos</h3>
+    
+    <table class="records_list" id="datatable_crud">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Fecharegistro</th>
+                <th>Fechaactualizacion</th>
+                <th>Conceptofactura</th>
+                <th>Descuento</th>
+                <th>Aplicaconcepto1</th>
+                <th>Aplicaconcepto2</th>
+                <th>Fechaaprobacion</th>
+                <th>Fechamaximaentrega</th>
+                <th>Financiamiento</th>
+                <th>Facturanum</th>
+                <th>Banco</th>
+                <th>Notas</th>
+                <th>Paso1</th>
+                <th>Paso2</th>
+                <th>Paso3</th>
+                <th>Paso4</th>
+                <th>Paso5</th>
+                <th>Paso6</th>
+                <th>Paso7</th>
+                <th>Paso8</th>
+                <th>Paso9</th>
+                <th>Paso10</th>
+                <th>Paso11</th>
+                <th>Paso12</th>
+                <th>Paso13</th>
+                <th>Paso14</th>
+                <th>Paso15</th>
+                <th>Paso16</th>
+                <th>Retencionrenta</th>
+                <th>Retencioniva</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in entities %}
+            <tr>
+                <td><a href="{{ path('pedido_edit', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                <td>{% if entity.fechaRegistro %}{{ entity.fechaRegistro|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if entity.fechaActualizacion %}{{ entity.fechaActualizacion|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{{ entity.conceptoFactura }}</td>
+                <td>{{ entity.descuento }}</td>
+                <td>{{ entity.aplicaConcepto1 }}</td>
+                <td>{{ entity.aplicaConcepto2 }}</td>
+                <td>{% if entity.fechaAprobacion %}{{ entity.fechaAprobacion|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if entity.fechaMaximaEntrega %}{{ entity.fechaMaximaEntrega|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{{ entity.financiamiento }}</td>
+                <td>{{ entity.facturaNum }}</td>
+                <td>{{ entity.banco }}</td>
+                <td>{{ entity.notas }}</td>
+                <td>{{ entity.paso1 }}</td>
+                <td>{{ entity.paso2 }}</td>
+                <td>{{ entity.paso3 }}</td>
+                <td>{{ entity.paso4 }}</td>
+                <td>{{ entity.paso5 }}</td>
+                <td>{{ entity.paso6 }}</td>
+                <td>{{ entity.paso7 }}</td>
+                <td>{{ entity.paso8 }}</td>
+                <td>{{ entity.paso9 }}</td>
+                <td>{{ entity.paso10 }}</td>
+                <td>{{ entity.paso11 }}</td>
+                <td>{{ entity.paso12 }}</td>
+                <td>{{ entity.paso13 }}</td>
+                <td>{{ entity.paso14 }}</td>
+                <td>{{ entity.paso15 }}</td>
+                <td>{{ entity.paso16 }}</td>
+                <td>{{ entity.retencionRenta }}</td>
+                <td>{{ entity.retencionIva }}</td>
+                <td>                        <a href="{{ path('pedido_edit', { 'id': entity.id }) }}" class="btn btn-primary">Editar</a>
+                                    <a href="{{ path('pedido_delete', { 'id': entity.id }) }}" class="btn btn-danger" onclick="return confirmar()">Eliminar</a>
+
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

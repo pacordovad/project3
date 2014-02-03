@@ -1,0 +1,9 @@
+
+
+                {%- for action in record_actions %}
+                    {%- if action == "edit" %}
+                        <a href="{{ "{{ path('" ~ route_name_prefix ~ "_" ~ action ~ "', { 'id': entity.id }) }}" }}" class="btn btn-primary">Editar</a>
+                    {% endif %}
+                {%- endfor %}
+                <a href="{{ "{{ path('" ~ route_name_prefix ~ "_" ~ "delete" ~ "', { 'id': entity.id }) }}" }}" class="btn btn-danger" onclick="return confirmar()">Eliminar</a>
+

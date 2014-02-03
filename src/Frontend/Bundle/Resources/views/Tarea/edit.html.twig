@@ -1,0 +1,10 @@
+{% extends 'FrontendBundle:Layouts:base.html.twig' %}
+
+{% block body -%}
+    <h1>Tareas</h1>
+    <br/>
+    {{ form(edit_form) }}
+    <a href="{{ path('tarea') }}">Regresar</a>
+    <br/>
+    {{ render(controller('FrontendBundle:Tarea:index')) }}
+{% endblock %}

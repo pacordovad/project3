@@ -1,0 +1,21 @@
+region:
+    pattern:  /
+    defaults: { _controller: "FrontendBundle:Region:new" }
+
+region_create:
+    pattern:  /crear
+    defaults: { _controller: "FrontendBundle:Region:create" }
+    requirements: { _method: post }
+
+region_edit:
+    pattern:  /{id}/editar
+    defaults: { _controller: "FrontendBundle:Region:edit" }
+
+region_update:
+    pattern:  /{id}/actualizar
+    defaults: { _controller: "FrontendBundle:Region:update" }
+    requirements: { _method: post|put }
+
+region_delete:
+    pattern:  /{id}/eliminar
+    defaults: { _controller: "FrontendBundle:Region:delete" }

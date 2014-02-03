@@ -1,0 +1,22 @@
+menupedido:
+    pattern:  /pedido
+    defaults: { _controller: "FrontendBundle:Reportes:menuReportesPedidos" }
+    
+menugeneral:
+    pattern:  /general
+    defaults: { _controller: "FrontendBundle:Reportes:menuReportesGenerales" }
+
+menupedidofiltrar:
+    pattern:  /pedidoFiltrar
+    defaults: { _controller: "FrontendBundle:Reportes:menuReportesPedidosFiltrar" }
+    requirements: { _method: post }
+    
+reporte_pedido:
+    pattern: /reportePedido
+    defaults: { _controller: "FrontendBundle:Reportes:generaReportePedido" }
+    requirements: { _method: post }
+    
+reporte_general:
+    pattern: /reporteGeneral
+    defaults: { _controller: "FrontendBundle:Reportes:generaReporteGeneral" }
+    requirements: { _method: post }

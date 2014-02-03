@@ -1,0 +1,142 @@
+<form action="{{ url("reporte_pedido") }}" method="POST" id="forma_reporte_pedidos" target="_newtab">
+<div class="row">
+    <div class="col-md-2">
+        <label for="empresa-reporte">Empresa</label>
+    </div>
+    <div class="col-md-4">
+        <select id="empresa-reporte" name="empresa-reporte">
+            <option value="" selected="selected"></option>
+            {% for empresa in empresas %}
+                <option value="{{ empresa.id }}" data-empresaid="{{ empresa.id }}">{{ empresa }}</option>
+            {% endfor %}
+        </select>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-2">
+        <label for="area-reporte">Area</label>
+    </div>
+    <div class="col-md-4">
+        <select id="area-reporte-hidden" style="display: none">
+            <option data-empresa="-1" value="" selected="selected"></option>
+            {% for area in areas %}
+                <option data-empresa="{{ area.empresaPk.id }}" value="{{ area.id }}">{{ area.empresaArea }}</option>
+            {% endfor %}
+        </select>
+        <select id="area-reporte">
+            <option data-empresa="-1" value="" selected="selected"></option>
+            {% for area in areas %}
+                <option data-empresa="{{ area.empresaPk.id }}" value="{{ area.id }}">{{ area.empresaArea }}</option>
+            {% endfor %}
+        </select>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-2">
+        <label for="paso-reporte">Paso</label>
+    </div>
+    <div class="col-md-4">
+        <select id="paso-reporte" name="paso-reporte">
+            <option value="" selected="selected"></option>
+            {% for paso in pasos %}
+                <option value="{{ paso.id }}">{{ paso }}</option>
+            {% endfor %}
+        </select>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-2">
+        <label for="fechadesde-reporte">Fecha desde</label>
+    </div>
+    <div class="col-md-4">
+        <input type="text" id="fechadesde-reporte" name="fechadesde-reporte"/>
+    </div>
+    <div class="col-md-2">
+        <label for="fechahasta-reporte">Fecha hasta</label>
+    </div>
+    <div class="col-md-4">
+        <input type="text" id="fechahasta-reporte" name="fechahasta-reporte"/>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-2">
+        <label for="codigo-reporte">Codigo</label>
+    </div>
+    <div class="col-md-4">
+        <select id="codigo-reporte-select" name="codigo-reporte-select">
+            {% for pedido in pedidos %}
+                <option value="{{ pedido.id }}">{{ pedido }}</option>
+            {% endfor %}
+        </select>
+        <input type="text" id="codigo-reporte"/>
+        <span id="loading-pedidos"></span>
+    </div>
+    <div class="col-md-4">
+        <input type="checkbox" id="modificar-reporte">
+        <label for="modificar-reporte">modificar</label>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-2">
+        <label for="tipo-reporte">Tipo reporte</label>
+    </div>
+    <div class="col-md-4">
+        <select id="tipo-reporte" name="tipo-reporte">
+            <option value="1">Certificaci&oacute;n de Entrega</option>
+            <option value="2">Control de Instalaci&oacute;n</option>
+        </select>
+    </div>
+</div>
+</form>
+<script type="text/javascript">
+    $("#fechadesde-reporte").datepicker({
+                altFormat: "yy-mm-dd 00:00:00",
+                changeYear: true,
+                changeMonth: true,
+                dateFormat: "yy-mm-dd 00:00:00",
+                yearRange: "2012:2050"
+            });
+    $("#fechahasta-reporte").datepicker({
+        altFormat: "yy-mm-dd 00:00:00",
+        changeYear: true,
+        changeMonth: true,
+        dateFormat: "yy-mm-dd 00:00:00",
+        yearRange: "2012:2050"
+    });
+    modificarReporteCambio();
+    $('#modificar-reporte').change(function(){
+        modificarReporteCambio();
+    });
+    var urlFiltro = "{{ url("menupedidofiltrar") }}";
+    $("#empresa-reporte").change(function(){
+        filtraAreasReporte();
+        filtraPedidos(urlFiltro);
+    });
+    $("#area-reporte").change(function(){
+        filtraPedidos(urlFiltro);
+    });
+    $("#paso-reporte").change(function(){
+        filtraPedidos(urlFiltro);
+    });
+    $("#fechadesde-reporte").bind("propertychange keyup input paste change", function() {
+        filtraPedidos(urlFiltro);
+    });
+    $("#fechahasta-reporte").bind("propertychange keyup input paste change", function() {
+        filtraPedidos(urlFiltro);
+    });
+    $("#submit-boton-modal").unbind();
+    $("#submit-boton-modal").click(function() {
+        var codigoReporte = "";
+        if($('#modificar-reporte').is(":checked")){
+            codigoReporte = $.trim($("#codigo-reporte").val());
+        }else{
+            codigoReporte = $.trim($("#codigo-reporte-select").val());
+        }
+        
+        if(codigoReporte.length > 0){
+            $("#forma_reporte_pedidos").submit();
+        }else{
+            alert("Ingrese el código del pedido");
+        }
+    });
+</script>

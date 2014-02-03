@@ -1,0 +1,21 @@
+figura:
+    pattern:  /
+    defaults: { _controller: "FrontendBundle:Figura:new" }
+
+figura_create:
+    pattern:  /crear
+    defaults: { _controller: "FrontendBundle:Figura:create" }
+    requirements: { _method: post }
+
+figura_edit:
+    pattern:  /{id}/editar
+    defaults: { _controller: "FrontendBundle:Figura:edit" }
+
+figura_update:
+    pattern:  /{id}/actualizar
+    defaults: { _controller: "FrontendBundle:Figura:update" }
+    requirements: { _method: post|put }
+
+figura_delete:
+    pattern:  /{id}/eliminar
+    defaults: { _controller: "FrontendBundle:Figura:delete" }

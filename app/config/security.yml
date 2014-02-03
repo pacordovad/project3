@@ -1,0 +1,72 @@
+security:
+    encoders:
+        Frontend\Bundle\Entity\Usuario:
+            algorithm:        sha1
+            encode_as_base64: false
+            iterations:       1
+
+    role_hierarchy:
+        ROLE_COORDINADOR:      ROLE_OPERADOR
+        ROLE_ADMINISTRADOR:    [ROLE_OPERADOR,ROLE_COORDINADOR]
+
+    providers:
+        main:
+            entity:
+                class: FrontendBundle:Usuario
+                property: usuario
+
+    firewalls:
+        dev:
+            pattern:  ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+
+        login:
+            pattern:  ^/login$
+            anonymous:  ~
+            security: false
+
+        secured_area:
+            pattern:    ^/
+            anonymous: ~
+            form_login:
+                login_path:  /login
+                check_path:  /auth
+            logout:
+                path:   /salir
+                target: /
+            #form_login:
+            #    check_path: _security_check
+            #    login_path: _demo_login
+            #logout:
+            #    path:   _demo_logout
+            #    target: _demo
+            #anonymous: ~
+            #http_basic:
+            #    realm: "Secured Demo Area"
+
+    access_control:
+        - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/pedido/tableroControl, roles: ROLE_ADMINISTRADOR }
+        - { path: ^/pedido/tableroCobros, roles: ROLE_ADMINISTRADOR }
+        - { path: ^/pedido/greportegeneralpuntos, roles: ROLE_ADMINISTRADOR }
+        - { path: ^/pedido/[^/]+/[^/]+/greportegeneral, roles: ROLE_ADMINISTRADOR }
+        - { path: ^/pedido/[^/]+/gcontrolinstalacion, roles: ROLE_ADMINISTRADOR }
+        - { path: ^/pedido/[^/]+/gcertificacionentrega, roles: ROLE_ADMINISTRADOR }
+        - { path: ^/producto, roles: ROLE_ADMINISTRADOR }
+        - { path: ^/categoria, roles: ROLE_ADMINISTRADOR }
+        - { path: ^/figura, roles: ROLE_ADMINISTRADOR }
+        - { path: ^/tipocalidad, roles: ROLE_ADMINISTRADOR }
+        - { path: ^/medida, roles: ROLE_ADMINISTRADOR }
+        - { path: ^/empresa, roles: ROLE_ADMINISTRADOR }
+        - { path: ^/area, roles: ROLE_ADMINISTRADOR }
+        - { path: ^/contacto, roles: ROLE_ADMINISTRADOR }
+        - { path: ^/usuario, roles: ROLE_ADMINISTRADOR }
+        - { path: ^/pasopedido, roles: ROLE_ADMINISTRADOR }
+        - { path: ^/pais, roles: ROLE_ADMINISTRADOR }
+        - { path: ^/region, roles: ROLE_ADMINISTRADOR }
+        - { path: ^/provincia, roles: ROLE_ADMINISTRADOR }
+        - { path: ^/ciudad, roles: ROLE_ADMINISTRADOR }
+        - { path: ^/cargo, roles: ROLE_ADMINISTRADOR }
+        - { path: ^/, roles: ROLE_OPERADOR }
+        #- { path: ^/demo/secured/hello/admin/, roles: ROLE_ADMIN }
+        #- { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }

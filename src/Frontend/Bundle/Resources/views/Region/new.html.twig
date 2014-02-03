@@ -1,0 +1,10 @@
+{% extends 'FrontendBundle:Layouts:base.html.twig' %}
+
+{% block body -%}
+    <h1>Regiones</h1>
+    <br/>
+    {{ form(form) }}
+    &nbsp;
+    <br/>
+    {{ render(controller('FrontendBundle:Region:index')) }}
+{% endblock %}

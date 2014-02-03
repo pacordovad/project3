@@ -1,0 +1,478 @@
+{% extends 'FrontendBundle:Layouts:base.html.twig' %}
+
+{% block body -%}
+    {{ form_start(form) }}
+    {% if entity.id is not null %}
+    <div class="row">
+        <div class="col-md-7"></div>
+        <div class="col-md-3"><label>C&oacute;digo de pedido<label></div>
+        <div class="col-md-2"><span style="color: #3276b1; font-size: 150%">{{ entity.idRecur }}</span></div>
+    </div>
+    {% endif %}
+    <div class="row">
+        <div class="col-md-7"></div>
+        <div class="col-md-3">{{ form_label(form.fechaRegistro) }}</div>
+        <div class="col-md-2">{{ entity.fechaRegistro|date('Y-m-d H:i:s') }}{{ form_errors(form.fechaRegistro) }}{{ form_widget(form.fechaRegistro) }}</div>
+    </div>
+    <div class="row">
+        <div class="col-md-7"></div>
+        <div class="col-md-3">{{ form_label(form.fechaActualizacion) }}</div>
+        <div class="col-md-2">{{ entity.fechaActualizacion|date('Y-m-d H:i:s') }}{{ form_errors(form.fechaActualizacion) }}{{ form_widget(form.fechaActualizacion) }}</div>
+    </div>
+    <div class="row">
+        <div class="col-md-7"><h1>Pedido</h1></div>
+        <div class="col-md-3">{{ form_label(form.ultimaActualizacionUsuarioPk) }}</div>
+        <div class="col-md-2">{{ entity.ultimaActualizacionUsuarioPk }}{{ form_errors(form.ultimaActualizacionUsuarioPk) }}{{ form_widget(form.ultimaActualizacionUsuarioPk) }}</div>
+    </div>
+    <hr/>
+    <div class="row">
+        <div class="col-md-2"><label>Empresa</label></div>
+        <div class="col-md-4">
+            <select id="empresa">
+                {% for empresa in empresas %}
+                    <option value="{{ empresa.id }}" data-direccion="{{ empresa.direccion }}" data-ruc="{{ empresa.ruc }}" data-telefono="{{ empresa.telefono }}">{{ empresa }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="col-md-2"><label>RUC<label></div>
+        <div class="col-md-4" id="ruc_empresa"></div>
+    </div>
+    <div class="row">
+        <div class="col-md-2"><label>Direcci&oacute;n</label></div>
+        <div class="col-md-4" id="direccion_empresa"></div>
+        <div class="col-md-2"><label>Telf</label></div>
+        <div class="col-md-4" id="telf_empresa"></div>
+    </div>
+    <div class="row">
+        <div class="col-md-2">{{ form_label(form.contactoPk) }}</div>
+        <div class="col-md-4">{{ form_errors(form.contactoPk) }}
+            {% do form.contactoPk.setRendered %}
+            <select id="frontend_bundle_pedido_contactoPk" name="frontend_bundle_pedido[contactoPk]">
+                {% for contacto in contactos %}
+                    <option value="{{ contacto.id }}" data-etapa="{% render controller("FrontendBundle:Area:etapa", { 'areaId' : contacto.areaPk.id }) %}" data-empresa="{{ contacto.areaPk.empresaPk.id }}" {% if entity.contactoPk is not null and entity.contactoPk.id == contacto.id %}selected="selected"{% endif %}>{{ contacto.areaContacto }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="col-md-2"><label>Etapa</label></div>
+        <div class="col-md-4">
+            {{ form_widget(form.etapa) }}
+        </div>
+    </div>
+    <hr/>
+    <div class="row">
+        <h3>Productos
+        <button type="button" class="btn btn-primary" id="btnAgregarProducto" style="float: right">Agregar Producto</button>
+        </h3>
+        <br/>
+        <br/>
+        {% include 'FrontendBundle:Pedido:modal.html.twig' %}
+        <input type="hidden" id="loading-gif" value="{{ asset('images/loader.gif') }}"/>
+        <table id="table-producto-pedidos" data-count="1" style="width: 100%; border-collapse: separate; border-spacing: 10px;">
+            <tr>
+                <th>#</th>
+                <th>Categor&iacute;a</th>
+                <th>Producto</th>
+                <th>Cantidad</th>
+                <th>Ancho (cm)</th>
+                <th>Alto (cm)</th>
+                <th>Calidad</th>
+                <th>V. Unit</th>
+                <th>Total</th>
+                <th></th>
+            </tr>
+            {% set i = 1 %}
+            {% set index = 0 %}
+            {% for pedidoProducto in entity.pedidoProducto %}
+                {% if pedidoProducto.cortesia == false %}
+                    <tr id="tr-p{{ index }}">
+                        <td>{{ i }}</td>
+                        <td id="td_categoria_{{ index }}">{{ pedidoProducto.productoPk.categoriaPk }}</td>
+                        <td id="td_frontend_bundle_pedido_pedidoProducto_{{ index }}_nombreProducto">{{ pedidoProducto.nombreProducto }}</td>
+                        <td id="td_frontend_bundle_pedido_pedidoProducto_{{ index}}_cantidad">{{ pedidoProducto.cantidad }}</td>
+                        <td id="td_frontend_bundle_pedido_pedidoProducto_{{ index}}_ancho">{{ pedidoProducto.ancho }}</td>
+                        <td id="td_frontend_bundle_pedido_pedidoProducto_{{ index}}_alto">{{ pedidoProducto.alto }}</td>
+                        <td id="td_frontend_bundle_pedido_pedidoProducto_{{ index}}_tipoCalidadPk">{{ pedidoProducto.tipoCalidadPk }}</td>
+                        <td id="td_preciounitario_{{ index }}">{{ pedidoProducto.precioVenta }}</td>
+                        <td id="td_precioventa_{{ index}}">{{ pedidoProducto.total }}</td>
+                        <td>
+                            <a class="btn btn-primary" id="edit-{{ index }}" href="#">Editar</a>
+                            {% if not pedidoProducto.getEmpezoProduccion %}                            
+                                <a class="btn btn-danger" id="del-{{ index }}" href="#">Eliminar</a>
+                            {% endif %}
+                            <script type="text/javascript">
+                                $("#edit-{{ index }}").on('click', function(e) {
+                                    // prevent the link from creating a "#" on the URL
+                                    e.preventDefault();
+                                    // Call edit function
+                                    editarProducto('Editar','{{ path('pedidoproductoxml', {'productoSeleccionadoId': pedidoProducto.productoPk.id, 'nombreProducto': pedidoProducto.nombreProducto, 'cantidad' : pedidoProducto.cantidad, 'dimensionId': pedidoProducto.medidaPk.id|default('0'), 'dimensionX' : pedidoProducto.ancho, 'dimensionY' : pedidoProducto.alto, 'cortesia': pedidoProducto.cortesiaTab, 'tipoCalidadId': pedidoProducto.tipoCalidadPk.id, 'pedidoPk': entity.id}) }}','{{ index }}');
+                                });
+                                {% if not pedidoProducto.getEmpezoProduccion %}   
+                                    $("#del-{{ index }}").on('click', function(e) {
+                                        // prevent the link from creating a "#" on the URL
+                                        e.preventDefault();
+                                        var cortesia = {% if pedidoProducto.cortesia == 1 %}"1"{% else %}"0"{% endif %};
+                                        if(confirmar()){
+                                            // remove the li for the tag form
+                                            $("#ul-prod-{{ index }}").remove();
+                                            $("#tr-p{{ index }}").remove();
+                                            if(cortesia !== "1"){
+                                                calculaTotalesTabla();
+                                            }else{
+                                                calculaTotalesTablaCortesia();
+                                            }
+                                        }
+                                    });
+                                {% endif %}
+                            </script>
+                        </td>
+                    </tr>
+                    {% set i = i + 1 %}
+                {% endif %}
+                {% set index = index + 1 %}
+            {% endfor %}
+            <tr id="tot-row">
+                <th></th>
+                <th></th>
+                <th></th>
+                <th id="tot-cantidad" style="border-top: 1px solid">0</th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th id="tot-precio" style="border-top: 1px solid">0</th>
+                <th></th>
+            </tr>
+        </table>
+        <ul class="productos" data-prototype="{{ form_widget(form.pedidoProducto.vars.prototype)|e }}" style="display: none">
+            {# iterate over each existing tag and render its only field: name #}
+            {% set index = 0 %}
+            {% for pedidoProducto in form.pedidoProducto %}
+                <li id="ul-prod-{{ index }}">{{ form_row(pedidoProducto) }}</li>
+                {% set index = index + 1 %}
+            {% endfor %}
+        </ul>
+    </div>
+    <hr/>    
+    <div class="row">
+        <div class="col-md-6">
+            <div class="row">
+                <div class="col-md-4">{{ form_label(form.conceptoFactura) }}</div>
+                <div class="col-md-8">{{ form_errors(form.conceptoFactura) }}{{ form_widget(form.conceptoFactura) }}</div>
+            </div>
+            <div class="row" {% if not (is_granted('ROLE_ADMINISTRADOR') or is_granted('ROLE_COORDINADOR')) %}style="display: none"{% endif %}>
+                <div class="col-md-4">{{ form_label(form.aplicaConcepto1) }}</div>
+                <div class="col-md-8">{{ form_errors(form.aplicaConcepto1) }}{{ form_widget(form.aplicaConcepto1) }}</div>
+            </div>
+            <div class="row" {% if not (is_granted('ROLE_ADMINISTRADOR') or is_granted('ROLE_COORDINADOR')) %}style="display: none"{% endif %}>
+                <div class="col-md-4">{{ form_label(form.aplicaConcepto2) }}</div>
+                <div class="col-md-8">{{ form_errors(form.aplicaConcepto2) }}{{ form_widget(form.aplicaConcepto2) }}</div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="row">
+                <div class="col-md-2"><label>Subtotal</label></div>
+                <div class="col-md-4"><span id="subtotal">0.00</span></div>
+            </div>
+            <div class="row" id="row-descuento">
+                <div class="col-md-2">{{ form_label(form.descuento) }}</div>
+                <div class="col-md-4">{{ form_errors(form.descuento) }}{{ form_widget(form.descuento) }}</div>
+            </div>
+            <div class="row" id="row-subtotal-descuento">
+                <div class="col-md-2"><label>Subtotal descuento</label></div>
+                <div class="col-md-4"><span id="subtotal-descuento">0.00</span></div>
+            </div>
+            <div class="row">
+                <div class="col-md-2"><label>IVA (12%)</label></div>
+                <div class="col-md-4"><span id="iva">0.00</span></div>
+            </div>
+            <div class="row">
+                <div class="col-md-2"><label>Total</label></div>
+                <div class="col-md-4" style="font-weight: bold"><span id="total">0.00</span></div>
+            </div>
+        </div>
+    </div>
+    
+    <!---
+    
+    Script 1
+    
+    -->
+    <script type="text/javascript">
+        calculaTotalesTabla();
+        chekaAplica1();
+        chekaAplica2();
+        iniciaEmpresa();
+        {% if entity.etapa is empty %}
+            empresaCambio();
+        {% endif %}
+    </script>
+    
+    <div class="row" id="row-cortesia" {% if not (is_granted('ROLE_ADMINISTRADOR') or is_granted('ROLE_COORDINADOR')) %}style="display: none"{% endif %}>
+        <hr/>
+        <h4>Productos de cortes&iacute;a
+        <button type="button" class="btn btn-primary" id="btnAgregarProductoCortesia" style="float: right">Agregar Producto de Cortesía</button>
+        </h4>
+        <br/>
+        <br/>
+        <table id="table-producto-pedidos-cortesia" data-count="1" style="width: 100%; border-collapse: separate; border-spacing: 10px;">
+            <tr>
+                <th>#</th>
+                <th>Categor&iacute;a</th>
+                <th>Producto</th>
+                <th>Cantidad</th>
+                <th>Ancho (cm)</th>
+                <th>Alto (cm)</th>
+                <th>Calidad</th>
+                <th>V. Unit</th>
+                <th>Total</th>
+                <th></th>
+            </tr>
+            {% set i = 1 %}
+            {% set index = 0 %}
+            {% for pedidoProducto in entity.pedidoProducto %}
+                {% if pedidoProducto.cortesia != false %}
+                    <tr id="tr-p{{ index }}">
+                        <td>{{ i }}</td>
+                        <td id="td_categoria_{{ index }}">{{ pedidoProducto.productoPk.categoriaPk }}</td>
+                        <td id="td_frontend_bundle_pedido_pedidoProducto_{{ index }}_nombreProducto">{{ pedidoProducto.nombreProducto }}</td>
+                        <td id="td_frontend_bundle_pedido_pedidoProducto_{{ index}}_cantidad">{{ pedidoProducto.cantidad }}</td>
+                        <td id="td_frontend_bundle_pedido_pedidoProducto_{{ index}}_ancho">{{ pedidoProducto.ancho }}</td>
+                        <td id="td_frontend_bundle_pedido_pedidoProducto_{{ index}}_alto">{{ pedidoProducto.alto }}</td>
+                        <td id="td_frontend_bundle_pedido_pedidoProducto_{{ index}}_tipoCalidadPk">{{ pedidoProducto.tipoCalidadPk }}</td>
+                        <td id="td_preciounitario_{{ index }}">{{ pedidoProducto.precioVenta }}</td>
+                        <td id="td_precioventa_{{ index}}">{{ pedidoProducto.total }}</td>
+                        <td>
+                            <a class="btn btn-primary" id="edit-{{ index }}" href="#">Editar</a>
+                            {% if not pedidoProducto.getEmpezoProduccion %}
+                                <a class="btn btn-danger" id="del-{{ index }}" href="#">Eliminar</a>
+                            {% endif %}
+                            <script type="text/javascript">
+                                $("#edit-{{ index }}").on('click', function(e) {
+                                    // prevent the link from creating a "#" on the URL
+                                    e.preventDefault();
+                                    // Call edit function
+                                    editarProducto('Editar','{{ path('pedidoproductoxml', {'productoSeleccionadoId': pedidoProducto.productoPk.id, 'nombreProducto': pedidoProducto.nombreProducto, 'cantidad' : pedidoProducto.cantidad, 'dimensionId': pedidoProducto.medidaPk.id|default('0'), 'dimensionX' : pedidoProducto.ancho, 'dimensionY' : pedidoProducto.alto, 'cortesia': pedidoProducto.cortesiaTab, 'tipoCalidadId': pedidoProducto.tipoCalidadPk.id, 'pedidoPk': entity.id}) }}','{{ index }}');
+                                });
+                                {% if not pedidoProducto.getEmpezoProduccion %}
+                                    $("#del-{{ index }}").on('click', function(e) {
+                                        // prevent the link from creating a "#" on the URL
+                                        e.preventDefault();
+                                        var cortesia = {% if pedidoProducto.cortesia == 1 %}"1"{% else %}"0"{% endif %};
+                                        if(confirmar()){
+                                            // remove the li for the tag form
+                                            $("#ul-prod-{{ index }}").remove();
+                                            $("#tr-p{{ index }}").remove();
+                                            if(cortesia !== "1"){
+                                                calculaTotalesTabla();
+                                            }else{
+                                                calculaTotalesTablaCortesia();
+                                            }
+                                        }
+                                    });
+                                {% endif %}
+                            </script>
+                        </td>
+                    </tr>
+                    {% set i = i + 1 %}
+                {% endif %}
+                {% set index = index + 1 %}
+            {% endfor %}
+            <tr id="tot-row-cortesia">
+                <th></th>
+                <th></th>
+                <th></th>
+                <th id="tot-cantidad-cortesia" style="border-top: 1px solid">0</th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th id="tot-precio-cortesia" style="border-top: 1px solid">0</th>
+                <th></th>
+            </tr>
+        </table>
+    </div>
+    <!---
+    
+    Script 1
+    
+    -->
+    <script type="text/javascript">
+        calculaTotalesTablaCortesia();
+        chekaAplica1();
+        chekaAplica2();
+    </script>
+    
+    <hr/>
+    <div>
+        <div class="col-md-12" style="text-align: center; font-weight: bold">Informaci&oacute;n complementaria</div>
+    </div>
+    <br/>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="row" {% if not (is_granted('ROLE_ADMINISTRADOR') or is_granted('ROLE_COORDINADOR')) %}style="display:none"{% endif %}>
+                <div class="col-md-4">{{ form_label(form.fechaAprobacion) }}</div>
+                <div class="col-md-4">{{ form_errors(form.fechaAprobacion) }}{{ form_widget(form.fechaAprobacion) }}</div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">{{ form_label(form.fechaMaximaEntrega) }}</div>
+                <div class="col-md-4">{{ form_errors(form.fechaMaximaEntrega) }}{{ form_widget(form.fechaMaximaEntrega) }}</div>
+            </div>
+            <div class="row" {% if not (is_granted('ROLE_ADMINISTRADOR') or is_granted('ROLE_COORDINADOR')) %}style="display:none"{% endif %}>
+                <div class="col-md-4">{{ form_label(form.retencionRenta) }}</div>
+                <div class="col-md-4">{{ form_errors(form.retencionRenta) }}
+                    -> <label id="retencion-renta">0</label>
+                    {{ form_widget(form.retencionRenta) }}
+                </div>
+            </div>
+            <div class="row" {% if not (is_granted('ROLE_ADMINISTRADOR') or is_granted('ROLE_COORDINADOR')) %}style="display:none"{% endif %}>   
+                <div class="col-md-4">{{ form_label(form.retencionIva) }}</div>
+                <div class="col-md-4">{{ form_errors(form.retencionIva) }}
+                    -> <label id="retencion-iva">0</label>
+                    {{ form_widget(form.retencionIva) }}
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="row" {% if not (is_granted('ROLE_ADMINISTRADOR') or is_granted('ROLE_COORDINADOR')) %}style="display:none"{% endif %}>
+                <div class="col-md-4">{{ form_label(form.financiamiento) }}</div>
+                <div class="col-md-4">{{ form_errors(form.financiamiento) }}{{ form_widget(form.financiamiento) }}</div>
+            </div>
+            <div class="row" {% if not (is_granted('ROLE_ADMINISTRADOR') or is_granted('ROLE_COORDINADOR')) %}style="display:none"{% endif %}>
+                <div class="col-md-4">{{ form_label(form.facturaNum) }}</div>
+                <div class="col-md-4">{{ form_errors(form.facturaNum) }}{{ form_widget(form.facturaNum) }}</div>
+            </div>
+            <div class="row" {% if not (is_granted('ROLE_ADMINISTRADOR') or is_granted('ROLE_COORDINADOR')) %}style="display:none"{% endif %}>
+                <div class="col-md-4">{{ form_label(form.banco) }}</div>
+                <div class="col-md-4">{{ form_errors(form.banco) }}{{ form_widget(form.banco) }}</div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2">{{ form_label(form.notas) }}</div>
+        <div class="col-md-4">{{ form_errors(form.notas) }}{{ form_widget(form.notas) }}</div>
+    </div>
+    <div style="display: none">
+        {{ form_rest(form) }}
+    </div>
+    <br/>
+    <br/>
+    <input type="submit" value="Guardar pedido" class="btn btn-primary"/>&nbsp;&nbsp;&nbsp;
+    {% if entity.id is not null %}
+    <input type="button" value="Imprimir pedido" id="imprimir" class="btn btn-success" {% if not (is_granted('ROLE_ADMINISTRADOR') or is_granted('ROLE_COORDINADOR')) %}style="display: none"{% endif %}/>
+    <div id="menu-imprimir" data-content='<form action="{{ url("pedido_imprimir",{"id":entity.id}) }}" method="POST" id="imprime-form">"Escoja la opción a imprimir:<br/><br/>
+        <input id="imprimiropcion1" type="radio" name="opcionimprimir" value="1" checked> <label for="imprimiropcion1">Pedido</label><br/>
+        <input id="imprimiropcion2" type="radio" name="opcionimprimir" value="2"> <label for="imprimiropcion2">Listado de Productos</label><br/>
+        <input id="imprimiropcion3" type="radio" name="opcionimprimir" value="3"> <label for="imprimiropcion3">Esquema de Producci&oacute;n</label><br/>
+        <input id="imprimiropcion4" type="radio" name="opcionimprimir" value="4"> <label for="imprimiropcion4">Recibo de Pagos</label></form>' style="display: none">
+    </div>
+    {% endif %}
+    {{ form_end(form) }}
+    &nbsp;
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+{% endblock %}
+    
+{% block javascripts %}
+        {{parent()}}
+        <script type="text/javascript">
+            function addProductoForm(collectionHolder, $newLinkLi) {
+                // Get the data-prototype explained earlier
+                var prototype = collectionHolder.data('prototype');
+
+                // get the new index
+                var index = collectionHolder.data('index');
+
+                // Replace '__name__' in the prototype's HTML to
+                // instead be a number based on how many items we have
+                var newForm = prototype.replace(/__name__/g, index);
+
+                // increase the index with one for the next item
+                collectionHolder.data('index', index + 1);
+
+                // Display the form in the page in an li, before the "Add a tag" link li
+                var $newFormLi = $('<li></li>').append(newForm);
+                $newLinkLi.before($newFormLi);
+                
+                // add a delete link to the new form
+                addTagFormDeleteLink($newFormLi);
+            }
+        </script>
+        <script type="text/javascript">
+            // Get the ul that holds the collection of tags
+            var collectionHolder = $('ul.productos');
+
+            jQuery(document).ready(function() {
+                
+                calculaTotalesTabla();
+                calculaTotalesTablaCortesia();
+                chekaAplica1();
+                chekaAplica2();
+                
+                $('#empresa').on('change', function(e) {
+                    empresaCambio();
+                });
+                
+                // count the current form inputs we have (e.g. 2), use that as the new
+                // index when inserting a new item (e.g. 2)
+                collectionHolder.data('index', collectionHolder.find('li').length);
+                $('#table-producto-pedidos').data('count', $('#table-producto-pedidos').find('tr').length - 1);
+                $('#table-producto-pedidos-cortesia').data('count', $('#table-producto-pedidos-cortesia').find('tr').length - 1);
+                
+                $('#btnAgregarProducto').on('click', function(e) {
+                    // prevent the link from creating a "#" on the URL
+                    e.preventDefault();
+                    anadirProducto('Agregar','{{ path('pedidoproductoxml', { productoSeleccionadoId:'-', nombreProducto:'-', cantidad:'-', dimensionId:'-', dimensionX:'-', dimensionY:'-', cortesia:'-', tipoCalidadId:'-', pedidoPk:'-' }) }}');
+                });
+                
+                $('#btnAgregarProductoCortesia').on('click', function(e) {
+                    // prevent the link from creating a "#" on the URL
+                    e.preventDefault();
+                    anadirProducto('Agregar','{{ path('pedidoproductoxml', { productoSeleccionadoId:'-', nombreProducto:'-', cantidad:'-', dimensionId:'-', dimensionX:'-', dimensionY:'-', cortesia:'1', tipoCalidadId:'-', pedidoPk:'-' }) }}');
+                });
+                
+                $('#btnGuardarProducto').on('click', function(e) {
+                    // prevent the link from creating a "#" on the URL
+                    e.preventDefault();
+                    guardarProducto(collectionHolder);
+                });
+                
+                // Aplica concepto
+                $("#frontend_bundle_pedido_descuento").bind("propertychange keyup input paste", function() {
+                    calculaTotales();
+                });
+
+                $("#frontend_bundle_pedido_aplicaConcepto1").change(function() {
+                    chekaAplica1();
+                });
+                
+                $("#frontend_bundle_pedido_aplicaConcepto2").change(function() {
+                    chekaAplica2();
+                });
+                
+                //Renta e iva
+                $("#frontend_bundle_pedido_retencionRenta").bind("propertychange keyup input paste", function() {
+                    calculaRenta();
+                });
+                
+                $("#frontend_bundle_pedido_retencionIva").bind("propertychange keyup input paste", function() {
+                    calculaIva();
+                });
+                
+                $("#imprimir").click(function(e){
+                    e.preventDefault();
+                    $('#modal-base').modal();
+                    $("#modal-base-titulo").html("Imprimir pedido");
+                    $("#modal-base-body").html($("#menu-imprimir").data("content"));
+                    $("#submit-boton-modal").html("Imprimir");
+                    $("#submit-boton-modal").unbind();
+                    $("#submit-boton-modal").click(function(){
+                        $("#imprime-form").submit();
+                    });
+                });
+            });
+        </script>
+    {% endblock %}

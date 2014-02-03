@@ -1,0 +1,14 @@
+{% block extends %}
+{{ "{% extends 'FrontendBundle:Layouts:base.html.twig' %}" }}
+{% endblock extends %}
+
+{% block body %}
+{{ "{% block body -%}" }}
+    <h1>{{ entity }}s</h1>
+    <br/>
+    {{ '{{ form(edit_form) }}' }}
+    <a href="{{ "{{ path('" ~ route_name_prefix ~ "') }}" }}">Regresar</a>
+    <br/>
+    {{ "{{ render(controller('FrontendBundle:"}}{{ entity }}{{ ":index')) }}" }}
+{{ "{% endblock %}" }}
+{% endblock body %}

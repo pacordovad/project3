@@ -1,0 +1,21 @@
+contacto:
+    pattern:  /
+    defaults: { _controller: "FrontendBundle:Contacto:new" }
+
+contacto_create:
+    pattern:  /crear
+    defaults: { _controller: "FrontendBundle:Contacto:create" }
+    requirements: { _method: post }
+
+contacto_edit:
+    pattern:  /{id}/editar
+    defaults: { _controller: "FrontendBundle:Contacto:edit" }
+
+contacto_update:
+    pattern:  /{id}/actualizar
+    defaults: { _controller: "FrontendBundle:Contacto:update" }
+    requirements: { _method: post|put }
+
+contacto_delete:
+    pattern:  /{id}/eliminar
+    defaults: { _controller: "FrontendBundle:Contacto:delete" }

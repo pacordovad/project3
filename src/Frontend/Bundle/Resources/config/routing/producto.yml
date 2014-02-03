@@ -1,0 +1,21 @@
+producto:
+    pattern:  /
+    defaults: { _controller: "FrontendBundle:Producto:new" }
+
+producto_create:
+    pattern:  /crear
+    defaults: { _controller: "FrontendBundle:Producto:create" }
+    requirements: { _method: post }
+
+producto_edit:
+    pattern:  /{id}/editar
+    defaults: { _controller: "FrontendBundle:Producto:edit" }
+
+producto_update:
+    pattern:  /{id}/actualizar
+    defaults: { _controller: "FrontendBundle:Producto:update" }
+    requirements: { _method: post|put }
+
+producto_delete:
+    pattern:  /{id}/eliminar
+    defaults: { _controller: "FrontendBundle:Producto:delete" }

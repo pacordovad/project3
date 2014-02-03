@@ -1,0 +1,21 @@
+provincia:
+    pattern:  /
+    defaults: { _controller: "FrontendBundle:Provincia:new" }
+
+provincia_create:
+    pattern:  /crear
+    defaults: { _controller: "FrontendBundle:Provincia:create" }
+    requirements: { _method: post }
+
+provincia_edit:
+    pattern:  /{id}/editar
+    defaults: { _controller: "FrontendBundle:Provincia:edit" }
+
+provincia_update:
+    pattern:  /{id}/actualizar
+    defaults: { _controller: "FrontendBundle:Provincia:update" }
+    requirements: { _method: post|put }
+
+provincia_delete:
+    pattern:  /{id}/eliminar
+    defaults: { _controller: "FrontendBundle:Provincia:delete" }

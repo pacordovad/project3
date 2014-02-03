@@ -1,0 +1,59 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>Tarea</h1>
+
+    <table class="record_properties">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ entity.id }}</td>
+            </tr>
+            <tr>
+                <th>Fecharegistro</th>
+                <td>{{ entity.fechaRegistro|date('Y-m-d H:i:s') }}</td>
+            </tr>
+            <tr>
+                <th>Tema</th>
+                <td>{{ entity.tema }}</td>
+            </tr>
+            <tr>
+                <th>Valoraproximado</th>
+                <td>{{ entity.valorAproximado }}</td>
+            </tr>
+            <tr>
+                <th>Resolucion1</th>
+                <td>{{ entity.resolucion1 }}</td>
+            </tr>
+            <tr>
+                <th>Resolucion2</th>
+                <td>{{ entity.resolucion2 }}</td>
+            </tr>
+            <tr>
+                <th>Seleccion</th>
+                <td>{{ entity.seleccion }}</td>
+            </tr>
+            <tr>
+                <th>Cumplido</th>
+                <td>{{ entity.cumplido }}</td>
+            </tr>
+            <tr>
+                <th>Resultado</th>
+                <td>{{ entity.resultado }}</td>
+            </tr>
+            <tr>
+                <th>Notas</th>
+                <td>{{ entity.notas }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('tarea_edit', { 'id': entity.id }) }}">
+            Editar
+        </a>
+    </li>
+    <li>{{ form(delete_form) }}</li>
+</ul>
+{% endblock %}

@@ -1,0 +1,10 @@
+{% extends 'FrontendBundle:Layouts:base.html.twig' %}
+
+{% block body -%}
+    <h1>Empresas</h1>
+    <br/>
+    {{ form(edit_form) }}
+    <a href="{{ path('empresa') }}">Regresar</a>
+    <br/>
+    {{ render(controller('FrontendBundle:Empresa:index')) }}
+{% endblock %}

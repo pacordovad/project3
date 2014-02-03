@@ -1,0 +1,21 @@
+tarea:
+    pattern:  /
+    defaults: { _controller: "FrontendBundle:Tarea:new" }
+
+tarea_create:
+    pattern:  /crear
+    defaults: { _controller: "FrontendBundle:Tarea:create" }
+    requirements: { _method: post }
+
+tarea_edit:
+    pattern:  /{id}/editar
+    defaults: { _controller: "FrontendBundle:Tarea:edit" }
+
+tarea_update:
+    pattern:  /{id}/actualizar
+    defaults: { _controller: "FrontendBundle:Tarea:update" }
+    requirements: { _method: post|put }
+
+tarea_delete:
+    pattern:  /{id}/eliminar
+    defaults: { _controller: "FrontendBundle:Tarea:delete" }

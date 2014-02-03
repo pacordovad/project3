@@ -1,0 +1,107 @@
+pedido:
+    pattern:  /
+    defaults: { _controller: "FrontendBundle:Pedido:new" }
+    
+pedido_control:
+    pattern:  /tableroControl
+    defaults: { _controller: "FrontendBundle:Pedido:control" }
+    
+pedido_cobros:
+    pattern:  /tableroCobros
+    defaults: { _controller: "FrontendBundle:Pedido:cobros" }
+
+pedido_esquema:
+    pattern:  /{id}/esquema
+    defaults: { _controller: "FrontendBundle:Pedido:esquema" }
+
+pedido_create:
+    pattern:  /crear
+    defaults: { _controller: "FrontendBundle:Pedido:create" }
+    requirements: { _method: post }
+
+pedido_edit:
+    pattern:  /{id}/editar
+    defaults: { _controller: "FrontendBundle:Pedido:edit" }
+
+pedido_update:
+    pattern:  /{id}/actualizar
+    defaults: { _controller: "FrontendBundle:Pedido:update" }
+    requirements: { _method: post|put }
+
+pedido_delete:
+    pattern:  /{id}/eliminar
+    defaults: { _controller: "FrontendBundle:Pedido:delete" }
+    
+pedido_cambiaDelegado1:
+    pattern:  /cambiaDelegado1
+    defaults: { _controller: "FrontendBundle:Pedido:cambiaDelegado1" }
+    requirements: { _method: post }
+    
+pedido_cambiaDelegado2:
+    pattern:  /cambiaDelegado2
+    defaults: { _controller: "FrontendBundle:Pedido:cambiaDelegado2" }
+    requirements: { _method: post }
+    
+pedido_cambiaDelegado3:
+    pattern:  /cambiaDelegado3
+    defaults: { _controller: "FrontendBundle:Pedido:cambiaDelegado3" }
+    requirements: { _method: post }
+    
+pedido_cambiaPaso:
+    pattern:  /cambiaPaso
+    defaults: { _controller: "FrontendBundle:Pedido:cambiaPaso" }
+    requirements: { _method: post }
+    
+pedido_actualiza_produccion:
+    pattern:  /{id}/{paso}/actualizaProduccion
+    defaults: { _controller: "FrontendBundle:Pedido:actualizaProduccion" }
+    requirements: { _method: post }
+
+pedido_productos:
+    pattern:  /{id}/productos
+    defaults: { _controller: "FrontendBundle:Pedido:productos" }
+    
+pedido_certificacion_entrega:
+    pattern:  /{id}/certificacionentrega
+    defaults: { _controller: "FrontendBundle:Pedido:certificacionEntrega" }
+    
+pedido_genera_certificacion_entrega:
+    pattern:  /{id}/gcertificacionentrega
+    defaults: { _controller: "FrontendBundle:Pedido:generaCertificacionEntrega" }
+    
+pedido_control_instalacion:
+    pattern:  /{id}/controlinstalacion
+    defaults: { _controller: "FrontendBundle:Pedido:controlInstalacion" }
+    
+pedido_genera_control_instalacion:
+    pattern:  /{id}/gcontrolinstalacion
+    defaults: { _controller: "FrontendBundle:Pedido:generaControlInstalacion" }
+
+pedido_reporte_general:
+    pattern:  /{idempresa}/{idarea}/reporteGeneral
+    defaults: { _controller: "FrontendBundle:Pedido:reporteGeneral" }
+    
+pedido_genera_reporte_general:
+    pattern:  /{idempresa}/{idarea}/greportegeneral
+    defaults: { _controller: "FrontendBundle:Pedido:generaReporteGeneral" }
+    
+pedido_reporte_general_puntos:
+    pattern:  /reportegeneralpuntos
+    defaults: { _controller: "FrontendBundle:Pedido:reporteGeneralPuntos" }
+
+pedido_genera_reporte_general_puntos:
+    pattern:  /greportegeneralpuntos
+    defaults: { _controller: "FrontendBundle:Pedido:generaReporteGeneralPuntos" }
+    
+pedido_imprimir:
+    pattern:  /{id}/imprimir
+    defaults: { _controller: "FrontendBundle:Pedido:imprime" }
+    requirements: { _method: post }
+    
+pedido_produccion:
+    pattern:  /produccion
+    defaults: { _controller: "FrontendBundle:Pedido:produccion" }
+    
+pedido_duplicar:
+    pattern:  /{id}/duplicar
+    defaults: { _controller: "FrontendBundle:Pedido:duplica" }
