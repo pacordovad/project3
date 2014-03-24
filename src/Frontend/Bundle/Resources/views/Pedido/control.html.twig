@@ -76,7 +76,7 @@
             <select id="paso">
                 <option value="" selected="selected"></option>
                 {% for paso in pasos %}
-                    <option value="{{ paso }}">{{ paso }}</option>
+                    <option value="{{ paso }}" {% if paso.porDefecto == 1 %}selected{% endif %}>{{ paso }}</option>
                 {% endfor %}
             </select>
         </div>
@@ -86,7 +86,7 @@
     
     <br/>
     <input type="hidden" id="loading-gif" value="{{ asset('images/loader-small.gif') }}"/>
-    <table class="tColapse records_list" id="datatable_crud" style="font-size: 11px">
+    <table class="tColapse records_list t_control" id="datatable_crud_pedidos" style="font-size: 11px">
         <thead>
             <tr>
                 <th>#</th>
@@ -219,13 +219,13 @@
                 </td>
                 <td><input type="checkbox" name="paso1_{{ entity.id }}" value="{{ entity.paso11 }}" disabled="disabled" {% if entity.paso16 %}checked{% endif %}></td>
                 <td>
-                    {% if is_granted("ROLE_COORDINADOR") %}<a class="btn btn-primary" style="font-size: 10px; float: left" href="{{ path('pedido_edit', { 'id': entity.id }) }}" title="Editar"><span class="glyphicon glyphicon-edit"></span></a>{% endif %}
-                    {% if is_granted("ROLE_COORDINADOR") %}<a class="btn btn-primary" style="font-size: 10px; float: left" href="{{ path('pedido_productos', { 'id': entity.id }) }}" title="Productos"><span class="glyphicon glyphicon-list"></a>{% endif %}
-                    <a class="btn btn-primary" style="font-size: 10px; float: left" href="{{ path('pedido_esquema', { 'id': entity.id }) }}" title="Esquema"><span class="glyphicon glyphicon-eye-open"></a>
-                    {% if is_granted("ROLE_COORDINADOR") %}<a class="btn btn-primary" style="font-size: 10px; float: left" href="{{ path('pedido_duplicar', { 'id': entity.id }) }}" title="Duplicar"><span class="glyphicon glyphicon-random"></a>{% endif %}
+                    {% if is_granted("ROLE_COORDINADOR") %}<a class="btn btn-primary" style="font-size: 10px; float: left" href="{{ path('pedido_edit', { 'id': entity.id }) }}" title="Propuesta"><span class="glyphicon glyphicon-edit"></span></a>{% endif %}
+                    {% if is_granted("ROLE_COORDINADOR") %}<a class="btn btn-primary" style="font-size: 10px; float: left" href="{{ path('pedido_productos', { 'id': entity.id }) }}" title="Proceso"><span class="glyphicon glyphicon-list"></a>{% endif %}
+                    <a class="btn btn-primary" style="font-size: 10px; float: left" href="{{ path('pedido_esquema', { 'id': entity.id }) }}" title="Productos"><span class="glyphicon glyphicon-eye-open"></a>
+                    {% if is_granted("ROLE_COORDINADOR") %}<a class="btn btn-primary" onclick="return confirmar()" style="font-size: 10px; float: left" href="{{ path('pedido_duplicar', { 'id': entity.id }) }}" title="Copiar"><span class="glyphicon glyphicon-random"></a>{% endif %}
                 </td>
                 <td>
-                    <select id="paso_{{ entity.id }}" name="paso_{{ entity.id }}" onchange="cambiaPaso('{{ entity.id }}','{{ url("pedido_cambiaPaso") }}','{{ entity.pasoPedido.id|default("-1") }}')">
+                    <select id="paso_{{ entity.id }}" name="paso_{{ entity.id }}" onchange="cambiaPaso('{{ entity.id }}','{{ url("pedido_cambiaPaso") }}','{{ entity.pasoPedido.id|default("-1") }}')" {% if is_granted("ROLE_COORDINADOR") or app.user.id == entity.delegado3UsuarioPk.id %}{% else %}disabled{% endif %}>
                         <option value="-1" data-label=""></option>
                         {% for paso in pasos %}
                             <option value="{{ paso.id }}" data-label="{{ paso }}" {% if entity.pasoPedidosPk is not null and paso.id == entity.pasoPedidosPk.id %}selected="selected"{% endif %}>{{ paso }}</option>
@@ -233,7 +233,6 @@
                     </select>
                 </td>
                 <td>
-                {% if entity.notas is defined and entity.notas!="" %}
                     <!-- Button trigger modal -->
                     <button style="font-size: 12px; padding: 5px 11px;" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#notas{{entity.id}}">
                       <span class="glyphicon glyphicon-list-alt"></span>
@@ -248,15 +247,18 @@
                             <h4 class="modal-title" id="myModalLabel">Notas pedido <span style="color: #3276b1">{{ entity.id }}</span></h4>
                           </div>
                           <div class="modal-body" style="font-size: 150%">
-                                {{ entity.notas }}
+                              <h4>
+                                  Notas:
+                              </h4>
+                              <textarea rows="5" style="width: 100%" id="notasPedido{{entity.id}}">{{ entity.notasControl }}</textarea>
                           </div>
                           <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                              <button type="button" id="sendNotasControl{{entity.id}}" data-modalid="notas{{entity.id}}" data-idnotas="notasPedido{{entity.id}}" class="btn btn-success enviaNotas" data-url="{{ path('pedido_set_notas_control', { 'id': entity.id }) }}" data-dismiss="modal">Guardar</button>
+                              <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
                           </div>
                         </div><!-- /.modal-content -->
                       </div><!-- /.modal-dialog -->
                     </div><!-- /.modal -->
-                {% endif %}
                 </td>
             </tr>
         {% endfor %}
@@ -367,13 +369,13 @@
                 dateFormat: "yy-mm-dd 00:00:00",
                 yearRange: "2012:2050"
             });
-            $('#empresa').change( function() { window.dataTable.fnDraw(); filtraAreas(); } );
-            $('#area').change( function() { window.dataTable.fnDraw(); } );
-            $('#paso').change( function() { window.dataTable.fnDraw(); } );
-            $('#coordinador').change( function() { window.dataTable.fnDraw(); } );
-            $('#codigo').keyup( function() { window.dataTable.fnDraw(); } );
-            $('#fechadesde').on( "keyup change", function() { window.dataTable.fnDraw(); } );
-            $('#fechahasta').on( "keyup change", function() { window.dataTable.fnDraw(); } );
+            $('#empresa').change( function() { window.dataTable3.fnDraw(); filtraAreas(); } );
+            $('#area').change( function() { window.dataTable3.fnDraw(); } );
+            $('#paso').change( function() { window.dataTable3.fnDraw(); } );
+            $('#coordinador').change( function() { window.dataTable3.fnDraw(); } );
+            $('#codigo').keyup( function() { window.dataTable3.fnDraw(); } );
+            $('#fechadesde').on( "keyup change", function() { window.dataTable3.fnDraw(); } );
+            $('#fechahasta').on( "keyup change", function() { window.dataTable3.fnDraw(); } );
         } );
     </script>
 {% endblock %}

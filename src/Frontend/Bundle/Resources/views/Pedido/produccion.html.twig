@@ -94,7 +94,7 @@
             <select id="paso" {% if not (is_granted('ROLE_ADMINISTRADOR') or is_granted("ROLE_COORDINADOR")) %}disabled{% endif %}>
                 <option value="" selected="selected"></option>
                 {% for paso in pasos %}
-                    <option value="{{ paso }}">{{ paso }}</option>
+                    <option value="{{ paso }}" {% if paso.porDefecto == 1 %}selected{% endif %}>{{ paso }}</option>
                 {% endfor %}
             </select>
         </div>
@@ -119,10 +119,10 @@
     
     <br/>
     <input type="hidden" id="loading-gif" value="{{ asset('images/loader-small.gif') }}"/>
-    <table class="tColapse records_list" id="datatable_crud" style="font-size: 11px">
+    <table class="tColapse records_list t_produccion" id="datatable_crud" style="font-size: 11px">
         <thead>
             <tr>
-                <th>#</th>
+                <th style="display: none">#</th>
                 <th style="display: none">Empresa</th>
                 <th style="display: none">Area</th>
                 <th style="display: none">Paso</th>
@@ -163,7 +163,7 @@
         {% set i = 1 %}
         {% for entity in entities %}
             <tr>
-                <td>{{ i }}{% set i = i + 1 %}</td>
+                <td style="display: none">{{ i }}{% set i = i + 1 %}</td>
                 <td style="display: none">{{ entity.pedidoPk.contactoPk.areaPk.empresaPk }}</td>
                 <td style="display: none">{{ entity.pedidoPk.contactoPk.areaPk.empresaArea }}</td>
                 <td style="display: none">{{ entity.pedidoPk.pasoPedidosPk }}</td>
@@ -222,29 +222,31 @@
                 <td><input type="checkbox" name="pedidoProducto_{{ entity.id }}" {% if app.user.id != entity.pedidoPk.delegado3UsuarioPk.id %}disabled="disabled"{% endif %} value="{{ entity.paso11 }}" {% if entity.paso16 %}checked{% endif %} onchange="actualizaProduccionPedidoProducto('{{ url("pedido_actualiza_produccion",{id: entity.id,paso:"16"}) }}',this,'{{ entity.id }}')"></td>
                 <td><span id="loading_{{ entity.id }}"></span></td>
                 <td>
-                    {% if entity.pedidoPk.notas is defined and entity.pedidoPk.notas!="" %}
-                        <!-- Button trigger modal -->
-                        <button style="font-size: 12px; padding: 5px 11px;" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#notas{{entity.pedidoPk.id}}">
-                          <span class="glyphicon glyphicon-list-alt"></span>
-                        </button>
-                        <!-- Modal -->
-                        <div class="modal fade" id="notas{{entity.pedidoPk.id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                          <div class="modal-dialog">
-                            <div class="modal-content">
-                              <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                <h4 class="modal-title" id="myModalLabel">Notas pedido <span style="color: #3276b1">{{ entity.pedidoPk.id }}</span></h4>
-                              </div>
-                              <div class="modal-body" style="font-size: 150%">
-                                    {{ entity.pedidoPk.notas }}
-                              </div>
-                              <div class="modal-footer">
+                    <!-- Button trigger modal -->
+                    <button style="font-size: 12px; padding: 5px 11px;" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#notasPP{{entity.id}}">
+                      <span class="glyphicon glyphicon-list-alt"></span>
+                    </button>
+                    <!-- Modal -->
+                    <div class="modal fade" id="notasPP{{entity.id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title" id="myModalLabel">Notas producto: <span style="color: #3276b1">{{ entity.nombreProducto }}</span></h4>
+                          </div>
+                          <div class="modal-body" style="font-size: 150%">
+                              <h4>
+                                  Notas:
+                              </h4>
+                              <textarea rows="5" style="width: 100%" id="notasPPText{{entity.id}}">{{ entity.notasControlPp }}</textarea>
+                          </div>
+                          <div class="modal-footer">
+                                <button type="button" id="sendNotasControlPP{{entity.id}}" data-modalid="notasPP{{entity.id}}" data-idnotas="notasPPText{{entity.id}}" class="btn btn-success enviaNotas" data-url="{{ path('pedido_set_notas_control_pp', { 'id': entity.id }) }}" data-dismiss="modal">Guardar</button>
                                 <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                              </div>
-                            </div><!-- /.modal-content -->
-                          </div><!-- /.modal-dialog -->
-                        </div><!-- /.modal -->
-                    {% endif %}
+                          </div>
+                        </div><!-- /.modal-content -->
+                      </div><!-- /.modal-dialog -->
+                    </div><!-- /.modal -->
                 </td>
             </tr>
         {% endfor %}

@@ -105,6 +105,13 @@ class Pedido
      * @ORM\Column(name="NOTAS", type="text", nullable=true)
      */
     private $notas;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="NOTAS_CONTROL", type="text", nullable=true)
+     */
+    private $notasControl;
 
     /**
      * @var boolean
@@ -335,6 +342,15 @@ class Pedido
     public function getPedidoProducto()
     {
         return $this->pedidoProducto;
+    }
+    
+    public function getNumPedidoProducto()
+    {
+        $num = 0;
+        foreach ($this->pedidoProducto as $pedidoProducto) {
+            $num += $pedidoProducto->getCantidad();
+        }
+        return $num;
     }
 
     /**
@@ -1380,5 +1396,13 @@ class Pedido
             case "16": return $this->paso16; break;
             default: return null;
         }
+    }
+    
+    public function getNotasControl() {
+        return $this->notasControl;
+    }
+
+    public function setNotasControl($notasControl) {
+        $this->notasControl = $notasControl;
     }
 }

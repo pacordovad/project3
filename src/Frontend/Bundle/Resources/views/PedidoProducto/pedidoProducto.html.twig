@@ -27,13 +27,14 @@
                     <option value="{{ categoria.id }}">{{ categoria }}</option>
                     {% endfor %}
                 </select>
+                <input type="text" id="busqueda" placeholder="Nombre..." />
                 <br/><br/>
                 <ul id="Grid">
                 {% for entity in productos %}
-                    <li id="li-{{ entity.id }}" class="mix {{ entity.categoriaPK.id }} {% if productoSeleccionadoId != null and productoSeleccionadoId == entity.id %}seleccionado{% endif %}" data-nombre="{{ entity }}" data-id="{{ entity.id }}" data-categoria="{{ entity.categoriaPk }}">
+                    <li id="li-{{ entity.id }}" class="mix {{ entity.categoriaPK.id }} {% if productoSeleccionadoId != null and productoSeleccionadoId == entity.id %}seleccionado{% endif %}" data-nombre="{{ entity }}" data-id="{{ entity.id }}" data-categoriaid="{{ entity.categoriaPk.id }}" data-categoria="{{ entity.categoriaPk }}">
                         <a href="#" id="lia-{{ entity.id }}" data-figura="{{ entity.figuraPk.id }}">
-                            <span>{{ entity.nombreImagen }}</span>
                             <img src="{{ image('@FrontendBundle/Resources/public/uploads/productos/p'~entity.id~'.'~entity.imagenExtension).cropResize(100,100) }}" />
+                            <span>{{ entity.nombreImagen }}</span>
                         </a>
                         <script type="text/javascript">
                             $('#lia-{{ entity.id }}').on('click', function(e) {
@@ -105,6 +106,26 @@
             {% if productoSeleccionadoId != null and productoSeleccionadoId == entity.id %}
             productoCambio('{{ entity.id }}');
             {% endif %}
+               
+            function filter(){
+                var value = $("#busqueda").val();
+                value = value.toLowerCase();
+                var categoria = $("#selectProducto").val();
+                $(".mix").each(function(index) {
+                    var nombre = $(this).data("nombre");
+                    nombre = nombre.toLowerCase();
+                    var categoriaProducto = $(this).data("categoriaid");
+                    if(nombre.indexOf(value) !== -1 && (categoriaProducto == categoria || categoria === "all")){
+                        $(this).show();
+                    }else{
+                        $(this).hide();
+                    }
+                });
+            }
+            
+            $("#busqueda").keyup(function(e){
+                filter();
+            });
         </script>
     {% endfor %}
 {#

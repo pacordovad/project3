@@ -35,7 +35,35 @@ class PasoPedido
      */
     private $posicion;
 
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="POR_DEFECTO", type="boolean", nullable=true)
+     */
+    private $porDefecto;
+    
+    public function getPorDefecto() {
+        return $this->porDefecto;
+    }
 
+    public function setPorDefecto($porDefecto) {
+        $this->porDefecto = $porDefecto;
+    }
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="VISIBLE_WEB", type="boolean", nullable=true)
+     */
+    private $visibleWeb;
+    
+    public function getVisibleWeb() {
+        return $this->visibleWeb;
+    }
+
+    public function setVisibleWeb($visibleWeb) {
+        $this->visibleWeb = $visibleWeb;
+    }
 
     /**
      * Get id

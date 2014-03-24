@@ -71,7 +71,7 @@ class PedidoController extends Controller
     public function controlAction()
     {
         $em = $this->getDoctrine()->getManager();
-        $entities = $em->getRepository('FrontendBundle:Pedido')->findAll();
+        $entities = $em->getRepository('FrontendBundle:Pedido')->findBy(array(), array('fechaRegistro' => 'DESC'));
         $usuarios = $em->getRepository('FrontendBundle:Usuario')->findAll();
         $pasos = $em->getRepository('FrontendBundle:PasoPedido')->findBy(array(),array('posicion' => 'ASC'));
         $empresas = array();
@@ -112,6 +112,21 @@ class PedidoController extends Controller
         foreach ($productos as $producto) {
             $seEncontro = false;
             foreach ($productosSeleccionados as $seleccionado){
+                if($producto->getProductoPk()->getId() == $seleccionado->getProductoPk()->getId() && $producto->getTipoCalidadPk()->getId() == $seleccionado->getTipoCalidadPk()->getId() && $producto->getMedidaPk()->getId() == $seleccionado->getMedidaPk()->getId()){
+                    $seEncontro = true;
+                    $seleccionado->setCantidad($seleccionado->getCantidad() + $producto->getCantidad());
+                    break;
+                }                
+            }
+            if(!$seEncontro){
+                $productosSeleccionados[] = $producto;
+            }
+        }
+        
+        /*
+        foreach ($productos as $producto) {
+            $seEncontro = false;
+            foreach ($productosSeleccionados as $seleccionado){
                 if($seleccionado->getProductoPk()->getId() == $producto->getProductoPk()->getId()){
                     $seEncontro = true;
                     if(!$producto->getCortesia()){
@@ -133,6 +148,8 @@ class PedidoController extends Controller
                 }
             }
         }
+         *
+         */
         
         return $this->render('FrontendBundle:Pedido:esquema.html.twig', array(
             'entity'=>$pedido,
@@ -150,9 +167,33 @@ class PedidoController extends Controller
         $pedido = $em->getRepository('FrontendBundle:Pedido')->find($id);
         $productos = $pedido->getPedidoProducto();
         
+        $categorias = $em->getRepository('FrontendBundle:Categoria')->findAll();
+        $pasos = $em->getRepository('FrontendBundle:PasoPedido')->findBy(array(),array('posicion' => 'ASC'));
+        $calidades =  $em->getRepository('FrontendBundle:TipoCalidad')->findBy(array(),array('posicion' => 'ASC')); 
+        $medidas =  $em->getRepository('FrontendBundle:Medida')->findBy(array(),array('posicion' => 'ASC'));
+        $empresas = array();
+        $areas = array();
+        $coordinadores = array();
+        
+        $area = $pedido->getContactoPk()->getAreaPk();
+        $empresa = $area->getEmpresaPk();
+        $coordinador = $pedido->getCoordinadorUsuarioPk();
+
+        $empresas[$empresa->getId()] = $empresa;
+        $areas[$area->getId()] = $area;
+        $coordinadores[$coordinador->getId()] = $coordinador;
+        
         return $this->render('FrontendBundle:Pedido:productos.html.twig', array(
-            'pedido'=>$pedido,
+            'pedido' => $pedido,
             'entities' => $productos,
+            'productos' => $productos,
+            'pasos' => $pasos,
+            'empresas' => $empresas,
+            'areas' => $areas,
+            'coordinadores' => $coordinadores,
+            'categorias' => $categorias,
+            'calidades' => $calidades,
+            'medidas' => $medidas
         ));
     }
     
@@ -160,6 +201,7 @@ class PedidoController extends Controller
     {
         $usuario= $this->get('security.context')->getToken()->getUser();
         $em = $this->getDoctrine()->getManager();
+        
         
         if($usuario->getRoles()["0"] != "ROLE_ADMINISTRADOR"){
             $queryPedidosProductos = $em->createQuery("SELECT p 
@@ -301,6 +343,7 @@ class PedidoController extends Controller
         $entity->setDelegado1UsuarioPk($this->get('security.context')->getToken()->getUser());
         $entity->setDelegado2UsuarioPk($this->get('security.context')->getToken()->getUser());
         $entity->setDelegado3UsuarioPk($this->get('security.context')->getToken()->getUser());
+        $entity->setNotas("Responsabilidad: Las firmas certifican la aceptación y compromiso en representación de cada entidad comercial. Luego de la entrega del producto, RECUR no se responsabiliza del uso indebido, daño o pérdida. \n\nGarantía y duración: La garantía del producto es de 3 años, su durabilidad aprox.: exterior 10 años, interior 30 años.\n\nTiempo de entrega:  El tiempo de entrega es de 30 días laborables, a partir de su aprobación.\n\nValor agregado:   RECUR brinda como valor agregado, los servicios de análisis, transporte, instalación, mantenimiento, respaldos fotográficos... y es aplicable dependiendo el desarrollo específico de cada caso.");
         $form   = $this->createCreateForm($entity);
         
         $em = $this->getDoctrine()->getManager();
@@ -778,27 +821,17 @@ class PedidoController extends Controller
             foreach ($productos as $producto) {
                 $seEncontro = false;
                 foreach ($productosSeleccionados as $seleccionado){
-                    if($seleccionado->getProductoPk()->getId() == $producto->getProductoPk()->getId()){
+                    if($producto->getProductoPk()->getId() == $seleccionado->getProductoPk()->getId() && $producto->getTipoCalidadPk()->getId() == $seleccionado->getTipoCalidadPk()->getId() && $producto->getMedidaPk()->getId() == $seleccionado->getMedidaPk()->getId()){
                         $seEncontro = true;
-                        if(!$producto->getCortesia()){
-                            $seleccionado->setNumFacturados($seleccionado->getNumFacturados() + $producto->getCantidad());
-                        }else{
-                            $seleccionado->setNumCortesias($seleccionado->getNumCortesias() + $producto->getCantidad());
-                        }
+                        $seleccionado->setCantidad($seleccionado->getCantidad() + $producto->getCantidad());
                         break;
                     }                
                 }
                 if(!$seEncontro){
                     $productosSeleccionados[] = $producto;
-                    if(!$producto->getCortesia()){
-                        $producto->setNumFacturados($producto->getCantidad());
-                        $producto->setNumCortesias(0);
-                    }else{
-                        $producto->setNumCortesias($producto->getCantidad());
-                        $producto->setNumFacturados(0);
-                    }
                 }
             }
+            
             return $this->render('FrontendBundle:Pedido:esquemasimple.html.twig', array(
                 'entity'=>$entity,
                 'productos'=>$productosSeleccionados
@@ -900,5 +933,63 @@ class PedidoController extends Controller
         );
         
         return $this->redirect($this->generateUrl('pedido_control'));
+    }
+    
+    public function getPedidoNotasControlAction($id){
+        $response = new JsonResponse();
+        try {
+            $em = $this->getDoctrine()->getManager();
+            $pedido = $em->getRepository('FrontendBundle:Pedido')->find($id);
+            
+            $response->setData(array('ok' => true, "data" => $pedido->getNotasControl()));
+        } catch (Exception $e) {
+            $response->setData(array('ok' => false));
+        }
+        return $response;
+    }
+    
+    public function setPedidoNotasControlAction($id){
+        $response = new JsonResponse();
+        try {
+            $em = $this->getDoctrine()->getManager();
+            $notas = $this->getRequest()->request->get('notas');
+            $pedido = $em->getRepository('FrontendBundle:Pedido')->find($id);
+            $pedido->setNotasControl($notas);
+            $em->flush();
+            
+            $response->setData(array('ok' => true));
+        } catch (Exception $e) {
+            $response->setData(array('ok' => false));
+        }
+        return $response;
+    }
+    
+    public function getPPNotasControlAction($id){
+        $response = new JsonResponse();
+        try {
+            $em = $this->getDoctrine()->getManager();
+            $pedidoProducto = $em->getRepository('FrontendBundle:PedidoProducto')->find($id);
+            
+            $response->setData(array('ok' => true, "data" => $pedidoProducto->getNotasControlPp()));
+        } catch (Exception $e) {
+            $response->setData(array('ok' => false));
+        }
+        return $response;
+    }
+    
+    public function setPPNotasControlAction($id){
+        $response = new JsonResponse();
+        try {
+            $em = $this->getDoctrine()->getManager();
+            $notas = $this->getRequest()->request->get('notas');
+            $pedidoProducto = $em->getRepository('FrontendBundle:PedidoProducto')->find($id);
+            $pedidoProducto->setNotasControlPp($notas);
+            $em->flush();
+            
+            $response->setData(array('ok' => true));
+        } catch (Exception $e) {
+            $response->setData(array('ok' => false));
+        }
+        return $response;
     }
 }

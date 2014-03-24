@@ -348,8 +348,14 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-2">{{ form_label(form.notas) }}</div>
-        <div class="col-md-4">{{ form_errors(form.notas) }}{{ form_widget(form.notas) }}</div>
+        <div class="col-md-2">
+            <br/>
+            {{ form_label(form.notas) }}
+        </div>
+        <div class="col-md-10">
+            <br/>
+            {{ form_errors(form.notas) }}{{ form_widget(form.notas) }}
+        </div>
     </div>
     <div style="display: none">
         {{ form_rest(form) }}
@@ -360,10 +366,14 @@
     {% if entity.id is not null %}
     <input type="button" value="Imprimir pedido" id="imprimir" class="btn btn-success" {% if not (is_granted('ROLE_ADMINISTRADOR') or is_granted('ROLE_COORDINADOR')) %}style="display: none"{% endif %}/>
     <div id="menu-imprimir" data-content='<form action="{{ url("pedido_imprimir",{"id":entity.id}) }}" method="POST" id="imprime-form">"Escoja la opción a imprimir:<br/><br/>
-        <input id="imprimiropcion1" type="radio" name="opcionimprimir" value="1" checked> <label for="imprimiropcion1">Pedido</label><br/>
-        <input id="imprimiropcion2" type="radio" name="opcionimprimir" value="2"> <label for="imprimiropcion2">Listado de Productos</label><br/>
-        <input id="imprimiropcion3" type="radio" name="opcionimprimir" value="3"> <label for="imprimiropcion3">Esquema de Producci&oacute;n</label><br/>
-        <input id="imprimiropcion4" type="radio" name="opcionimprimir" value="4"> <label for="imprimiropcion4">Recibo de Pagos</label></form>' style="display: none">
+        <ol>
+        <li><input id="imprimiropcion1" type="radio" name="opcionimprimir" value="1" checked> <label for="imprimiropcion1">Propuesta de mejoramiento</label></li>
+        <li><input id="imprimiropcion2" type="radio" name="opcionimprimir" value="2"> <label for="imprimiropcion2">Listado de productos</label></li>
+        <li><input id="imprimiropcion5" type="radio" name="opcionimprimir" value="5"> <label for="imprimiropcion5">Certificado de entrega</label></li>
+        <li><input id="imprimiropcion6" type="radio" name="opcionimprimir" value="6"> <label for="imprimiropcion6">Certificado de instalación</label></li>
+        <li><input id="imprimiropcion4" type="radio" name="opcionimprimir" value="4"> <label for="imprimiropcion4">Recibos de pago</label></li>
+        <li><input id="imprimiropcion3" type="radio" name="opcionimprimir" value="3"> <label for="imprimiropcion3">Esquema de Producci&oacute;n</label></li>
+        </ol></form>' style="display: none">
     </div>
     {% endif %}
     {{ form_end(form) }}
@@ -470,7 +480,14 @@
                     $("#submit-boton-modal").html("Imprimir");
                     $("#submit-boton-modal").unbind();
                     $("#submit-boton-modal").click(function(){
-                        $("#imprime-form").submit();
+                        var opt1 = $("#imprimiropcion5").is(":checked");
+                        var opt2 = $("#imprimiropcion6").is(":checked");
+                        if(opt1 || opt2){
+                            //$('#modal-base').modal("hide");
+                            muestraMenuReportePedidos(e,'{{ url("menupedido") }}');
+                        }else{
+                            $("#imprime-form").submit();
+                        }
                     });
                 });
             });

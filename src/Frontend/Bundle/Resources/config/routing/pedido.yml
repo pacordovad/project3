@@ -105,3 +105,23 @@ pedido_produccion:
 pedido_duplicar:
     pattern:  /{id}/duplicar
     defaults: { _controller: "FrontendBundle:Pedido:duplica" }
+    
+pedido_get_notas_control:
+    pattern:  /{id}/getnotascontrol
+    defaults: { _controller: "FrontendBundle:Pedido:getPedidoNotasControl" }
+    requirements: { _method: post }
+    
+pedido_set_notas_control:
+    pattern:  /{id}/setnotascontrol
+    defaults: { _controller: "FrontendBundle:Pedido:setPedidoNotasControl" }
+    requirements: { _method: post }
+    
+pedido_get_notas_control_pp:
+    pattern:  /{id}/getnotascontrolpp
+    defaults: { _controller: "FrontendBundle:Pedido:getPPNotasControl" }
+    requirements: { _method: post }
+    
+pedido_set_notas_control_pp:
+    pattern:  /{id}/setnotascontrolpp
+    defaults: { _controller: "FrontendBundle:Pedido:setPPNotasControl" }
+    requirements: { _method: post }

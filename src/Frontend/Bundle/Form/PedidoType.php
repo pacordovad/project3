@@ -34,7 +34,7 @@ class PedidoType extends AbstractType
             ->add('retencionIva','text',array('label'=>"Retención IVA (%)",'required'=>false))
             ->add('etapa','text',array('label'=>"Etapa",'required'=>true,'attr'=>array("readonly"=>"readonly","style"=>"width: 50px")))
             ->add('banco')
-            ->add('notas','textarea',array('label'=>'Notas','required'=>false,'attr'=>array('rows'=>"6",'cols'=>"50")))
+            ->add('notas','textarea',array('label'=>'Notas','required'=>false,'attr'=>array('rows'=>"10",'cols'=>"148", )))
             /*->add('paso1')
             ->add('paso2')
             ->add('paso3')

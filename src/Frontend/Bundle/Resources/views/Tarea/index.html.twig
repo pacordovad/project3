@@ -2,7 +2,7 @@
 
     <h3>Tareas</h3>
     
-    <table class="records_list" id="datatable_crud">
+    <table class="records_list t_tareas" id="datatable_crud">
         <thead>
             <tr>
                 <th>Id</th>
@@ -26,7 +26,7 @@
                 <td><a href="{{ path('tarea_edit', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
                 <td>{% if entity.fechaRegistro %}{{ entity.fechaRegistro|date('Y-m-d H:i:s') }}{% endif %}</td>
                 <td>{{ entity.usuarioPk }}</td>
-                <td>{{ entity.areaPk }}</td>
+                <td>{{ entity.areaPk.empresaArea }}</td>
                 <td>{{ entity.tema }}</td>
                 <td>{{ entity.valorAproximado }}</td>
                 <td>{{ entity.resolucion1 }}</td>

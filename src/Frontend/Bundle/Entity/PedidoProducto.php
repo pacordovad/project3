@@ -62,6 +62,13 @@ class PedidoProducto
      * @ORM\Column(name="PRECIO_VENTA", type="decimal", nullable=false)
      */
     private $precioVenta;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="NOTAS_CONTROL_PP", type="text", nullable=true)
+     */
+    private $notasControlPp;
 
     /**
      * @var \TipoCalidad
@@ -921,5 +928,13 @@ class PedidoProducto
             case "16": return $this->paso16; break;
             default: return null;
         }
+    }
+    
+    public function getNotasControlPp() {
+        return $this->notasControlPp;
+    }
+
+    public function setNotasControlPp($notasControlPp) {
+        $this->notasControlPp = $notasControlPp;
     }
 }

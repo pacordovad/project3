@@ -58,13 +58,18 @@
             </tr>
             <tr>
         {% endif %}
-        <td style="width: 20%">
-            <b>{{ pedidoProducto.nombreProducto }}</b><br/>
-            Facturados:  {{ pedidoProducto.numFacturados }}<br/>
-            Cortesia: {{ pedidoProducto.numCortesias }}<br/>
+        <td style="width: 20%; vertical-align: top">
+            <h4>{{ pedidoProducto.nombreProducto }}</h4>
             {% if file_exists(web_path~'/uploads/productos/p'~pedidoProducto.productoPk.id~'.'~pedidoProducto.productoPk.imagenExtension) %}
-                <img src="{{ image('@FrontendBundle/Resources/public/uploads/productos/p'~pedidoProducto.productoPk.id~'.'~pedidoProducto.productoPk.imagenExtension).cropResize(100,100) }}" /></td>
+                <img src="{{ image('@FrontendBundle/Resources/public/uploads/productos/p'~pedidoProducto.productoPk.id~'.'~pedidoProducto.productoPk.imagenExtension).cropResize(100,100) }}" />
             {% endif %}
+            <br/>
+            <label>Producto:</label> {{ pedidoProducto.productoPk }}<br/>
+            <label>Categor&iacute;a:</label> {{ pedidoProducto.productoPk.categoriaPk }}<br/>
+            <label>Cantidad:</label>  {{ pedidoProducto.cantidad }}<br/>
+            <label>Calidad:</label>  {{ pedidoProducto.tipoCalidadPk }}<br/>
+            <label>Medidas:</label>  {{ pedidoProducto.medidaPk }}<br/>
+            <br/>
         </td>
         {% set i = i + 1 %}
     {% endfor%}

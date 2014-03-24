@@ -8,6 +8,8 @@
                 <th>Id</th>
                 <th>Posici&oacute;n</th>
                 <th>Nombre paso</th>
+                <th>Paso por defecto</th>
+                <th>Visible desde la web</th>
                 <th></th>
             </tr>
         </thead>
@@ -17,6 +19,20 @@
                 <td><a href="{{ path('pasopedido_edit', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
                 <td>{{ entity.posicion }}</td>
                 <td>{{ entity.nombrePaso }}</td>
+                <td>
+                    {% if entity.porDefecto == 1 %}
+                    Si
+                    {% else %}
+                    No
+                    {% endif %}
+                </td>
+                <td>
+                    {% if entity.visibleWeb == 1 %}
+                    Si
+                    {% else %}
+                    No
+                    {% endif %}
+                </td>
                 <td>                        <a href="{{ path('pasopedido_edit', { 'id': entity.id }) }}" class="btn btn-primary">Editar</a>
                                     <a href="{{ path('pasopedido_delete', { 'id': entity.id }) }}" class="btn btn-danger" onclick="return confirmar()">Eliminar</a>
 

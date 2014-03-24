@@ -74,7 +74,7 @@
         </tr>
         {% endif %}
         <tr>
-            <td style="width: 60%"></td>
+            <td style="width: 60%"><label>N&uacute;mero de productos</label> {{ entity.getNumPedidoProducto() }}</td>
             <td><label>IVA (12%)</label></td>
             <td>{{ entity.iva }}</td>
         </tr>
@@ -101,6 +101,27 @@
             <td style="border-top: 1px solid;font-weight: bold; text-align: center; width: 40%">Firma Autorizada</td>
             <td style="width: 20%"></td>
             <td style="border-top: 1px solid;font-weight: bold; text-align: center; width: 40%">Cliente</td>
+            <td style="width: 10%"></td>
+        </tr>
+        <tr>
+            <td style="width: 10%"></td>
+            <td style="width: 40%"></td>
+            <td style="width: 20%"></td>
+            <td style="border-bottom: 1px solid;font-weight: bold; width: 40%">Nombre:</td>
+            <td style="width: 10%"></td>
+        </tr>
+        <tr>
+            <td style="width: 10%"></td>
+            <td style="width: 40%"></td>
+            <td style="width: 20%"></td>
+            <td style="border-bottom: 1px solid;font-weight: bold; width: 40%">Fecha:</td>
+            <td style="width: 10%"></td>
+        </tr>
+        <tr>
+            <td style="width: 10%"></td>
+            <td style="width: 40%"></td>
+            <td style="width: 20%"></td>
+            <td style="border-bottom: 1px solid;font-weight: bold; width: 40%">Hora:</td>
             <td style="width: 10%"></td>
         </tr>
     </table>

@@ -4,8 +4,50 @@
  */
 
 $(document).ready(function() {
-    
+    $(".enviaNotas").click(function (e){
+        e.preventDefault();
+        var id = getEventTargetId(e);
+        var element = $("#"+id);
+        var url = element.data("url");
+        var idNotas = element.data("idnotas");
+        var elementNotas = $("#"+idNotas);
+        var notas = elementNotas.val();
+        var modalId = element.data("modalid");
+        element.prop("disabled","disabled");
+        
+        $.ajax({
+            type: "POST",
+            url: url,
+            cache: false,
+            data: { notas: notas }
+        }).done(function (msg) {
+            if(msg.ok === true){
+                elementNotas.val(notas);
+                $('#'+modalId).modal('hide');
+                element.prop("disabled",false);
+            }
+        }).fail(function (msg) {
+            alert("Hubo un error al editar las notas");
+        });
+    });
 });
+
+function confirmar() {
+    if (confirm("Está seguro que desea continuar?")) {
+        return true;
+    } else {
+        return;
+    }
+}
+
+function getEventTargetId(event) {
+    var eventTargetId = event.target.id;
+    if (eventTargetId == null || eventTargetId == undefined || eventTargetId == "" || eventTargetId.length <= 0) {
+        target = (event.currentTarget) ? event.currentTarget : event.srcElement;
+        eventTargetId = target.id;
+    }
+    return eventTargetId;
+}
 
 function confirmar(){
     return confirm("Está seguro que desea continuar?");
@@ -784,6 +826,25 @@ function filtraAreas(){
  * en la ventana de reportes por pedidos.
  */
 function filtraAreasReporte(){
+    valorActual = $('#empresa-reporte').find(":selected").data("empresaid");
+    $('#area-reporte').empty();
+    
+    $("#area-reporte-hidden option").each(function(){
+        empresaAreaOpcion = $(this).data("empresa");
+        if(valorActual == "" || valorActual == null || empresaAreaOpcion == valorActual || empresaAreaOpcion == "-1"){
+            areaValue = $(this).val();
+            areaHtml = $(this).html();
+            
+            $opcion = '<option data-empresa="'+empresaAreaOpcion+'" value="'+areaValue+'">'+areaHtml+'</option>'
+            $('#area-reporte').append($opcion);
+        }
+    });
+}
+
+/* 
+ * Funcion que envia las notas de un pedido o del producto de un pedido.
+ */
+function enviaNotas(){
     valorActual = $('#empresa-reporte').find(":selected").data("empresaid");
     $('#area-reporte').empty();
     
