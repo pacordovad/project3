@@ -21,9 +21,9 @@
 #    defaults: { _controller: "FrontendBundle:PedidoProducto:delete" }
     
 pedidoproductoxml:
-    pattern:  /{productoSeleccionadoId}/{nombreProducto}/{cantidad}/{dimensionId}/{dimensionX}/{dimensionY}/{cortesia}/{tipoCalidadId}/{pedidoPk}/seleccion
-    defaults: { _controller: "FrontendBundle:PedidoProducto:pedidoProducto", productoSeleccionadoId:'-', nombreProducto:'-', cantidad:'-', dimensionId:'-', dimensionX:'-', dimensionY:'-', cortesia:'-', tipoCalidadId:'-', pedidoPk:'-' }
-    
+    pattern:  /{productoSeleccionadoId}/{nombreProducto}/{cantidad}/{dimensionId}/{dimensionX}/{dimensionY}/{cortesia}/{tipoCalidadId}/{posicion}/{pedidoPk}/seleccion
+    defaults: { _controller: "FrontendBundle:PedidoProducto:pedidoProducto", productoSeleccionadoId:'-', nombreProducto:'-', cantidad:'-', dimensionId:'-', dimensionX:'-', dimensionY:'-', cortesia:'-', tipoCalidadId:'-', pedidoPk:'-', posicion:'-' }
+
 pedidoproductoeditlink:
-    pattern:  /{productoSeleccionadoId}/{nombreProducto}/{cantidad}/{dimensionId}/{dimensionX}/{dimensionY}/{cortesia}/{tipoCalidadId}/{pedidoPk}/editlink
-    defaults: { _controller: "FrontendBundle:PedidoProducto:getEditLink", productoSeleccionadoId:'-', nombreProducto:'-', cantidad:'-', dimensionId:'-', dimensionX:'-', dimensionY:'-', cortesia:'-', tipoCalidadId:'-', pedidoPk:'-' }
+    pattern:  /{productoSeleccionadoId}/{nombreProducto}/{cantidad}/{dimensionId}/{dimensionX}/{dimensionY}/{cortesia}/{tipoCalidadId}/{posicion}/{pedidoPk}/editlink
+    defaults: { _controller: "FrontendBundle:PedidoProducto:getEditLink", productoSeleccionadoId:'-', nombreProducto:'-', cantidad:'-', dimensionId:'-', dimensionX:'-', dimensionY:'-', cortesia:'-', tipoCalidadId:'-', pedidoPk:'-', posicion:'-' }

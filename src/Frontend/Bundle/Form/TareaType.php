@@ -5,6 +5,7 @@ namespace Frontend\Bundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Doctrine\ORM\EntityRepository;
 
 class TareaType extends AbstractType
 {
@@ -24,7 +25,11 @@ class TareaType extends AbstractType
         }
         
         $builder
-            ->add('areaPk',"entity",array("class"=>"FrontendBundle:Area","label"=>"Area Empresa","property"=>"empresaArea",'empty_value' => false, "required"=>true))
+            ->add('areaPk',"entity",array("class"=>"FrontendBundle:Area","label"=>"Area Empresa","property"=>"empresaArea",'empty_value' => false, "required"=>true
+                ,'query_builder' => function(EntityRepository $er) {
+                    return $er->createQueryBuilder('u')
+                        ->orderBy('u.posicion', 'ASC');
+                }))
             ->add('tema',"textarea",array("required"=>false))
             ->add('valorAproximado',"number",array("required"=>false))
             ->add('resolucion1',"textarea",array("required"=>false))

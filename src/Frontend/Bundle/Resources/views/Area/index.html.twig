@@ -2,13 +2,15 @@
 
     <h3>Areas</h3>
     
-    <table class="records_list" id="datatable_crud">
+    <table class="records_list" id="datatable_crud_posicion">
         <thead>
             <tr>
                 <th>Id</th>
+                <th>Posici&oacute;n</th>
                 <th>C&oacute;digo</th>
                 <th>Nombre &aacute;rea</th>
                 <th>Empresa</th>
+                
                 <th></th>
             </tr>
         </thead>
@@ -16,9 +18,11 @@
         {% for entity in entities %}
             <tr>
                 <td><a href="{{ path('area_edit', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                <td>{{ entity.posicion }}</td>
                 <td>{{ entity.codigo }}</td>
                 <td>{{ entity.nombreArea }}</td>
                 <td>{{ entity.empresaPk }}</td>
+                
                 <td>                        <a href="{{ path('area_edit', { 'id': entity.id }) }}" class="btn btn-primary">Editar</a>
                                     <a href="{{ path('area_delete', { 'id': entity.id }) }}" class="btn btn-danger" onclick="return confirmar()">Eliminar</a>
 

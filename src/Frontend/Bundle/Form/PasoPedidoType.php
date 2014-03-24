@@ -16,7 +16,7 @@ class PasoPedidoType extends AbstractType
     {
         $builder
             ->add('nombrePaso')
-            ->add('posicion', "choice", array("choices"=>array_combine(range(1,30),range(1,30)),"label"=>"Posición"))
+            ->add('posicion', "choice", array("choices"=>array_combine(range(1,200),range(1,200)),"label"=>"Posición"))
             ->add('porDefecto','checkbox', array('label'=> 'Es el paso por defecto?','required'  => false,))
             ->add('visibleWeb','checkbox', array('label'=> 'Es visible desde la web?','required'  => false,))
         ;

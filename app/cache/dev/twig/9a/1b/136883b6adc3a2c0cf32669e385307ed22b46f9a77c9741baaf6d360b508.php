@@ -283,27 +283,62 @@ class __TwigTemplate_9a1b136883b6adc3a2c0cf32669e385307ed22b46f9a77c9741baaf6d36
         echo "\"/>
                         </td>
                     </tr>
+                    <tr>
+                        <td>";
+        // line 101
+        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["form"]) ? $context["form"] : $this->getContext($context, "form")), "posicion"), 'label');
+        echo "</td>
+                        <td>
+                            <select id=\"posicion\" name=\"posicion\">
+                                ";
+        // line 104
+        $context['_parent'] = (array) $context;
+        $context['_seq'] = twig_ensure_traversable((isset($context["posiciones"]) ? $context["posiciones"] : $this->getContext($context, "posiciones")));
+        foreach ($context['_seq'] as $context["_key"] => $context["posicionLista"]) {
+            // line 105
+            echo "                                <option data-nombre=\"";
+            echo twig_escape_filter($this->env, (isset($context["posicionLista"]) ? $context["posicionLista"] : $this->getContext($context, "posicionLista")), "html", null, true);
+            echo "\" data-valor=\"";
+            echo twig_escape_filter($this->env, (isset($context["posicionLista"]) ? $context["posicionLista"] : $this->getContext($context, "posicionLista")), "html", null, true);
+            echo "\" value=\"";
+            echo twig_escape_filter($this->env, (isset($context["posicionLista"]) ? $context["posicionLista"] : $this->getContext($context, "posicionLista")), "html", null, true);
+            echo "\" ";
+            if ((((isset($context["posicion"]) ? $context["posicion"] : $this->getContext($context, "posicion")) != null) && ((isset($context["posicion"]) ? $context["posicion"] : $this->getContext($context, "posicion")) == (isset($context["posicionLista"]) ? $context["posicionLista"] : $this->getContext($context, "posicionLista"))))) {
+                echo "selected";
+            }
+            echo ">";
+            echo twig_escape_filter($this->env, (isset($context["posicionLista"]) ? $context["posicionLista"] : $this->getContext($context, "posicionLista")), "html", null, true);
+            echo "</option>
+                                ";
+        }
+        $_parent = $context['_parent'];
+        unset($context['_seq'], $context['_iterated'], $context['_key'], $context['posicionLista'], $context['_parent'], $context['loop']);
+        $context = array_intersect_key($context, $_parent) + $_parent;
+        // line 107
+        echo "                            </select>
+                        </td>
+                    </tr>
                 </table>
             </div>
         </div>
     </div>
     ";
-        // line 104
+        // line 114
         $context['_parent'] = (array) $context;
         $context['_seq'] = twig_ensure_traversable((isset($context["productos"]) ? $context["productos"] : $this->getContext($context, "productos")));
         foreach ($context['_seq'] as $context["_key"] => $context["entity"]) {
-            // line 105
+            // line 115
             echo "        <script type=\"text/javascript\">
             ";
-            // line 106
+            // line 116
             if ((((isset($context["productoSeleccionadoId"]) ? $context["productoSeleccionadoId"] : $this->getContext($context, "productoSeleccionadoId")) != null) && ((isset($context["productoSeleccionadoId"]) ? $context["productoSeleccionadoId"] : $this->getContext($context, "productoSeleccionadoId")) == $this->getAttribute((isset($context["entity"]) ? $context["entity"] : $this->getContext($context, "entity")), "id")))) {
-                // line 107
+                // line 117
                 echo "            productoCambio('";
                 echo twig_escape_filter($this->env, $this->getAttribute((isset($context["entity"]) ? $context["entity"] : $this->getContext($context, "entity")), "id"), "html", null, true);
                 echo "');
             ";
             }
-            // line 109
+            // line 119
             echo "               
             function filter(){
                 var value = \$(\"#busqueda\").val();
@@ -344,6 +379,6 @@ class __TwigTemplate_9a1b136883b6adc3a2c0cf32669e385307ed22b46f9a77c9741baaf6d36
 
     public function getDebugInfo()
     {
-        return array (  307 => 109,  301 => 107,  299 => 106,  296 => 105,  292 => 104,  280 => 97,  274 => 96,  271 => 95,  252 => 93,  248 => 92,  241 => 88,  229 => 83,  221 => 82,  211 => 78,  192 => 76,  188 => 75,  177 => 70,  156 => 68,  152 => 67,  145 => 63,  137 => 60,  133 => 59,  125 => 56,  121 => 55,  109 => 48,  106 => 47,  95 => 42,  90 => 40,  84 => 37,  80 => 36,  74 => 35,  55 => 34,  51 => 33,  45 => 29,  34 => 27,  30 => 26,  19 => 19,);
+        return array (  342 => 119,  336 => 117,  334 => 116,  331 => 115,  327 => 114,  318 => 107,  299 => 105,  295 => 104,  289 => 101,  280 => 97,  274 => 96,  271 => 95,  252 => 93,  248 => 92,  241 => 88,  229 => 83,  221 => 82,  211 => 78,  192 => 76,  188 => 75,  177 => 70,  156 => 68,  152 => 67,  145 => 63,  137 => 60,  133 => 59,  125 => 56,  121 => 55,  109 => 48,  106 => 47,  95 => 42,  90 => 40,  84 => 37,  80 => 36,  74 => 35,  55 => 34,  51 => 33,  45 => 29,  34 => 27,  30 => 26,  19 => 19,);
     }
 }

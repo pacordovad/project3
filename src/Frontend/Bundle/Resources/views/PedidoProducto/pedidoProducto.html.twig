@@ -97,6 +97,16 @@
                             <input type="hidden" id="cortesia" value="{% if cortesia != null %}{{ cortesia }}{% endif %}"/>
                         </td>
                     </tr>
+                    <tr>
+                        <td>{{ form_label(form.posicion) }}</td>
+                        <td>
+                            <select id="posicion" name="posicion">
+                                {% for posicionLista in posiciones %}
+                                <option data-nombre="{{ posicionLista }}" data-valor="{{ posicionLista }}" value="{{ posicionLista }}" {% if posicion != null and posicion == posicionLista %}selected{% endif %}>{{ posicionLista }}</option>
+                                {% endfor %}
+                            </select>
+                        </td>
+                    </tr>
                 </table>
             </div>
         </div>

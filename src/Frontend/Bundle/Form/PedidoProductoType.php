@@ -34,6 +34,7 @@ class PedidoProductoType extends AbstractType
                     return $er->createQueryBuilder('u')
                         ->orderBy('u.posicion', 'ASC');
                 }))
+            ->add('posicion', "choice", array("choices"=>array_combine(range(1,200),range(1,200)),"label"=>"Posición"))
         ;
     }
     

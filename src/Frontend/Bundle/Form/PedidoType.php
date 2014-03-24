@@ -5,6 +5,7 @@ namespace Frontend\Bundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Doctrine\ORM\EntityRepository;
 
 class PedidoType extends AbstractType
 {
@@ -18,7 +19,11 @@ class PedidoType extends AbstractType
             ->add('fechaRegistro','datetime',array('label'=>'Fecha de registro','attr'=>array('style'=>'display:none;')))
             ->add('fechaActualizacion','datetime',array('label'=>'Fecha de última actualización','attr'=>array('style'=>'display:none;')))
             ->add('ultimaActualizacionUsuarioPk','entity',array('class'=>'FrontendBundle:Usuario','label'=>'Usuario última actualización','attr'=>array('style'=>'display:none;')))
-            ->add('contactoPk','entity',array('class'=>'FrontendBundle:Contacto','property'=>'areaContacto','label'=>'Área'))
+            ->add('contactoPk','entity',array('class'=>'FrontendBundle:Contacto','property'=>'areaContacto','label'=>'Área'
+                ,'query_builder' => function(EntityRepository $er) {
+                    return $er->createQueryBuilder('u')
+                        ->orderBy('u.posicion', 'ASC');
+                }))
             ->add('pedidoProducto','collection', array('type' => new PedidoProductoType(),'allow_add'=> true,'allow_delete'=>true,'by_reference' => false))
                 
             ->add('conceptoFactura','textarea',array('label'=>'Concepto para factura','required'=>true,'attr'=>array('rows'=>"6",'cols'=>"50")))

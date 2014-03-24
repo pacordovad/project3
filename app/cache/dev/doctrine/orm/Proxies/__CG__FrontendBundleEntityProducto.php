@@ -159,10 +159,22 @@ class Producto extends \Frontend\Bundle\Entity\Producto implements \Doctrine\ORM
         return parent::__toString();
     }
 
+    public function getPosicion()
+    {
+        $this->__load();
+        return parent::getPosicion();
+    }
+
+    public function setPosicion($posicion)
+    {
+        $this->__load();
+        return parent::setPosicion($posicion);
+    }
+
 
     public function __sleep()
     {
-        return array('__isInitialized__', 'id', 'nombreImagen', 'imagenExtension', 'fechaModificacion', 'categoriaPk', 'figuraPk');
+        return array('__isInitialized__', 'id', 'nombreImagen', 'imagenExtension', 'fechaModificacion', 'posicion', 'categoriaPk', 'figuraPk');
     }
 
     public function __clone()

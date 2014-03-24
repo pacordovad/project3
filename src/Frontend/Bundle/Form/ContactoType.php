@@ -5,6 +5,7 @@ namespace Frontend\Bundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Doctrine\ORM\EntityRepository;
 
 class ContactoType extends AbstractType
 {
@@ -15,11 +16,23 @@ class ContactoType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('areaPk','entity',array('class'=>'FrontendBundle:Area','label'=>"Área",'property'=>'empresaArea'))
+            ->add('areaPk','entity',array('class'=>'FrontendBundle:Area','label'=>"Área",'property'=>'empresaArea'
+                ,'query_builder' => function(EntityRepository $er) {
+                    return $er->createQueryBuilder('u')
+                        ->orderBy('u.posicion', 'ASC');
+                }))
             ->add('nombresContacto','text',array('label'=>'Nombres'))
             ->add('apellidosContacto','text',array('label'=>'Apellidos'))
-            ->add('cargoPk','entity',array('class'=>'FrontendBundle:Cargo','label'=>"Cargo"))
-            ->add('ciudadPk','entity',array('class'=>'FrontendBundle:Ciudad','label'=>"Ciudad",'property'=>'ciudadPais'))
+            ->add('cargoPk','entity',array('class'=>'FrontendBundle:Cargo','label'=>"Cargo"
+                ,'query_builder' => function(EntityRepository $er) {
+                    return $er->createQueryBuilder('u')
+                        ->orderBy('u.posicion', 'ASC');
+                }))
+            ->add('ciudadPk','entity',array('class'=>'FrontendBundle:Ciudad','label'=>"Ciudad",'property'=>'ciudadPais'
+                ,'query_builder' => function(EntityRepository $er) {
+                    return $er->createQueryBuilder('u')
+                        ->orderBy('u.posicion', 'ASC');
+                }))
             ->add('telefono','text',array('label'=>'Teléfono convencional','required'=>false))
             ->add('extension','text',array('label'=>'Extensión','required'=>false))
             ->add('celular1','text',array('label'=>'Cel. Movistar','required'=>false))

@@ -345,14 +345,14 @@
                 dateFormat: "yy-mm-dd 00:00:00",
                 yearRange: "2012:2050"
             });
-            $('#empresa').change( function() { window.dataTable.fnDraw(); filtraAreas(); } );
-            $('#area').change( function() { window.dataTable.fnDraw(); } );
-            $('#paso').change( function() { window.dataTable.fnDraw(); } );
-            $('#coordinador').change( function() { window.dataTable.fnDraw(); } );
-            $('#codigo').keyup( function() { window.dataTable.fnDraw(); } );
-            $('#fechadesde').on( "keyup change", function() { window.dataTable.fnDraw(); } );
-            $('#fechahasta').on( "keyup change", function() { window.dataTable.fnDraw(); } );
-            $('#factura').keyup( function() { window.dataTable.fnDraw(); } );
+            $('#empresa').change( function() { window.dataTable3.fnDraw(); filtraAreas(); } );
+            $('#area').change( function() { window.dataTable3.fnDraw(); } );
+            $('#paso').change( function() { window.dataTable3.fnDraw(); } );
+            $('#coordinador').change( function() { window.dataTable3.fnDraw(); } );
+            $('#codigo').keyup( function() { window.dataTable3.fnDraw(); } );
+            $('#fechadesde').on( "keyup change", function() { window.dataTable3.fnDraw(); } );
+            $('#fechahasta').on( "keyup change", function() { window.dataTable3.fnDraw(); } );
+            $('#factura').keyup( function() { window.dataTable3.fnDraw(); } );
         } );
     </script>
 {% endblock %}

@@ -5,6 +5,7 @@ namespace Frontend\Bundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Doctrine\ORM\EntityRepository;
 
 class EmpresaType extends AbstractType
 {
@@ -20,6 +21,7 @@ class EmpresaType extends AbstractType
             ->add('direccion')
             ->add('referencia')
             ->add('telefono')
+            ->add('posicion', "choice", array("choices"=>array_combine(range(1,200),range(1,200)),"label"=>"Posición"))
         ;
     }
     

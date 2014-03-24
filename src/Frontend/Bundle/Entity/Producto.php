@@ -297,5 +297,18 @@ class Producto
         return $this->nombreImagen;
     }
     
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="POSICION", type="integer", nullable=false)
+     */
+    private $posicion;
     
+    public function getPosicion() {
+        return $this->posicion;
+    }
+
+    public function setPosicion($posicion) {
+        $this->posicion = $posicion;
+    }
 }

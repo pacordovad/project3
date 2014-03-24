@@ -2,12 +2,14 @@
 
     <h3>Categorias</h3>
     
-    <table class="records_list" id="datatable_crud">
+    <table class="records_list" id="datatable_crud_posicion">
         <thead>
             <tr>
                 <th>Id</th>
+                <th>Posici&oacute;n</th>
                 <th>Nombre categor&iacute;a</th>
                 <th>Descripcion</th>
+                
                 <th></th>
             </tr>
         </thead>
@@ -15,8 +17,10 @@
         {% for entity in entities %}
             <tr>
                 <td><a href="{{ path('categoria_edit', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                <td>{{ entity.posicion }}</td>
                 <td>{{ entity.nombreCategoria }}</td>
                 <td>{{ entity.descripcion }}</td>
+                
                 <td>                        <a href="{{ path('categoria_edit', { 'id': entity.id }) }}" class="btn btn-primary">Editar</a>
                                     <a href="{{ path('categoria_delete', { 'id': entity.id }) }}" class="btn btn-danger" onclick="return confirmar()">Eliminar</a>
 

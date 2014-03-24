@@ -28,7 +28,22 @@ class Pais
      */
     private $nombrePais;
 
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="POSICION", type="integer", nullable=false)
+     */
+    private $posicion;
+    
+    public function getPosicion() {
+        return $this->posicion;
+    }
 
+    public function setPosicion($posicion) {
+        $this->posicion = $posicion;
+    }
+
+    
 
     /**
      * Get id

@@ -2,11 +2,13 @@
 
     <h3>Cargos</h3>
     
-    <table class="records_list" id="datatable_crud">
+    <table class="records_list" id="datatable_crud_posicion">
         <thead>
             <tr>
                 <th>Id</th>
+                <th>Posici&oacute;n</th>
                 <th>Nombre cargo</th>
+                
                 <th></th>
             </tr>
         </thead>
@@ -14,7 +16,9 @@
         {% for entity in entities %}
             <tr>
                 <td><a href="{{ path('cargo_edit', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                <td>{{ entity.posicion }}</td>
                 <td>{{ entity.nombreCargo }}</td>
+                
                 <td>                        <a href="{{ path('cargo_edit', { 'id': entity.id }) }}" class="btn btn-primary">Editar</a>
                                     <a href="{{ path('cargo_delete', { 'id': entity.id }) }}" class="btn btn-danger" onclick="return confirmar()">Eliminar</a>
 

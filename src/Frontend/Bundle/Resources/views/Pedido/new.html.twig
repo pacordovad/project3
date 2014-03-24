@@ -67,25 +67,30 @@
         <br/>
         {% include 'FrontendBundle:Pedido:modal.html.twig' %}
         <input type="hidden" id="loading-gif" value="{{ asset('images/loader.gif') }}"/>
-        <table id="table-producto-pedidos" data-count="1" style="width: 100%; border-collapse: separate; border-spacing: 10px;">
-            <tr>
-                <th>#</th>
-                <th>Categor&iacute;a</th>
-                <th>Producto</th>
-                <th>Cantidad</th>
-                <th>Alto (cm)</th>
-                <th>Ancho (cm)</th>
-                <th>Calidad</th>
-                <th>V. Unit</th>
-                <th>Total</th>
-                <th></th>
-            </tr>
+        <table id="table-producto-pedidos" class="t1" data-count="1" style="width: 100%;">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Posici&oacute;n</th>
+                    <th>Categor&iacute;a</th>
+                    <th>Producto</th>
+                    <th>Cantidad</th>
+                    <th>Alto (cm)</th>
+                    <th>Ancho (cm)</th>
+                    <th>Calidad</th>
+                    <th>V. Unit</th>
+                    <th>Total</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
             {% set i = 1 %}
             {% set index = 0 %}
             {% for pedidoProducto in entity.pedidoProducto %}
                 {% if pedidoProducto.cortesia == false %}
                     <tr id="tr-p{{ index }}">
                         <td>{{ i }}</td>
+                        <td id="td_frontend_bundle_pedido_pedidoProducto_{{ index }}_posicion">{{ pedidoProducto.posicion }}</td>
                         <td id="td_categoria_{{ index }}">{{ pedidoProducto.productoPk.categoriaPk }}</td>
                         <td id="td_frontend_bundle_pedido_pedidoProducto_{{ index }}_nombreProducto">{{ pedidoProducto.nombreProducto }}</td>
                         <td id="td_frontend_bundle_pedido_pedidoProducto_{{ index}}_cantidad">{{ pedidoProducto.cantidad }}</td>
@@ -104,7 +109,7 @@
                                     // prevent the link from creating a "#" on the URL
                                     e.preventDefault();
                                     // Call edit function
-                                    editarProducto('Editar','{{ path('pedidoproductoxml', {'productoSeleccionadoId': pedidoProducto.productoPk.id, 'nombreProducto': pedidoProducto.nombreProducto, 'cantidad' : pedidoProducto.cantidad, 'dimensionId': pedidoProducto.medidaPk.id|default('0'), 'dimensionX' : pedidoProducto.ancho, 'dimensionY' : pedidoProducto.alto, 'cortesia': pedidoProducto.cortesiaTab, 'tipoCalidadId': pedidoProducto.tipoCalidadPk.id, 'pedidoPk': entity.id}) }}','{{ index }}');
+                                    editarProducto('Editar','{{ path('pedidoproductoxml', {'productoSeleccionadoId': pedidoProducto.productoPk.id, 'nombreProducto': pedidoProducto.nombreProducto, 'cantidad' : pedidoProducto.cantidad, 'dimensionId': pedidoProducto.medidaPk.id|default('0'), 'dimensionX' : pedidoProducto.ancho, 'dimensionY' : pedidoProducto.alto, 'cortesia': pedidoProducto.cortesiaTab, 'tipoCalidadId': pedidoProducto.tipoCalidadPk.id, 'pedidoPk': entity.id, 'posicion': pedidoProducto.posicion}) }}','{{ index }}');
                                 });
                                 {% if not pedidoProducto.getEmpezoProduccion %}   
                                     $("#del-{{ index }}").on('click', function(e) {
@@ -114,7 +119,7 @@
                                         if(confirmar()){
                                             // remove the li for the tag form
                                             $("#ul-prod-{{ index }}").remove();
-                                            $("#tr-p{{ index }}").remove();
+                                            window.dataTable4.fnDeleteRow(window.dataTable4.fnGetPosition(document.getElementById("tr-p{{ index }}")));
                                             if(cortesia !== "1"){
                                                 calculaTotalesTabla();
                                             }else{
@@ -130,18 +135,35 @@
                 {% endif %}
                 {% set index = index + 1 %}
             {% endfor %}
-            <tr id="tot-row">
-                <th></th>
-                <th></th>
-                <th></th>
-                <th id="tot-cantidad" style="border-top: 1px solid">0</th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th id="tot-precio" style="border-top: 1px solid">0</th>
-                <th></th>
-            </tr>
+                <tr id="end-row" style="display: none">
+                    <td>0</td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>0</td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr id="tot-row">
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th id="tot-cantidad" style="border-top: 1px solid">0</th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th id="tot-precio" style="border-top: 1px solid">0</th>
+                    <th></th>
+                </tr>
+            </tfoot>
         </table>
         <ul class="productos" data-prototype="{{ form_widget(form.pedidoProducto.vars.prototype)|e }}" style="display: none">
             {# iterate over each existing tag and render its only field: name #}
@@ -214,25 +236,30 @@
         </h4>
         <br/>
         <br/>
-        <table id="table-producto-pedidos-cortesia" data-count="1" style="width: 100%; border-collapse: separate; border-spacing: 10px;">
-            <tr>
-                <th>#</th>
-                <th>Categor&iacute;a</th>
-                <th>Producto</th>
-                <th>Cantidad</th>
-                <th>Ancho (cm)</th>
-                <th>Alto (cm)</th>
-                <th>Calidad</th>
-                <th>V. Unit</th>
-                <th>Total</th>
-                <th></th>
-            </tr>
+        <table id="table-producto-pedidos-cortesia" data-count="1" style="width: 100%;">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Posici&oacute;n</th>
+                    <th>Categor&iacute;a</th>
+                    <th>Producto</th>
+                    <th>Cantidad</th>
+                    <th>Ancho (cm)</th>
+                    <th>Alto (cm)</th>
+                    <th>Calidad</th>
+                    <th>V. Unit</th>
+                    <th>Total</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
             {% set i = 1 %}
             {% set index = 0 %}
             {% for pedidoProducto in entity.pedidoProducto %}
                 {% if pedidoProducto.cortesia != false %}
                     <tr id="tr-p{{ index }}">
                         <td>{{ i }}</td>
+                        <td id="td_frontend_bundle_pedido_pedidoProducto_{{ index }}_posicion">{{ pedidoProducto.posicion }}</td>
                         <td id="td_categoria_{{ index }}">{{ pedidoProducto.productoPk.categoriaPk }}</td>
                         <td id="td_frontend_bundle_pedido_pedidoProducto_{{ index }}_nombreProducto">{{ pedidoProducto.nombreProducto }}</td>
                         <td id="td_frontend_bundle_pedido_pedidoProducto_{{ index}}_cantidad">{{ pedidoProducto.cantidad }}</td>
@@ -251,7 +278,7 @@
                                     // prevent the link from creating a "#" on the URL
                                     e.preventDefault();
                                     // Call edit function
-                                    editarProducto('Editar','{{ path('pedidoproductoxml', {'productoSeleccionadoId': pedidoProducto.productoPk.id, 'nombreProducto': pedidoProducto.nombreProducto, 'cantidad' : pedidoProducto.cantidad, 'dimensionId': pedidoProducto.medidaPk.id|default('0'), 'dimensionX' : pedidoProducto.ancho, 'dimensionY' : pedidoProducto.alto, 'cortesia': pedidoProducto.cortesiaTab, 'tipoCalidadId': pedidoProducto.tipoCalidadPk.id, 'pedidoPk': entity.id}) }}','{{ index }}');
+                                    editarProducto('Editar','{{ path('pedidoproductoxml', {'productoSeleccionadoId': pedidoProducto.productoPk.id, 'nombreProducto': pedidoProducto.nombreProducto, 'cantidad' : pedidoProducto.cantidad, 'dimensionId': pedidoProducto.medidaPk.id|default('0'), 'dimensionX' : pedidoProducto.ancho, 'dimensionY' : pedidoProducto.alto, 'cortesia': pedidoProducto.cortesiaTab, 'tipoCalidadId': pedidoProducto.tipoCalidadPk.id,'posicion': pedidoProducto.posicion, 'pedidoPk': entity.id}) }}','{{ index }}');
                                 });
                                 {% if not pedidoProducto.getEmpezoProduccion %}
                                     $("#del-{{ index }}").on('click', function(e) {
@@ -261,7 +288,7 @@
                                         if(confirmar()){
                                             // remove the li for the tag form
                                             $("#ul-prod-{{ index }}").remove();
-                                            $("#tr-p{{ index }}").remove();
+                                            window.dataTable5.fnDeleteRow(window.dataTable5.fnGetPosition(document.getElementById("tr-p{{ index }}")));
                                             if(cortesia !== "1"){
                                                 calculaTotalesTabla();
                                             }else{
@@ -276,19 +303,36 @@
                     {% set i = i + 1 %}
                 {% endif %}
                 {% set index = index + 1 %}
+                <tr id="end-row-cortesia" style="display: none">
+                    <td>0</td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>0</td>
+                </tr>
             {% endfor %}
-            <tr id="tot-row-cortesia">
-                <th></th>
-                <th></th>
-                <th></th>
-                <th id="tot-cantidad-cortesia" style="border-top: 1px solid">0</th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th id="tot-precio-cortesia" style="border-top: 1px solid">0</th>
-                <th></th>
-            </tr>
+            </tbody>
+            <tfoot>
+                <tr id="tot-row-cortesia">
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th id="tot-cantidad-cortesia" style="border-top: 1px solid">0</th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th id="tot-precio-cortesia" style="border-top: 1px solid">0</th>
+                    <th></th>
+                </tr>
+            </tfoot>
         </table>
     </div>
     <!---
@@ -435,13 +479,13 @@
                 $('#btnAgregarProducto').on('click', function(e) {
                     // prevent the link from creating a "#" on the URL
                     e.preventDefault();
-                    anadirProducto('Agregar','{{ path('pedidoproductoxml', { productoSeleccionadoId:'-', nombreProducto:'-', cantidad:'-', dimensionId:'-', dimensionX:'-', dimensionY:'-', cortesia:'-', tipoCalidadId:'-', pedidoPk:'-' }) }}');
+                    anadirProducto('Agregar','{{ path('pedidoproductoxml', { productoSeleccionadoId:'-', nombreProducto:'-', cantidad:'-', dimensionId:'-', dimensionX:'-', dimensionY:'-', cortesia:'-', tipoCalidadId:'-', posicion:"-", pedidoPk:'-' }) }}');
                 });
                 
                 $('#btnAgregarProductoCortesia').on('click', function(e) {
                     // prevent the link from creating a "#" on the URL
                     e.preventDefault();
-                    anadirProducto('Agregar','{{ path('pedidoproductoxml', { productoSeleccionadoId:'-', nombreProducto:'-', cantidad:'-', dimensionId:'-', dimensionX:'-', dimensionY:'-', cortesia:'1', tipoCalidadId:'-', pedidoPk:'-' }) }}');
+                    anadirProducto('Agregar','{{ path('pedidoproductoxml', { productoSeleccionadoId:'-', nombreProducto:'-', cantidad:'-', dimensionId:'-', dimensionX:'-', dimensionY:'-', cortesia:'1', tipoCalidadId:'-', posicion:"-", pedidoPk:'-'  }) }}');
                 });
                 
                 $('#btnGuardarProducto').on('click', function(e) {
@@ -489,6 +533,22 @@
                             $("#imprime-form").submit();
                         }
                     });
+                });
+                
+                window.dataTable4 = $('#table-producto-pedidos').dataTable({
+                        "aaSorting": [[ 1, "asc" ]],   
+                        "iDisplayLength": 500,
+                        "oLanguage": {
+                            "sUrl": '{{ asset('js/datatables.spanish.txt') }}'
+                        }
+                });
+                
+                window.dataTable5 = $('#table-producto-pedidos-cortesia').dataTable({
+                        "aaSorting": [[ 1, "asc" ]],  
+                        "iDisplayLength": 500,
+                        "oLanguage": {
+                            "sUrl": '{{ asset('js/datatables.spanish.txt') }}'
+                        }
                 });
             });
         </script>

@@ -16,6 +16,7 @@ class CargoType extends AbstractType
     {
         $builder
             ->add('nombreCargo')
+            ->add('posicion', "choice", array("choices"=>array_combine(range(1,200),range(1,200)),"label"=>"Posición"))
         ;
     }
     

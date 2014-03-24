@@ -42,6 +42,18 @@ class Area extends \Frontend\Bundle\Entity\Area implements \Doctrine\ORM\Proxy\P
     }
 
     
+    public function getPosicion()
+    {
+        $this->__load();
+        return parent::getPosicion();
+    }
+
+    public function setPosicion($posicion)
+    {
+        $this->__load();
+        return parent::setPosicion($posicion);
+    }
+
     public function getCodigo()
     {
         $this->__load();
@@ -132,7 +144,7 @@ class Area extends \Frontend\Bundle\Entity\Area implements \Doctrine\ORM\Proxy\P
 
     public function __sleep()
     {
-        return array('__isInitialized__', 'id', 'nombreArea', 'codigo', 'empresaPk');
+        return array('__isInitialized__', 'id', 'nombreArea', 'codigo', 'posicion', 'empresaPk');
     }
 
     public function __clone()

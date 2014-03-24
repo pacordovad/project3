@@ -2,14 +2,16 @@
 
     <h3>Productos</h3>
     
-    <table class="records_list" id="datatable_crud">
+    <table class="records_list" id="datatable_crud_posicion">
         <thead>
             <tr>
                 <th>Id</th>
+                <th>Posici&oacute;n</th>
                 <th>Nombre</th>
                 <th>Figura</th>
                 <th>Categoria</th>
                 <th>Imagen</th>
+                
                 <th></th>
             </tr>
         </thead>
@@ -17,13 +19,15 @@
         {% for entity in entities %}
             <tr>
                 <td><a href="{{ path('producto_edit', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                <td>{{ entity.posicion }}</td>
                 <td>{{ entity.nombreImagen }}</td>
                 <td>{{ entity.figuraPK }}</td>
                 <td>{{ entity.categoriaPK }}</td>
                 <td>
                     {% if file_exists(web_path~'/uploads/productos/p'~entity.id~'.'~entity.imagenExtension) %}
-                        <img src="{{ image('@FrontendBundle/Resources/public/uploads/productos/p'~entity.id~'.'~entity.imagenExtension).cropResize(100,100) }}" /></td>
+                        <img src="{{ image('@FrontendBundle/Resources/public/uploads/productos/p'~entity.id~'.'~entity.imagenExtension).cropResize(100,100) }}" />
                     {% endif %}
+                </td>
                 <td>
                     <a href="{{ path('producto_edit', { 'id': entity.id }) }}" class="btn btn-primary">Editar</a>
                     <a href="{{ path('producto_delete', { 'id': entity.id }) }}" class="btn btn-danger" onclick="return confirmar()">Eliminar</a>

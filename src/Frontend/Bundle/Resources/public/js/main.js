@@ -207,6 +207,9 @@ function guardarProducto(collectionHolder){
     pedidoPk = $.trim($('#pedidoPk').val());
     pedidoPk = (pedidoPk.length > 0) ? pedidoPk : "-";
     
+    posicion = $.trim($('#posicion').val());
+    posicion = (posicion.length > 0) ? posicion : "-";
+    
     cortesia = $.trim($('#cortesia').val());
     
     if(productoSeleccionado.length > 0 && dimension.length > 0 && tipoCalidad.length > 0){
@@ -234,6 +237,7 @@ function guardarProducto(collectionHolder){
         }
 
         var nombreWidget = "frontend_bundle_pedido_pedidoProducto_";
+        var posicionLbl = nombreWidget + index + "_posicion";
         var nombreProductoLbl = nombreWidget + index + "_nombreProducto";
         var cantidadLbl = nombreWidget + index + "_cantidad";
         var altoLbl = nombreWidget + index + "_alto";
@@ -244,6 +248,9 @@ function guardarProducto(collectionHolder){
         var cortesiaLbl = nombreWidget + index + "_cortesia";
         var pedidoPkLbl = nombreWidget + index + "_pedidoPk";
         var precioVentaLbl = nombreWidget + index + "_precioVenta";
+
+        // Set posicion
+        $("#"+posicionLbl).val(posicion);
 
         // Set nombreProducto
         $("#"+nombreProductoLbl).val(nombreProducto);
@@ -293,6 +300,7 @@ function guardarProducto(collectionHolder){
         editurl = editurl.replace("-",dimensionY);
         editurl = editurl.replace("-",cortesia);
         editurl = editurl.replace("-",tipoCalidad);
+        editurl = editurl.replace("-",posicion);
         editurl = editurl.replace("-",pedidoPk);
         
         categoriaNombre = $("#li-"+productoSeleccionado).data("categoria");
@@ -314,6 +322,7 @@ function guardarProducto(collectionHolder){
                 
                 fila = '<tr id="tr-p'+index+'">';
                 fila += '<td>'+numfilastabla+"</td>";
+                fila += '<td id="td_'+posicionLbl+'">'+posicion+"</td>";
                 fila += '<td id="td_categoria_'+index+'">'+categoriaNombre+"</td>";
                 fila += '<td id="td_'+nombreProductoLbl+'">'+nombreProducto+"</td>";
                 fila += '<td id="td_'+cantidadLbl+'">'+cantidad+"</td>";
@@ -326,10 +335,65 @@ function guardarProducto(collectionHolder){
                 fila += "</tr>";
                 
                 if(cortesia !== "1"){
-                    $("#tot-row").before(fila);
-                    calculaTotalesTabla();
+                    var row = window.dataTable4.fnAddData([
+                        numfilastabla,
+                        posicion,
+                        categoriaNombre,
+                        nombreProducto,
+                        cantidad,
+                        dimensionY,
+                        dimensionX,
+                        calidadNombre,
+                        (precioVenta*1).toFixed(2),
+                        (precioVenta*cantidad).toFixed(2),
+                        '',
+                    ]);
+                    
+                    var nTr = window.dataTable4.fnSettings().aoData[ row[0] ].nTr;
+                    $(nTr).prop("id", "tr-p"+index);
+                    $("#tr-p"+index+" td:eq(1)").prop("id","td_"+posicionLbl);
+                    $("#tr-p"+index+" td:eq(2)").prop("id","td_categoria_"+index);
+                    $("#tr-p"+index+" td:eq(3)").prop("id","td_"+nombreProductoLbl);
+                    $("#tr-p"+index+" td:eq(4)").prop("id","td_"+cantidadLbl);
+                    $("#tr-p"+index+" td:eq(5)").prop("id","td_"+altoLbl);
+                    $("#tr-p"+index+" td:eq(6)").prop("id","td_"+anchoLbl);
+                    $("#tr-p"+index+" td:eq(7)").prop("id","td_"+tipoCalidadPkLbl);
+                    $("#tr-p"+index+" td:eq(8)").prop("id","td_preciounitario_"+index);
+                    $("#tr-p"+index+" td:eq(9)").prop("id","td_precioventa_"+index);
+                    $("#tr-p"+index+" td:eq(10)").prop("id","td_action_"+index);
+                    
+                    //$("#end-row").before(fila);
+                    calculaTotalesTabla();var addId = $('#mimicTable').dataTable().fnAddData([
+                    ]);
                 }else{
-                    $("#tot-row-cortesia").before(fila);
+                    var row = window.dataTable5.fnAddData([
+                        numfilastabla,
+                        posicion,
+                        categoriaNombre,
+                        nombreProducto,
+                        cantidad,
+                        dimensionY,
+                        dimensionX,
+                        calidadNombre,
+                        (precioVenta*1).toFixed(2),
+                        (precioVenta*cantidad).toFixed(2),
+                        '',
+                    ]);
+                    
+                    var nTr = window.dataTable5.fnSettings().aoData[ row[0] ].nTr;
+                    $(nTr).prop("id", "tr-p"+index);
+                    $("#tr-p"+index+" td:eq(1)").prop("id","td_"+posicionLbl);
+                    $("#tr-p"+index+" td:eq(2)").prop("id","td_categoria_"+index);
+                    $("#tr-p"+index+" td:eq(3)").prop("id","td_"+nombreProductoLbl);
+                    $("#tr-p"+index+" td:eq(4)").prop("id","td_"+cantidadLbl);
+                    $("#tr-p"+index+" td:eq(5)").prop("id","td_"+altoLbl);
+                    $("#tr-p"+index+" td:eq(6)").prop("id","td_"+anchoLbl);
+                    $("#tr-p"+index+" td:eq(7)").prop("id","td_"+tipoCalidadPkLbl);
+                    $("#tr-p"+index+" td:eq(8)").prop("id","td_preciounitario_"+index);
+                    $("#tr-p"+index+" td:eq(9)").prop("id","td_precioventa_"+index);
+                    $("#tr-p"+index+" td:eq(10)").prop("id","td_action_"+index);
+                    
+                    //$("#end-row-cortesia").before(fila);
                     calculaTotalesTablaCortesia();
                 }
                 
@@ -338,6 +402,7 @@ function guardarProducto(collectionHolder){
                 addTagFormDeleteLink($newFormLi,index,cortesia);
             }else{
                 $("#td_categoria_"+index).html(categoriaNombre);
+                $("#td_"+posicionLbl).html(posicion);
                 $("#td_"+nombreProductoLbl).html(nombreProducto);
                 $("#td_"+cantidadLbl).html(cantidad);
                 $("#td_"+anchoLbl).html(dimensionX);
@@ -351,6 +416,10 @@ function guardarProducto(collectionHolder){
             }
             
             $('#modal-producto').modal('hide');
+            //window.dataTable4.fnDestroy();
+            
+            window.dataTable4.fnDraw();
+            window.dataTable5.fnDraw();
             //$('#btnGuardarProducto').button('reset');
         });
     }else{
@@ -374,12 +443,12 @@ function guardarProducto(collectionHolder){
  */
 function calculaTotalesTablaCortesia(){
     var totalCantidad = 0;
-    $('table#table-producto-pedidos-cortesia tbody td:nth-child(4)').each(function(index,element){
+    $('table#table-producto-pedidos-cortesia tbody td:nth-child(5)').each(function(index,element){
         totalCantidad += parseInt(removeCommas($(element).html()));
     });
     $('#tot-cantidad-cortesia').html(totalCantidad);
     var totalValor = 0;
-    $('table#table-producto-pedidos-cortesia tbody td:nth-child(9)').each(function(index,element){
+    $('table#table-producto-pedidos-cortesia tbody td:nth-child(10)').each(function(index,element){
         totalValor += parseFloat(removeCommas($(element).html()));
     });
     $('#tot-precio-cortesia').html(totalValor.toFixed(2));
@@ -391,12 +460,12 @@ function calculaTotalesTablaCortesia(){
  */
 function calculaTotalesTabla(){
     var totalCantidad = 0;
-    $('table#table-producto-pedidos tbody td:nth-child(4)').each(function(index,element){
+    $('table#table-producto-pedidos tbody td:nth-child(5)').each(function(index,element){
         totalCantidad += parseInt(removeCommas($(element).html()));
     });
     $('#tot-cantidad').html(totalCantidad);
     var totalValor = 0;
-    $('table#table-producto-pedidos tbody td:nth-child(9)').each(function(index,element){
+    $('table#table-producto-pedidos tbody td:nth-child(10)').each(function(index,element){
         totalValor += parseFloat(removeCommas($(element).html()));
     });
     $('#tot-precio').html(totalValor.toFixed(2));
@@ -443,10 +512,11 @@ function addTagFormDeleteLink($tagFormLi,id,cortesia) {
         if(confirmar()){
             // remove the li for the tag form
             $tagFormLi.remove();
-            $("#tr-p"+id).remove();
             if(cortesia !== "1"){
+                window.dataTable4.fnDeleteRow(window.dataTable4.fnGetPosition(document.getElementById("tr-p"+id)));
                 calculaTotalesTabla();
             }else{
+                window.dataTable5.fnDeleteRow(window.dataTable5.fnGetPosition(document.getElementById("tr-p"+id)));
                 calculaTotalesTablaCortesia();
             }
         }

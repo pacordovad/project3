@@ -17,6 +17,7 @@ class CategoriaType extends AbstractType
         $builder
             ->add('nombreCategoria','text',array('label'=>'Nombre categoría'))
             ->add('descripcion')
+            ->add('posicion', "choice", array("choices"=>array_combine(range(1,200),range(1,200)),"label"=>"Posición"))
         ;
     }
     

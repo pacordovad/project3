@@ -262,7 +262,7 @@ class PedidoProductoController extends Controller
      * Displays a form to create a new PedidoProducto entity.
      *
      */
-    public function pedidoProductoAction($productoSeleccionadoId,$nombreProducto,$cantidad,$dimensionId,$dimensionX,$dimensionY,$cortesia,$tipoCalidadId,$pedidoPk)
+    public function pedidoProductoAction($productoSeleccionadoId,$nombreProducto,$cantidad,$dimensionId,$dimensionX,$dimensionY,$cortesia,$tipoCalidadId,$posicion,$pedidoPk)
     {
         $productoSeleccionadoId = $this->sanitizaVariable($productoSeleccionadoId);
         $nombreProducto = $this->sanitizaVariable($nombreProducto);
@@ -273,14 +273,16 @@ class PedidoProductoController extends Controller
         $tipoCalidadId = $this->sanitizaVariable($tipoCalidadId);
         $cortesia = $this->sanitizaVariable($cortesia);
         $pedidoPk = $this->sanitizaVariable($pedidoPk);
+        $posicion = $this->sanitizaVariable($posicion);
         
         $em = $this->getDoctrine()->getManager();
         $entity = new PedidoProducto();
         $form   = $this->crearFormaPersonalizada($entity);
-        $productos = $em->getRepository('FrontendBundle:Producto')->findAll();
-        $categorias = $em->getRepository('FrontendBundle:Categoria')->findAll();
+        $productos = $em->getRepository('FrontendBundle:Producto')->findBy(array(),array('posicion' => 'ASC')); 
+        $categorias = $em->getRepository('FrontendBundle:Categoria')->findBy(array(),array('posicion' => 'ASC')); 
         $tiposCalidad = $em->getRepository('FrontendBundle:TipoCalidad')->findBy(array(),array('posicion' => 'ASC')); 
         $medidas = $em->getRepository('FrontendBundle:Medida')->findBy(array(),array('posicion' => 'ASC'));
+        $posiciones = range(1,200);
         
         /*
         $productoSeleccionadoId = 18;
@@ -307,6 +309,7 @@ class PedidoProductoController extends Controller
             'dimensiones' => $medidas,
             'categorias' => $categorias,
             'tiposCalidad' => $tiposCalidad,
+            'posiciones' => $posiciones,
             
             'productoSeleccionadoId' => $productoSeleccionadoId,
             'nombreProducto'=>$nombreProducto,
@@ -316,11 +319,12 @@ class PedidoProductoController extends Controller
             'dimensionY' => $dimensionY,
             'tipoCalidadId' => $tipoCalidadId,
             'cortesia'=>$cortesia,
-            'pedidoPk'=>$pedidoPk
+            'pedidoPk'=>$pedidoPk,
+            'posicion' => $posicion,
         ));
     }
     
-    public function getEditLinkAction($productoSeleccionadoId,$nombreProducto,$cantidad,$dimensionId,$dimensionX,$dimensionY,$cortesia,$tipoCalidadId,$pedidoPk){
+    public function getEditLinkAction($productoSeleccionadoId,$nombreProducto,$cantidad,$dimensionId,$dimensionX,$dimensionY,$cortesia,$tipoCalidadId,$posicion,$pedidoPk){
         $uri = $this->get('router')->generate('pedidoproductoxml',
                 array(
                     'productoSeleccionadoId' => $productoSeleccionadoId,
@@ -332,6 +336,7 @@ class PedidoProductoController extends Controller
                     'cortesia' => $cortesia,
                     'tipoCalidadId' => $tipoCalidadId,
                     'pedidoPk' => $pedidoPk,
+                    'posicion' => $posicion,
                     )
                 );
         $response = new JsonResponse();

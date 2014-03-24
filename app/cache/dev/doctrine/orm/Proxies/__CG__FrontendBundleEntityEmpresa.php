@@ -42,6 +42,18 @@ class Empresa extends \Frontend\Bundle\Entity\Empresa implements \Doctrine\ORM\P
     }
 
     
+    public function getPosicion()
+    {
+        $this->__load();
+        return parent::getPosicion();
+    }
+
+    public function setPosicion($posicion)
+    {
+        $this->__load();
+        return parent::setPosicion($posicion);
+    }
+
     public function getId()
     {
         if ($this->__isInitialized__ === false) {
@@ -120,7 +132,7 @@ class Empresa extends \Frontend\Bundle\Entity\Empresa implements \Doctrine\ORM\P
 
     public function __sleep()
     {
-        return array('__isInitialized__', 'id', 'nombreEmpresa', 'ruc', 'direccion', 'referencia', 'telefono');
+        return array('__isInitialized__', 'id', 'nombreEmpresa', 'ruc', 'direccion', 'referencia', 'telefono', 'posicion');
     }
 
     public function __clone()

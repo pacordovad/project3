@@ -26,6 +26,7 @@ class ProductoType extends AbstractType
                     return $er->createQueryBuilder('u')
                         ->orderBy('u.posicionFigura', 'ASC');
                 }))
+            ->add('posicion', "choice", array("choices"=>array_combine(range(1,200),range(1,200)),"label"=>"Posición"))
         ;
     }
     

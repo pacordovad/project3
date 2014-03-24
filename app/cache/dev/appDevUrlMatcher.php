@@ -1257,13 +1257,13 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
 
             if (0 === strpos($pathinfo, '/pedidoproducto')) {
                 // pedidoproductoxml
-                if (preg_match('#^/pedidoproducto/(?P<productoSeleccionadoId>[^/]++)/(?P<nombreProducto>[^/]++)/(?P<cantidad>[^/]++)/(?P<dimensionId>[^/]++)/(?P<dimensionX>[^/]++)/(?P<dimensionY>[^/]++)/(?P<cortesia>[^/]++)/(?P<tipoCalidadId>[^/]++)/(?P<pedidoPk>[^/]++)/seleccion$#s', $pathinfo, $matches)) {
-                    return $this->mergeDefaults(array_replace($matches, array('_route' => 'pedidoproductoxml')), array (  '_controller' => 'Frontend\\Bundle\\Controller\\PedidoProductoController::pedidoProductoAction',  'productoSeleccionadoId' => '-',  'nombreProducto' => '-',  'cantidad' => '-',  'dimensionId' => '-',  'dimensionX' => '-',  'dimensionY' => '-',  'cortesia' => '-',  'tipoCalidadId' => '-',  'pedidoPk' => '-',));
+                if (preg_match('#^/pedidoproducto/(?P<productoSeleccionadoId>[^/]++)/(?P<nombreProducto>[^/]++)/(?P<cantidad>[^/]++)/(?P<dimensionId>[^/]++)/(?P<dimensionX>[^/]++)/(?P<dimensionY>[^/]++)/(?P<cortesia>[^/]++)/(?P<tipoCalidadId>[^/]++)/(?P<posicion>[^/]++)/(?P<pedidoPk>[^/]++)/seleccion$#s', $pathinfo, $matches)) {
+                    return $this->mergeDefaults(array_replace($matches, array('_route' => 'pedidoproductoxml')), array (  '_controller' => 'Frontend\\Bundle\\Controller\\PedidoProductoController::pedidoProductoAction',  'productoSeleccionadoId' => '-',  'nombreProducto' => '-',  'cantidad' => '-',  'dimensionId' => '-',  'dimensionX' => '-',  'dimensionY' => '-',  'cortesia' => '-',  'tipoCalidadId' => '-',  'pedidoPk' => '-',  'posicion' => '-',));
                 }
 
                 // pedidoproductoeditlink
-                if (preg_match('#^/pedidoproducto/(?P<productoSeleccionadoId>[^/]++)/(?P<nombreProducto>[^/]++)/(?P<cantidad>[^/]++)/(?P<dimensionId>[^/]++)/(?P<dimensionX>[^/]++)/(?P<dimensionY>[^/]++)/(?P<cortesia>[^/]++)/(?P<tipoCalidadId>[^/]++)/(?P<pedidoPk>[^/]++)/editlink$#s', $pathinfo, $matches)) {
-                    return $this->mergeDefaults(array_replace($matches, array('_route' => 'pedidoproductoeditlink')), array (  '_controller' => 'Frontend\\Bundle\\Controller\\PedidoProductoController::getEditLinkAction',  'productoSeleccionadoId' => '-',  'nombreProducto' => '-',  'cantidad' => '-',  'dimensionId' => '-',  'dimensionX' => '-',  'dimensionY' => '-',  'cortesia' => '-',  'tipoCalidadId' => '-',  'pedidoPk' => '-',));
+                if (preg_match('#^/pedidoproducto/(?P<productoSeleccionadoId>[^/]++)/(?P<nombreProducto>[^/]++)/(?P<cantidad>[^/]++)/(?P<dimensionId>[^/]++)/(?P<dimensionX>[^/]++)/(?P<dimensionY>[^/]++)/(?P<cortesia>[^/]++)/(?P<tipoCalidadId>[^/]++)/(?P<posicion>[^/]++)/(?P<pedidoPk>[^/]++)/editlink$#s', $pathinfo, $matches)) {
+                    return $this->mergeDefaults(array_replace($matches, array('_route' => 'pedidoproductoeditlink')), array (  '_controller' => 'Frontend\\Bundle\\Controller\\PedidoProductoController::getEditLinkAction',  'productoSeleccionadoId' => '-',  'nombreProducto' => '-',  'cantidad' => '-',  'dimensionId' => '-',  'dimensionX' => '-',  'dimensionY' => '-',  'cortesia' => '-',  'tipoCalidadId' => '-',  'pedidoPk' => '-',  'posicion' => '-',));
                 }
 
             }

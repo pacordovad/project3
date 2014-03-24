@@ -433,19 +433,19 @@ class __TwigTemplate_d31e85ba6ebb467e2fc2de763858c8025c2b4fc0d22c756087eee673a0d
                     <a class=\"btn btn-primary\" style=\"font-size: 10px; float: left\" href=\"";
             // line 188
             echo twig_escape_filter($this->env, $this->env->getExtension('routing')->getPath("pedido_edit", array("id" => $this->getAttribute((isset($context["entity"]) ? $context["entity"] : $this->getContext($context, "entity")), "id"))), "html", null, true);
-            echo "\" title=\"Editar\"><span class=\"glyphicon glyphicon-edit\"></span></a>
+            echo "\" title=\"Propuesta\"><span class=\"glyphicon glyphicon-edit\"></span></a>
                     <a class=\"btn btn-primary\" style=\"font-size: 10px; float: left\" href=\"";
             // line 189
             echo twig_escape_filter($this->env, $this->env->getExtension('routing')->getPath("pedido_productos", array("id" => $this->getAttribute((isset($context["entity"]) ? $context["entity"] : $this->getContext($context, "entity")), "id"))), "html", null, true);
-            echo "\" title=\"Productos\"><span class=\"glyphicon glyphicon-list\"></a>
+            echo "\" title=\"Proceso\"><span class=\"glyphicon glyphicon-list\"></a>
                     <a class=\"btn btn-primary\" style=\"font-size: 10px; float: left\" href=\"";
             // line 190
             echo twig_escape_filter($this->env, $this->env->getExtension('routing')->getPath("pedido_esquema", array("id" => $this->getAttribute((isset($context["entity"]) ? $context["entity"] : $this->getContext($context, "entity")), "id"))), "html", null, true);
-            echo "\" title=\"Esquema\"><span class=\"glyphicon glyphicon-eye-open\"></a>
+            echo "\" title=\"Productos\"><span class=\"glyphicon glyphicon-eye-open\"></a>
                     <a class=\"btn btn-primary\" onclick=\"return confirmar()\" style=\"font-size: 10px; float: left\" href=\"";
             // line 191
             echo twig_escape_filter($this->env, $this->env->getExtension('routing')->getPath("pedido_duplicar", array("id" => $this->getAttribute((isset($context["entity"]) ? $context["entity"] : $this->getContext($context, "entity")), "id"))), "html", null, true);
-            echo "\" title=\"Duplicar\"><span class=\"glyphicon glyphicon-random\"></a>
+            echo "\" title=\"Copiar\"><span class=\"glyphicon glyphicon-random\"></a>
                 </td>
                 <td>
                     <select id=\"paso_";
@@ -664,14 +664,14 @@ class __TwigTemplate_d31e85ba6ebb467e2fc2de763858c8025c2b4fc0d22c756087eee673a0d
                 dateFormat: \"yy-mm-dd 00:00:00\",
                 yearRange: \"2012:2050\"
             });
-            \$('#empresa').change( function() { window.dataTable.fnDraw(); filtraAreas(); } );
-            \$('#area').change( function() { window.dataTable.fnDraw(); } );
-            \$('#paso').change( function() { window.dataTable.fnDraw(); } );
-            \$('#coordinador').change( function() { window.dataTable.fnDraw(); } );
-            \$('#codigo').keyup( function() { window.dataTable.fnDraw(); } );
-            \$('#fechadesde').on( \"keyup change\", function() { window.dataTable.fnDraw(); } );
-            \$('#fechahasta').on( \"keyup change\", function() { window.dataTable.fnDraw(); } );
-            \$('#factura').keyup( function() { window.dataTable.fnDraw(); } );
+            \$('#empresa').change( function() { window.dataTable3.fnDraw(); filtraAreas(); } );
+            \$('#area').change( function() { window.dataTable3.fnDraw(); } );
+            \$('#paso').change( function() { window.dataTable3.fnDraw(); } );
+            \$('#coordinador').change( function() { window.dataTable3.fnDraw(); } );
+            \$('#codigo').keyup( function() { window.dataTable3.fnDraw(); } );
+            \$('#fechadesde').on( \"keyup change\", function() { window.dataTable3.fnDraw(); } );
+            \$('#fechahasta').on( \"keyup change\", function() { window.dataTable3.fnDraw(); } );
+            \$('#factura').keyup( function() { window.dataTable3.fnDraw(); } );
         } );
     </script>
 ";

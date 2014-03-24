@@ -2,13 +2,15 @@
 
     <h3>Provincias</h3>
     
-    <table class="records_list" id="datatable_crud">
+    <table class="records_list" id="datatable_crud_posicion">
         <thead>
             <tr>
                 <th>Id</th>
+                <th>Posici&oacute;n</th>
                 <th>Nombre provincia</th>
                 <th>Regi&oacute;n</th>
                 <th>Pa&iacute;s</th>
+                
                 <th></th>
             </tr>
         </thead>
@@ -16,9 +18,11 @@
         {% for entity in entities %}
             <tr>
                 <td><a href="{{ path('provincia_edit', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                <td>{{ entity.posicion }}</td>
                 <td>{{ entity.nombreProvincia }}</td>
                 <td>{{ entity.regionPk }}</td>
                 <td>{{ entity.regionPk.paisPk }}</td>
+                
                 <td>                        <a href="{{ path('provincia_edit', { 'id': entity.id }) }}" class="btn btn-primary">Editar</a>
                                     <a href="{{ path('provincia_delete', { 'id': entity.id }) }}" class="btn btn-danger" onclick="return confirmar()">Eliminar</a>
 

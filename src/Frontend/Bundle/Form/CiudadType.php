@@ -5,6 +5,7 @@ namespace Frontend\Bundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Doctrine\ORM\EntityRepository;
 
 class CiudadType extends AbstractType
 {
@@ -16,7 +17,12 @@ class CiudadType extends AbstractType
     {
         $builder
             ->add('nombreCiudad')
-            ->add('provinciaPk','entity',array('class'=>'FrontendBundle:Provincia','label'=>"Provincia"))
+            ->add('provinciaPk','entity',array('class'=>'FrontendBundle:Provincia','label'=>"Provincia"
+                ,'query_builder' => function(EntityRepository $er) {
+                    return $er->createQueryBuilder('u')
+                        ->orderBy('u.posicion', 'ASC');
+                }))
+            ->add('posicion', "choice", array("choices"=>array_combine(range(1,200),range(1,200)),"label"=>"Posición"))
         ;
     }
     

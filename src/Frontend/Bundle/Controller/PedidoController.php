@@ -41,10 +41,11 @@ class PedidoController extends Controller
         $entities = $em->getRepository('FrontendBundle:Pedido')->findAll();
         $usuarios = $em->getRepository('FrontendBundle:Usuario')->findAll();
         $pasos = $em->getRepository('FrontendBundle:PasoPedido')->findBy(array(),array('posicion' => 'ASC'));
-        $empresas = array();
-        $areas = array();
-        $coordinadores = array();
+        $empresas = $em->getRepository('FrontendBundle:Empresa')->findBy(array(),array('posicion' => 'ASC'));
+        $areas = $em->getRepository('FrontendBundle:Area')->findBy(array(),array('posicion' => 'ASC'));
+        $coordinadores = $em->getRepository('FrontendBundle:Usuario')->findAll();
         
+        /*
         foreach ($entities as $pedido) {
             $area = $pedido->getContactoPk()->getAreaPk();
             $empresa = $area->getEmpresaPk();
@@ -53,7 +54,7 @@ class PedidoController extends Controller
             $empresas[$empresa->getId()] = $empresa;
             $areas[$area->getId()] = $area;
             $coordinadores[$coordinador->getId()] = $coordinador;
-        }
+        }*/
         
         return $this->render('FrontendBundle:Pedido:cobros.html.twig', array(
             'entities' => $entities,
@@ -74,10 +75,11 @@ class PedidoController extends Controller
         $entities = $em->getRepository('FrontendBundle:Pedido')->findBy(array(), array('fechaRegistro' => 'DESC'));
         $usuarios = $em->getRepository('FrontendBundle:Usuario')->findAll();
         $pasos = $em->getRepository('FrontendBundle:PasoPedido')->findBy(array(),array('posicion' => 'ASC'));
-        $empresas = array();
-        $areas = array();
-        $coordinadores = array();
+        $empresas = $em->getRepository('FrontendBundle:Empresa')->findBy(array(),array('posicion' => 'ASC'));
+        $areas = $em->getRepository('FrontendBundle:Area')->findBy(array(),array('posicion' => 'ASC'));
+        $coordinadores = $em->getRepository('FrontendBundle:Usuario')->findAll();
         
+        /*
         foreach ($entities as $pedido) {
             $area = $pedido->getContactoPk()->getAreaPk();
             $empresa = $area->getEmpresaPk();
@@ -86,7 +88,7 @@ class PedidoController extends Controller
             $empresas[$empresa->getId()] = $empresa;
             $areas[$area->getId()] = $area;
             $coordinadores[$coordinador->getId()] = $coordinador;
-        }
+        }*/
         
         return $this->render('FrontendBundle:Pedido:control.html.twig', array(
             'entities' => $entities,
@@ -167,7 +169,7 @@ class PedidoController extends Controller
         $pedido = $em->getRepository('FrontendBundle:Pedido')->find($id);
         $productos = $pedido->getPedidoProducto();
         
-        $categorias = $em->getRepository('FrontendBundle:Categoria')->findAll();
+        $categorias = $em->getRepository('FrontendBundle:Categoria')->findBy(array(),array('posicion' => 'ASC'));
         $pasos = $em->getRepository('FrontendBundle:PasoPedido')->findBy(array(),array('posicion' => 'ASC'));
         $calidades =  $em->getRepository('FrontendBundle:TipoCalidad')->findBy(array(),array('posicion' => 'ASC')); 
         $medidas =  $em->getRepository('FrontendBundle:Medida')->findBy(array(),array('posicion' => 'ASC'));
@@ -230,23 +232,13 @@ class PedidoController extends Controller
         $pedidos = $queryPedidos->getResult();
         $productos = $queryProductos->getResult();
         
-        $categorias = $em->getRepository('FrontendBundle:Categoria')->findAll();
+        $categorias = $em->getRepository('FrontendBundle:Categoria')->findBy(array(),array('posicion' => 'ASC'));
         $pasos = $em->getRepository('FrontendBundle:PasoPedido')->findBy(array(),array('posicion' => 'ASC'));
         $calidades =  $em->getRepository('FrontendBundle:TipoCalidad')->findBy(array(),array('posicion' => 'ASC')); 
         $medidas =  $em->getRepository('FrontendBundle:Medida')->findBy(array(),array('posicion' => 'ASC'));
-        $empresas = array();
-        $areas = array();
-        $coordinadores = array();
-        
-        foreach ($pedidos as $pedido) {
-            $area = $pedido->getContactoPk()->getAreaPk();
-            $empresa = $area->getEmpresaPk();
-            $coordinador = $pedido->getCoordinadorUsuarioPk();
-            
-            $empresas[$empresa->getId()] = $empresa;
-            $areas[$area->getId()] = $area;
-            $coordinadores[$coordinador->getId()] = $coordinador;
-        }
+        $empresas = $em->getRepository('FrontendBundle:Empresa')->findBy(array(),array('posicion' => 'ASC'));
+        $areas = $em->getRepository('FrontendBundle:Area')->findBy(array(),array('posicion' => 'ASC'));
+        $coordinadores = $em->getRepository('FrontendBundle:Usuario')->findAll();
         
         return $this->render('FrontendBundle:Pedido:produccion.html.twig', array(
             'entities' => $pedidosProductos,

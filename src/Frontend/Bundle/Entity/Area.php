@@ -45,7 +45,23 @@ class Area
      * @ORM\Column(name="CODIGO", type="string", length=64, nullable=true)
      */
     private $codigo;
+    
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="POSICION", type="integer", nullable=false)
+     */
+    private $posicion;
+    
+    public function getPosicion() {
+        return $this->posicion;
+    }
 
+    public function setPosicion($posicion) {
+        $this->posicion = $posicion;
+    }
+
+    
     /**
      * Get codigo
      *

@@ -16,6 +16,7 @@ class PaisType extends AbstractType
     {
         $builder
             ->add('nombrePais',"text",array('label'=>"Nombre país"))
+            ->add('posicion', "choice", array("choices"=>array_combine(range(1,200),range(1,200)),"label"=>"Posición"))
         ;
     }
     

@@ -187,132 +187,142 @@ class __TwigTemplate_0b63c393f64a0429f8676987845e956f6e4ded406268166543ee82c37b8
         echo "        <input type=\"hidden\" id=\"loading-gif\" value=\"";
         echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("images/loader.gif"), "html", null, true);
         echo "\"/>
-        <table id=\"table-producto-pedidos\" data-count=\"1\" style=\"width: 100%; border-collapse: separate; border-spacing: 10px;\">
-            <tr>
-                <th>#</th>
-                <th>Categor&iacute;a</th>
-                <th>Producto</th>
-                <th>Cantidad</th>
-                <th>Alto (cm)</th>
-                <th>Ancho (cm)</th>
-                <th>Calidad</th>
-                <th>V. Unit</th>
-                <th>Total</th>
-                <th></th>
-            </tr>
+        <table id=\"table-producto-pedidos\" class=\"t1\" data-count=\"1\" style=\"width: 100%;\">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Posici&oacute;n</th>
+                    <th>Categor&iacute;a</th>
+                    <th>Producto</th>
+                    <th>Cantidad</th>
+                    <th>Alto (cm)</th>
+                    <th>Ancho (cm)</th>
+                    <th>Calidad</th>
+                    <th>V. Unit</th>
+                    <th>Total</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
             ";
-        // line 83
+        // line 87
         $context["i"] = 1;
-        // line 84
+        // line 88
         echo "            ";
         $context["index"] = 0;
-        // line 85
+        // line 89
         echo "            ";
         $context['_parent'] = (array) $context;
         $context['_seq'] = twig_ensure_traversable($this->getAttribute((isset($context["entity"]) ? $context["entity"] : $this->getContext($context, "entity")), "pedidoProducto"));
         foreach ($context['_seq'] as $context["_key"] => $context["pedidoProducto"]) {
-            // line 86
+            // line 90
             echo "                ";
             if (($this->getAttribute((isset($context["pedidoProducto"]) ? $context["pedidoProducto"] : $this->getContext($context, "pedidoProducto")), "cortesia") == false)) {
-                // line 87
+                // line 91
                 echo "                    <tr id=\"tr-p";
                 echo twig_escape_filter($this->env, (isset($context["index"]) ? $context["index"] : $this->getContext($context, "index")), "html", null, true);
                 echo "\">
                         <td>";
-                // line 88
+                // line 92
                 echo twig_escape_filter($this->env, (isset($context["i"]) ? $context["i"] : $this->getContext($context, "i")), "html", null, true);
                 echo "</td>
+                        <td id=\"td_frontend_bundle_pedido_pedidoProducto_";
+                // line 93
+                echo twig_escape_filter($this->env, (isset($context["index"]) ? $context["index"] : $this->getContext($context, "index")), "html", null, true);
+                echo "_posicion\">";
+                echo twig_escape_filter($this->env, $this->getAttribute((isset($context["pedidoProducto"]) ? $context["pedidoProducto"] : $this->getContext($context, "pedidoProducto")), "posicion"), "html", null, true);
+                echo "</td>
                         <td id=\"td_categoria_";
-                // line 89
+                // line 94
                 echo twig_escape_filter($this->env, (isset($context["index"]) ? $context["index"] : $this->getContext($context, "index")), "html", null, true);
                 echo "\">";
                 echo twig_escape_filter($this->env, $this->getAttribute($this->getAttribute((isset($context["pedidoProducto"]) ? $context["pedidoProducto"] : $this->getContext($context, "pedidoProducto")), "productoPk"), "categoriaPk"), "html", null, true);
                 echo "</td>
                         <td id=\"td_frontend_bundle_pedido_pedidoProducto_";
-                // line 90
+                // line 95
                 echo twig_escape_filter($this->env, (isset($context["index"]) ? $context["index"] : $this->getContext($context, "index")), "html", null, true);
                 echo "_nombreProducto\">";
                 echo twig_escape_filter($this->env, $this->getAttribute((isset($context["pedidoProducto"]) ? $context["pedidoProducto"] : $this->getContext($context, "pedidoProducto")), "nombreProducto"), "html", null, true);
                 echo "</td>
                         <td id=\"td_frontend_bundle_pedido_pedidoProducto_";
-                // line 91
+                // line 96
                 echo twig_escape_filter($this->env, (isset($context["index"]) ? $context["index"] : $this->getContext($context, "index")), "html", null, true);
                 echo "_cantidad\">";
                 echo twig_escape_filter($this->env, $this->getAttribute((isset($context["pedidoProducto"]) ? $context["pedidoProducto"] : $this->getContext($context, "pedidoProducto")), "cantidad"), "html", null, true);
                 echo "</td>
                         <td id=\"td_frontend_bundle_pedido_pedidoProducto_";
-                // line 92
+                // line 97
                 echo twig_escape_filter($this->env, (isset($context["index"]) ? $context["index"] : $this->getContext($context, "index")), "html", null, true);
                 echo "_alto\">";
                 echo twig_escape_filter($this->env, $this->getAttribute((isset($context["pedidoProducto"]) ? $context["pedidoProducto"] : $this->getContext($context, "pedidoProducto")), "alto"), "html", null, true);
                 echo "</td>
                         <td id=\"td_frontend_bundle_pedido_pedidoProducto_";
-                // line 93
+                // line 98
                 echo twig_escape_filter($this->env, (isset($context["index"]) ? $context["index"] : $this->getContext($context, "index")), "html", null, true);
                 echo "_ancho\">";
                 echo twig_escape_filter($this->env, $this->getAttribute((isset($context["pedidoProducto"]) ? $context["pedidoProducto"] : $this->getContext($context, "pedidoProducto")), "ancho"), "html", null, true);
                 echo "</td>
                         <td id=\"td_frontend_bundle_pedido_pedidoProducto_";
-                // line 94
+                // line 99
                 echo twig_escape_filter($this->env, (isset($context["index"]) ? $context["index"] : $this->getContext($context, "index")), "html", null, true);
                 echo "_tipoCalidadPk\">";
                 echo twig_escape_filter($this->env, $this->getAttribute((isset($context["pedidoProducto"]) ? $context["pedidoProducto"] : $this->getContext($context, "pedidoProducto")), "tipoCalidadPk"), "html", null, true);
                 echo "</td>
                         <td id=\"td_preciounitario_";
-                // line 95
+                // line 100
                 echo twig_escape_filter($this->env, (isset($context["index"]) ? $context["index"] : $this->getContext($context, "index")), "html", null, true);
                 echo "\">";
                 echo twig_escape_filter($this->env, $this->getAttribute((isset($context["pedidoProducto"]) ? $context["pedidoProducto"] : $this->getContext($context, "pedidoProducto")), "precioVenta"), "html", null, true);
                 echo "</td>
                         <td id=\"td_precioventa_";
-                // line 96
+                // line 101
                 echo twig_escape_filter($this->env, (isset($context["index"]) ? $context["index"] : $this->getContext($context, "index")), "html", null, true);
                 echo "\">";
                 echo twig_escape_filter($this->env, $this->getAttribute((isset($context["pedidoProducto"]) ? $context["pedidoProducto"] : $this->getContext($context, "pedidoProducto")), "total"), "html", null, true);
                 echo "</td>
                         <td>
                             <a class=\"btn btn-primary\" id=\"edit-";
-                // line 98
+                // line 103
                 echo twig_escape_filter($this->env, (isset($context["index"]) ? $context["index"] : $this->getContext($context, "index")), "html", null, true);
                 echo "\" href=\"#\">Editar</a>
                             ";
-                // line 99
+                // line 104
                 if ((!$this->getAttribute((isset($context["pedidoProducto"]) ? $context["pedidoProducto"] : $this->getContext($context, "pedidoProducto")), "getEmpezoProduccion"))) {
                     echo "                            
                                 <a class=\"btn btn-danger\" id=\"del-";
-                    // line 100
+                    // line 105
                     echo twig_escape_filter($this->env, (isset($context["index"]) ? $context["index"] : $this->getContext($context, "index")), "html", null, true);
                     echo "\" href=\"#\">Eliminar</a>
                             ";
                 }
-                // line 102
+                // line 107
                 echo "                            <script type=\"text/javascript\">
                                 \$(\"#edit-";
-                // line 103
+                // line 108
                 echo twig_escape_filter($this->env, (isset($context["index"]) ? $context["index"] : $this->getContext($context, "index")), "html", null, true);
                 echo "\").on('click', function(e) {
                                     // prevent the link from creating a \"#\" on the URL
                                     e.preventDefault();
                                     // Call edit function
                                     editarProducto('Editar','";
-                // line 107
-                echo twig_escape_filter($this->env, $this->env->getExtension('routing')->getPath("pedidoproductoxml", array("productoSeleccionadoId" => $this->getAttribute($this->getAttribute((isset($context["pedidoProducto"]) ? $context["pedidoProducto"] : $this->getContext($context, "pedidoProducto")), "productoPk"), "id"), "nombreProducto" => $this->getAttribute((isset($context["pedidoProducto"]) ? $context["pedidoProducto"] : $this->getContext($context, "pedidoProducto")), "nombreProducto"), "cantidad" => $this->getAttribute((isset($context["pedidoProducto"]) ? $context["pedidoProducto"] : $this->getContext($context, "pedidoProducto")), "cantidad"), "dimensionId" => (($this->getAttribute($this->getAttribute((isset($context["pedidoProducto"]) ? $context["pedidoProducto"] : null), "medidaPk", array(), "any", false, true), "id", array(), "any", true, true)) ? (_twig_default_filter($this->getAttribute($this->getAttribute((isset($context["pedidoProducto"]) ? $context["pedidoProducto"] : null), "medidaPk", array(), "any", false, true), "id"), "0")) : ("0")), "dimensionX" => $this->getAttribute((isset($context["pedidoProducto"]) ? $context["pedidoProducto"] : $this->getContext($context, "pedidoProducto")), "ancho"), "dimensionY" => $this->getAttribute((isset($context["pedidoProducto"]) ? $context["pedidoProducto"] : $this->getContext($context, "pedidoProducto")), "alto"), "cortesia" => $this->getAttribute((isset($context["pedidoProducto"]) ? $context["pedidoProducto"] : $this->getContext($context, "pedidoProducto")), "cortesiaTab"), "tipoCalidadId" => $this->getAttribute($this->getAttribute((isset($context["pedidoProducto"]) ? $context["pedidoProducto"] : $this->getContext($context, "pedidoProducto")), "tipoCalidadPk"), "id"), "pedidoPk" => $this->getAttribute((isset($context["entity"]) ? $context["entity"] : $this->getContext($context, "entity")), "id"))), "html", null, true);
+                // line 112
+                echo twig_escape_filter($this->env, $this->env->getExtension('routing')->getPath("pedidoproductoxml", array("productoSeleccionadoId" => $this->getAttribute($this->getAttribute((isset($context["pedidoProducto"]) ? $context["pedidoProducto"] : $this->getContext($context, "pedidoProducto")), "productoPk"), "id"), "nombreProducto" => $this->getAttribute((isset($context["pedidoProducto"]) ? $context["pedidoProducto"] : $this->getContext($context, "pedidoProducto")), "nombreProducto"), "cantidad" => $this->getAttribute((isset($context["pedidoProducto"]) ? $context["pedidoProducto"] : $this->getContext($context, "pedidoProducto")), "cantidad"), "dimensionId" => (($this->getAttribute($this->getAttribute((isset($context["pedidoProducto"]) ? $context["pedidoProducto"] : null), "medidaPk", array(), "any", false, true), "id", array(), "any", true, true)) ? (_twig_default_filter($this->getAttribute($this->getAttribute((isset($context["pedidoProducto"]) ? $context["pedidoProducto"] : null), "medidaPk", array(), "any", false, true), "id"), "0")) : ("0")), "dimensionX" => $this->getAttribute((isset($context["pedidoProducto"]) ? $context["pedidoProducto"] : $this->getContext($context, "pedidoProducto")), "ancho"), "dimensionY" => $this->getAttribute((isset($context["pedidoProducto"]) ? $context["pedidoProducto"] : $this->getContext($context, "pedidoProducto")), "alto"), "cortesia" => $this->getAttribute((isset($context["pedidoProducto"]) ? $context["pedidoProducto"] : $this->getContext($context, "pedidoProducto")), "cortesiaTab"), "tipoCalidadId" => $this->getAttribute($this->getAttribute((isset($context["pedidoProducto"]) ? $context["pedidoProducto"] : $this->getContext($context, "pedidoProducto")), "tipoCalidadPk"), "id"), "pedidoPk" => $this->getAttribute((isset($context["entity"]) ? $context["entity"] : $this->getContext($context, "entity")), "id"), "posicion" => $this->getAttribute((isset($context["pedidoProducto"]) ? $context["pedidoProducto"] : $this->getContext($context, "pedidoProducto")), "posicion"))), "html", null, true);
                 echo "','";
                 echo twig_escape_filter($this->env, (isset($context["index"]) ? $context["index"] : $this->getContext($context, "index")), "html", null, true);
                 echo "');
                                 });
                                 ";
-                // line 109
+                // line 114
                 if ((!$this->getAttribute((isset($context["pedidoProducto"]) ? $context["pedidoProducto"] : $this->getContext($context, "pedidoProducto")), "getEmpezoProduccion"))) {
                     echo "   
                                     \$(\"#del-";
-                    // line 110
+                    // line 115
                     echo twig_escape_filter($this->env, (isset($context["index"]) ? $context["index"] : $this->getContext($context, "index")), "html", null, true);
                     echo "\").on('click', function(e) {
                                         // prevent the link from creating a \"#\" on the URL
                                         e.preventDefault();
                                         var cortesia = ";
-                    // line 113
+                    // line 118
                     if (($this->getAttribute((isset($context["pedidoProducto"]) ? $context["pedidoProducto"] : $this->getContext($context, "pedidoProducto")), "cortesia") == 1)) {
                         echo "\"1\"";
                     } else {
@@ -322,13 +332,13 @@ class __TwigTemplate_0b63c393f64a0429f8676987845e956f6e4ded406268166543ee82c37b8
                                         if(confirmar()){
                                             // remove the li for the tag form
                                             \$(\"#ul-prod-";
-                    // line 116
+                    // line 121
                     echo twig_escape_filter($this->env, (isset($context["index"]) ? $context["index"] : $this->getContext($context, "index")), "html", null, true);
                     echo "\").remove();
-                                            \$(\"#tr-p";
-                    // line 117
+                                            window.dataTable4.fnDeleteRow(window.dataTable4.fnGetPosition(document.getElementById(\"tr-p";
+                    // line 122
                     echo twig_escape_filter($this->env, (isset($context["index"]) ? $context["index"] : $this->getContext($context, "index")), "html", null, true);
-                    echo "\").remove();
+                    echo "\")));
                                             if(cortesia !== \"1\"){
                                                 calculaTotalesTabla();
                                             }else{
@@ -338,68 +348,85 @@ class __TwigTemplate_0b63c393f64a0429f8676987845e956f6e4ded406268166543ee82c37b8
                                     });
                                 ";
                 }
-                // line 126
+                // line 131
                 echo "                            </script>
                         </td>
                     </tr>
                     ";
-                // line 129
+                // line 134
                 $context["i"] = ((isset($context["i"]) ? $context["i"] : $this->getContext($context, "i")) + 1);
-                // line 130
+                // line 135
                 echo "                ";
             }
-            // line 131
+            // line 136
             echo "                ";
             $context["index"] = ((isset($context["index"]) ? $context["index"] : $this->getContext($context, "index")) + 1);
-            // line 132
+            // line 137
             echo "            ";
         }
         $_parent = $context['_parent'];
         unset($context['_seq'], $context['_iterated'], $context['_key'], $context['pedidoProducto'], $context['_parent'], $context['loop']);
         $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 133
-        echo "            <tr id=\"tot-row\">
-                <th></th>
-                <th></th>
-                <th></th>
-                <th id=\"tot-cantidad\" style=\"border-top: 1px solid\">0</th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th id=\"tot-precio\" style=\"border-top: 1px solid\">0</th>
-                <th></th>
-            </tr>
+        // line 138
+        echo "                <tr id=\"end-row\" style=\"display: none\">
+                    <td>0</td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>0</td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr id=\"tot-row\">
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th id=\"tot-cantidad\" style=\"border-top: 1px solid\">0</th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th id=\"tot-precio\" style=\"border-top: 1px solid\">0</th>
+                    <th></th>
+                </tr>
+            </tfoot>
         </table>
         <ul class=\"productos\" data-prototype=\"";
-        // line 146
+        // line 168
         echo twig_escape_filter($this->env, $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute($this->getAttribute($this->getAttribute((isset($context["form"]) ? $context["form"] : $this->getContext($context, "form")), "pedidoProducto"), "vars"), "prototype"), 'widget'));
         echo "\" style=\"display: none\">
             ";
-        // line 148
+        // line 170
         echo "            ";
         $context["index"] = 0;
-        // line 149
+        // line 171
         echo "            ";
         $context['_parent'] = (array) $context;
         $context['_seq'] = twig_ensure_traversable($this->getAttribute((isset($context["form"]) ? $context["form"] : $this->getContext($context, "form")), "pedidoProducto"));
         foreach ($context['_seq'] as $context["_key"] => $context["pedidoProducto"]) {
-            // line 150
+            // line 172
             echo "                <li id=\"ul-prod-";
             echo twig_escape_filter($this->env, (isset($context["index"]) ? $context["index"] : $this->getContext($context, "index")), "html", null, true);
             echo "\">";
             echo $this->env->getExtension('form')->renderer->searchAndRenderBlock((isset($context["pedidoProducto"]) ? $context["pedidoProducto"] : $this->getContext($context, "pedidoProducto")), 'row');
             echo "</li>
                 ";
-            // line 151
+            // line 173
             $context["index"] = ((isset($context["index"]) ? $context["index"] : $this->getContext($context, "index")) + 1);
-            // line 152
+            // line 174
             echo "            ";
         }
         $_parent = $context['_parent'];
         unset($context['_seq'], $context['_iterated'], $context['_key'], $context['pedidoProducto'], $context['_parent'], $context['loop']);
         $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 153
+        // line 175
         echo "        </ul>
     </div>
     <hr/>    
@@ -407,43 +434,43 @@ class __TwigTemplate_0b63c393f64a0429f8676987845e956f6e4ded406268166543ee82c37b8
         <div class=\"col-md-6\">
             <div class=\"row\">
                 <div class=\"col-md-4\">";
-        // line 159
+        // line 181
         echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["form"]) ? $context["form"] : $this->getContext($context, "form")), "conceptoFactura"), 'label');
         echo "</div>
                 <div class=\"col-md-8\">";
-        // line 160
+        // line 182
         echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["form"]) ? $context["form"] : $this->getContext($context, "form")), "conceptoFactura"), 'errors');
         echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["form"]) ? $context["form"] : $this->getContext($context, "form")), "conceptoFactura"), 'widget');
         echo "</div>
             </div>
             <div class=\"row\" ";
-        // line 162
+        // line 184
         if ((!($this->env->getExtension('security')->isGranted("ROLE_ADMINISTRADOR") || $this->env->getExtension('security')->isGranted("ROLE_COORDINADOR")))) {
             echo "style=\"display: none\"";
         }
         echo ">
                 <div class=\"col-md-4\">";
-        // line 163
+        // line 185
         echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["form"]) ? $context["form"] : $this->getContext($context, "form")), "aplicaConcepto1"), 'label');
         echo "</div>
                 <div class=\"col-md-8\">";
-        // line 164
+        // line 186
         echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["form"]) ? $context["form"] : $this->getContext($context, "form")), "aplicaConcepto1"), 'errors');
         echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["form"]) ? $context["form"] : $this->getContext($context, "form")), "aplicaConcepto1"), 'widget');
         echo "</div>
             </div>
             <div class=\"row\" ";
-        // line 166
+        // line 188
         if ((!($this->env->getExtension('security')->isGranted("ROLE_ADMINISTRADOR") || $this->env->getExtension('security')->isGranted("ROLE_COORDINADOR")))) {
             echo "style=\"display: none\"";
         }
         echo ">
                 <div class=\"col-md-4\">";
-        // line 167
+        // line 189
         echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["form"]) ? $context["form"] : $this->getContext($context, "form")), "aplicaConcepto2"), 'label');
         echo "</div>
                 <div class=\"col-md-8\">";
-        // line 168
+        // line 190
         echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["form"]) ? $context["form"] : $this->getContext($context, "form")), "aplicaConcepto2"), 'errors');
         echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["form"]) ? $context["form"] : $this->getContext($context, "form")), "aplicaConcepto2"), 'widget');
         echo "</div>
@@ -456,11 +483,11 @@ class __TwigTemplate_0b63c393f64a0429f8676987845e956f6e4ded406268166543ee82c37b8
             </div>
             <div class=\"row\" id=\"row-descuento\">
                 <div class=\"col-md-2\">";
-        // line 177
+        // line 199
         echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["form"]) ? $context["form"] : $this->getContext($context, "form")), "descuento"), 'label');
         echo "</div>
                 <div class=\"col-md-4\">";
-        // line 178
+        // line 200
         echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["form"]) ? $context["form"] : $this->getContext($context, "form")), "descuento"), 'errors');
         echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["form"]) ? $context["form"] : $this->getContext($context, "form")), "descuento"), 'widget');
         echo "</div>
@@ -491,17 +518,17 @@ class __TwigTemplate_0b63c393f64a0429f8676987845e956f6e4ded406268166543ee82c37b8
         chekaAplica2();
         iniciaEmpresa();
         ";
-        // line 205
+        // line 227
         if (twig_test_empty($this->getAttribute((isset($context["entity"]) ? $context["entity"] : $this->getContext($context, "entity")), "etapa"))) {
-            // line 206
+            // line 228
             echo "            empresaCambio();
         ";
         }
-        // line 208
+        // line 230
         echo "    </script>
     
     <div class=\"row\" id=\"row-cortesia\" ";
-        // line 210
+        // line 232
         if ((!($this->env->getExtension('security')->isGranted("ROLE_ADMINISTRADOR") || $this->env->getExtension('security')->isGranted("ROLE_COORDINADOR")))) {
             echo "style=\"display: none\"";
         }
@@ -512,130 +539,140 @@ class __TwigTemplate_0b63c393f64a0429f8676987845e956f6e4ded406268166543ee82c37b8
         </h4>
         <br/>
         <br/>
-        <table id=\"table-producto-pedidos-cortesia\" data-count=\"1\" style=\"width: 100%; border-collapse: separate; border-spacing: 10px;\">
-            <tr>
-                <th>#</th>
-                <th>Categor&iacute;a</th>
-                <th>Producto</th>
-                <th>Cantidad</th>
-                <th>Ancho (cm)</th>
-                <th>Alto (cm)</th>
-                <th>Calidad</th>
-                <th>V. Unit</th>
-                <th>Total</th>
-                <th></th>
-            </tr>
+        <table id=\"table-producto-pedidos-cortesia\" data-count=\"1\" style=\"width: 100%;\">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Posici&oacute;n</th>
+                    <th>Categor&iacute;a</th>
+                    <th>Producto</th>
+                    <th>Cantidad</th>
+                    <th>Ancho (cm)</th>
+                    <th>Alto (cm)</th>
+                    <th>Calidad</th>
+                    <th>V. Unit</th>
+                    <th>Total</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
             ";
-        // line 230
+        // line 256
         $context["i"] = 1;
-        // line 231
+        // line 257
         echo "            ";
         $context["index"] = 0;
-        // line 232
+        // line 258
         echo "            ";
         $context['_parent'] = (array) $context;
         $context['_seq'] = twig_ensure_traversable($this->getAttribute((isset($context["entity"]) ? $context["entity"] : $this->getContext($context, "entity")), "pedidoProducto"));
         foreach ($context['_seq'] as $context["_key"] => $context["pedidoProducto"]) {
-            // line 233
+            // line 259
             echo "                ";
             if (($this->getAttribute((isset($context["pedidoProducto"]) ? $context["pedidoProducto"] : $this->getContext($context, "pedidoProducto")), "cortesia") != false)) {
-                // line 234
+                // line 260
                 echo "                    <tr id=\"tr-p";
                 echo twig_escape_filter($this->env, (isset($context["index"]) ? $context["index"] : $this->getContext($context, "index")), "html", null, true);
                 echo "\">
                         <td>";
-                // line 235
+                // line 261
                 echo twig_escape_filter($this->env, (isset($context["i"]) ? $context["i"] : $this->getContext($context, "i")), "html", null, true);
                 echo "</td>
+                        <td id=\"td_frontend_bundle_pedido_pedidoProducto_";
+                // line 262
+                echo twig_escape_filter($this->env, (isset($context["index"]) ? $context["index"] : $this->getContext($context, "index")), "html", null, true);
+                echo "_posicion\">";
+                echo twig_escape_filter($this->env, $this->getAttribute((isset($context["pedidoProducto"]) ? $context["pedidoProducto"] : $this->getContext($context, "pedidoProducto")), "posicion"), "html", null, true);
+                echo "</td>
                         <td id=\"td_categoria_";
-                // line 236
+                // line 263
                 echo twig_escape_filter($this->env, (isset($context["index"]) ? $context["index"] : $this->getContext($context, "index")), "html", null, true);
                 echo "\">";
                 echo twig_escape_filter($this->env, $this->getAttribute($this->getAttribute((isset($context["pedidoProducto"]) ? $context["pedidoProducto"] : $this->getContext($context, "pedidoProducto")), "productoPk"), "categoriaPk"), "html", null, true);
                 echo "</td>
                         <td id=\"td_frontend_bundle_pedido_pedidoProducto_";
-                // line 237
+                // line 264
                 echo twig_escape_filter($this->env, (isset($context["index"]) ? $context["index"] : $this->getContext($context, "index")), "html", null, true);
                 echo "_nombreProducto\">";
                 echo twig_escape_filter($this->env, $this->getAttribute((isset($context["pedidoProducto"]) ? $context["pedidoProducto"] : $this->getContext($context, "pedidoProducto")), "nombreProducto"), "html", null, true);
                 echo "</td>
                         <td id=\"td_frontend_bundle_pedido_pedidoProducto_";
-                // line 238
+                // line 265
                 echo twig_escape_filter($this->env, (isset($context["index"]) ? $context["index"] : $this->getContext($context, "index")), "html", null, true);
                 echo "_cantidad\">";
                 echo twig_escape_filter($this->env, $this->getAttribute((isset($context["pedidoProducto"]) ? $context["pedidoProducto"] : $this->getContext($context, "pedidoProducto")), "cantidad"), "html", null, true);
                 echo "</td>
                         <td id=\"td_frontend_bundle_pedido_pedidoProducto_";
-                // line 239
+                // line 266
                 echo twig_escape_filter($this->env, (isset($context["index"]) ? $context["index"] : $this->getContext($context, "index")), "html", null, true);
                 echo "_ancho\">";
                 echo twig_escape_filter($this->env, $this->getAttribute((isset($context["pedidoProducto"]) ? $context["pedidoProducto"] : $this->getContext($context, "pedidoProducto")), "ancho"), "html", null, true);
                 echo "</td>
                         <td id=\"td_frontend_bundle_pedido_pedidoProducto_";
-                // line 240
+                // line 267
                 echo twig_escape_filter($this->env, (isset($context["index"]) ? $context["index"] : $this->getContext($context, "index")), "html", null, true);
                 echo "_alto\">";
                 echo twig_escape_filter($this->env, $this->getAttribute((isset($context["pedidoProducto"]) ? $context["pedidoProducto"] : $this->getContext($context, "pedidoProducto")), "alto"), "html", null, true);
                 echo "</td>
                         <td id=\"td_frontend_bundle_pedido_pedidoProducto_";
-                // line 241
+                // line 268
                 echo twig_escape_filter($this->env, (isset($context["index"]) ? $context["index"] : $this->getContext($context, "index")), "html", null, true);
                 echo "_tipoCalidadPk\">";
                 echo twig_escape_filter($this->env, $this->getAttribute((isset($context["pedidoProducto"]) ? $context["pedidoProducto"] : $this->getContext($context, "pedidoProducto")), "tipoCalidadPk"), "html", null, true);
                 echo "</td>
                         <td id=\"td_preciounitario_";
-                // line 242
+                // line 269
                 echo twig_escape_filter($this->env, (isset($context["index"]) ? $context["index"] : $this->getContext($context, "index")), "html", null, true);
                 echo "\">";
                 echo twig_escape_filter($this->env, $this->getAttribute((isset($context["pedidoProducto"]) ? $context["pedidoProducto"] : $this->getContext($context, "pedidoProducto")), "precioVenta"), "html", null, true);
                 echo "</td>
                         <td id=\"td_precioventa_";
-                // line 243
+                // line 270
                 echo twig_escape_filter($this->env, (isset($context["index"]) ? $context["index"] : $this->getContext($context, "index")), "html", null, true);
                 echo "\">";
                 echo twig_escape_filter($this->env, $this->getAttribute((isset($context["pedidoProducto"]) ? $context["pedidoProducto"] : $this->getContext($context, "pedidoProducto")), "total"), "html", null, true);
                 echo "</td>
                         <td>
                             <a class=\"btn btn-primary\" id=\"edit-";
-                // line 245
+                // line 272
                 echo twig_escape_filter($this->env, (isset($context["index"]) ? $context["index"] : $this->getContext($context, "index")), "html", null, true);
                 echo "\" href=\"#\">Editar</a>
                             ";
-                // line 246
+                // line 273
                 if ((!$this->getAttribute((isset($context["pedidoProducto"]) ? $context["pedidoProducto"] : $this->getContext($context, "pedidoProducto")), "getEmpezoProduccion"))) {
-                    // line 247
+                    // line 274
                     echo "                                <a class=\"btn btn-danger\" id=\"del-";
                     echo twig_escape_filter($this->env, (isset($context["index"]) ? $context["index"] : $this->getContext($context, "index")), "html", null, true);
                     echo "\" href=\"#\">Eliminar</a>
                             ";
                 }
-                // line 249
+                // line 276
                 echo "                            <script type=\"text/javascript\">
                                 \$(\"#edit-";
-                // line 250
+                // line 277
                 echo twig_escape_filter($this->env, (isset($context["index"]) ? $context["index"] : $this->getContext($context, "index")), "html", null, true);
                 echo "\").on('click', function(e) {
                                     // prevent the link from creating a \"#\" on the URL
                                     e.preventDefault();
                                     // Call edit function
                                     editarProducto('Editar','";
-                // line 254
-                echo twig_escape_filter($this->env, $this->env->getExtension('routing')->getPath("pedidoproductoxml", array("productoSeleccionadoId" => $this->getAttribute($this->getAttribute((isset($context["pedidoProducto"]) ? $context["pedidoProducto"] : $this->getContext($context, "pedidoProducto")), "productoPk"), "id"), "nombreProducto" => $this->getAttribute((isset($context["pedidoProducto"]) ? $context["pedidoProducto"] : $this->getContext($context, "pedidoProducto")), "nombreProducto"), "cantidad" => $this->getAttribute((isset($context["pedidoProducto"]) ? $context["pedidoProducto"] : $this->getContext($context, "pedidoProducto")), "cantidad"), "dimensionId" => (($this->getAttribute($this->getAttribute((isset($context["pedidoProducto"]) ? $context["pedidoProducto"] : null), "medidaPk", array(), "any", false, true), "id", array(), "any", true, true)) ? (_twig_default_filter($this->getAttribute($this->getAttribute((isset($context["pedidoProducto"]) ? $context["pedidoProducto"] : null), "medidaPk", array(), "any", false, true), "id"), "0")) : ("0")), "dimensionX" => $this->getAttribute((isset($context["pedidoProducto"]) ? $context["pedidoProducto"] : $this->getContext($context, "pedidoProducto")), "ancho"), "dimensionY" => $this->getAttribute((isset($context["pedidoProducto"]) ? $context["pedidoProducto"] : $this->getContext($context, "pedidoProducto")), "alto"), "cortesia" => $this->getAttribute((isset($context["pedidoProducto"]) ? $context["pedidoProducto"] : $this->getContext($context, "pedidoProducto")), "cortesiaTab"), "tipoCalidadId" => $this->getAttribute($this->getAttribute((isset($context["pedidoProducto"]) ? $context["pedidoProducto"] : $this->getContext($context, "pedidoProducto")), "tipoCalidadPk"), "id"), "pedidoPk" => $this->getAttribute((isset($context["entity"]) ? $context["entity"] : $this->getContext($context, "entity")), "id"))), "html", null, true);
+                // line 281
+                echo twig_escape_filter($this->env, $this->env->getExtension('routing')->getPath("pedidoproductoxml", array("productoSeleccionadoId" => $this->getAttribute($this->getAttribute((isset($context["pedidoProducto"]) ? $context["pedidoProducto"] : $this->getContext($context, "pedidoProducto")), "productoPk"), "id"), "nombreProducto" => $this->getAttribute((isset($context["pedidoProducto"]) ? $context["pedidoProducto"] : $this->getContext($context, "pedidoProducto")), "nombreProducto"), "cantidad" => $this->getAttribute((isset($context["pedidoProducto"]) ? $context["pedidoProducto"] : $this->getContext($context, "pedidoProducto")), "cantidad"), "dimensionId" => (($this->getAttribute($this->getAttribute((isset($context["pedidoProducto"]) ? $context["pedidoProducto"] : null), "medidaPk", array(), "any", false, true), "id", array(), "any", true, true)) ? (_twig_default_filter($this->getAttribute($this->getAttribute((isset($context["pedidoProducto"]) ? $context["pedidoProducto"] : null), "medidaPk", array(), "any", false, true), "id"), "0")) : ("0")), "dimensionX" => $this->getAttribute((isset($context["pedidoProducto"]) ? $context["pedidoProducto"] : $this->getContext($context, "pedidoProducto")), "ancho"), "dimensionY" => $this->getAttribute((isset($context["pedidoProducto"]) ? $context["pedidoProducto"] : $this->getContext($context, "pedidoProducto")), "alto"), "cortesia" => $this->getAttribute((isset($context["pedidoProducto"]) ? $context["pedidoProducto"] : $this->getContext($context, "pedidoProducto")), "cortesiaTab"), "tipoCalidadId" => $this->getAttribute($this->getAttribute((isset($context["pedidoProducto"]) ? $context["pedidoProducto"] : $this->getContext($context, "pedidoProducto")), "tipoCalidadPk"), "id"), "posicion" => $this->getAttribute((isset($context["pedidoProducto"]) ? $context["pedidoProducto"] : $this->getContext($context, "pedidoProducto")), "posicion"), "pedidoPk" => $this->getAttribute((isset($context["entity"]) ? $context["entity"] : $this->getContext($context, "entity")), "id"))), "html", null, true);
                 echo "','";
                 echo twig_escape_filter($this->env, (isset($context["index"]) ? $context["index"] : $this->getContext($context, "index")), "html", null, true);
                 echo "');
                                 });
                                 ";
-                // line 256
+                // line 283
                 if ((!$this->getAttribute((isset($context["pedidoProducto"]) ? $context["pedidoProducto"] : $this->getContext($context, "pedidoProducto")), "getEmpezoProduccion"))) {
-                    // line 257
+                    // line 284
                     echo "                                    \$(\"#del-";
                     echo twig_escape_filter($this->env, (isset($context["index"]) ? $context["index"] : $this->getContext($context, "index")), "html", null, true);
                     echo "\").on('click', function(e) {
                                         // prevent the link from creating a \"#\" on the URL
                                         e.preventDefault();
                                         var cortesia = ";
-                    // line 260
+                    // line 287
                     if (($this->getAttribute((isset($context["pedidoProducto"]) ? $context["pedidoProducto"] : $this->getContext($context, "pedidoProducto")), "cortesia") == 1)) {
                         echo "\"1\"";
                     } else {
@@ -645,13 +682,13 @@ class __TwigTemplate_0b63c393f64a0429f8676987845e956f6e4ded406268166543ee82c37b8
                                         if(confirmar()){
                                             // remove the li for the tag form
                                             \$(\"#ul-prod-";
-                    // line 263
+                    // line 290
                     echo twig_escape_filter($this->env, (isset($context["index"]) ? $context["index"] : $this->getContext($context, "index")), "html", null, true);
                     echo "\").remove();
-                                            \$(\"#tr-p";
-                    // line 264
+                                            window.dataTable5.fnDeleteRow(window.dataTable5.fnGetPosition(document.getElementById(\"tr-p";
+                    // line 291
                     echo twig_escape_filter($this->env, (isset($context["index"]) ? $context["index"] : $this->getContext($context, "index")), "html", null, true);
-                    echo "\").remove();
+                    echo "\")));
                                             if(cortesia !== \"1\"){
                                                 calculaTotalesTabla();
                                             }else{
@@ -661,38 +698,55 @@ class __TwigTemplate_0b63c393f64a0429f8676987845e956f6e4ded406268166543ee82c37b8
                                     });
                                 ";
                 }
-                // line 273
+                // line 300
                 echo "                            </script>
                         </td>
                     </tr>
                     ";
-                // line 276
+                // line 303
                 $context["i"] = ((isset($context["i"]) ? $context["i"] : $this->getContext($context, "i")) + 1);
-                // line 277
+                // line 304
                 echo "                ";
             }
-            // line 278
+            // line 305
             echo "                ";
             $context["index"] = ((isset($context["index"]) ? $context["index"] : $this->getContext($context, "index")) + 1);
-            // line 279
-            echo "            ";
+            // line 306
+            echo "                <tr id=\"end-row-cortesia\" style=\"display: none\">
+                    <td>0</td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>0</td>
+                </tr>
+            ";
         }
         $_parent = $context['_parent'];
         unset($context['_seq'], $context['_iterated'], $context['_key'], $context['pedidoProducto'], $context['_parent'], $context['loop']);
         $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 280
-        echo "            <tr id=\"tot-row-cortesia\">
-                <th></th>
-                <th></th>
-                <th></th>
-                <th id=\"tot-cantidad-cortesia\" style=\"border-top: 1px solid\">0</th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th id=\"tot-precio-cortesia\" style=\"border-top: 1px solid\">0</th>
-                <th></th>
-            </tr>
+        // line 320
+        echo "            </tbody>
+            <tfoot>
+                <tr id=\"tot-row-cortesia\">
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th id=\"tot-cantidad-cortesia\" style=\"border-top: 1px solid\">0</th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th id=\"tot-precio-cortesia\" style=\"border-top: 1px solid\">0</th>
+                    <th></th>
+                </tr>
+            </tfoot>
         </table>
     </div>
     <!---
@@ -714,70 +768,70 @@ class __TwigTemplate_0b63c393f64a0429f8676987845e956f6e4ded406268166543ee82c37b8
     <div class=\"row\">
         <div class=\"col-md-6\">
             <div class=\"row\" ";
-        // line 312
+        // line 356
         if ((!($this->env->getExtension('security')->isGranted("ROLE_ADMINISTRADOR") || $this->env->getExtension('security')->isGranted("ROLE_COORDINADOR")))) {
             echo "style=\"display:none\"";
         }
         echo ">
                 <div class=\"col-md-4\">";
-        // line 313
+        // line 357
         echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["form"]) ? $context["form"] : $this->getContext($context, "form")), "fechaAprobacion"), 'label');
         echo "</div>
                 <div class=\"col-md-4\">";
-        // line 314
+        // line 358
         echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["form"]) ? $context["form"] : $this->getContext($context, "form")), "fechaAprobacion"), 'errors');
         echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["form"]) ? $context["form"] : $this->getContext($context, "form")), "fechaAprobacion"), 'widget');
         echo "</div>
             </div>
             <div class=\"row\">
                 <div class=\"col-md-4\">";
-        // line 317
+        // line 361
         echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["form"]) ? $context["form"] : $this->getContext($context, "form")), "fechaMaximaEntrega"), 'label');
         echo "</div>
                 <div class=\"col-md-4\">";
-        // line 318
+        // line 362
         echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["form"]) ? $context["form"] : $this->getContext($context, "form")), "fechaMaximaEntrega"), 'errors');
         echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["form"]) ? $context["form"] : $this->getContext($context, "form")), "fechaMaximaEntrega"), 'widget');
         echo "</div>
             </div>
             <div class=\"row\" ";
-        // line 320
+        // line 364
         if ((!($this->env->getExtension('security')->isGranted("ROLE_ADMINISTRADOR") || $this->env->getExtension('security')->isGranted("ROLE_COORDINADOR")))) {
             echo "style=\"display:none\"";
         }
         echo ">
                 <div class=\"col-md-4\">";
-        // line 321
+        // line 365
         echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["form"]) ? $context["form"] : $this->getContext($context, "form")), "retencionRenta"), 'label');
         echo "</div>
                 <div class=\"col-md-4\">";
-        // line 322
+        // line 366
         echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["form"]) ? $context["form"] : $this->getContext($context, "form")), "retencionRenta"), 'errors');
         echo "
                     -> <label id=\"retencion-renta\">0</label>
                     ";
-        // line 324
+        // line 368
         echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["form"]) ? $context["form"] : $this->getContext($context, "form")), "retencionRenta"), 'widget');
         echo "
                 </div>
             </div>
             <div class=\"row\" ";
-        // line 327
+        // line 371
         if ((!($this->env->getExtension('security')->isGranted("ROLE_ADMINISTRADOR") || $this->env->getExtension('security')->isGranted("ROLE_COORDINADOR")))) {
             echo "style=\"display:none\"";
         }
         echo ">   
                 <div class=\"col-md-4\">";
-        // line 328
+        // line 372
         echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["form"]) ? $context["form"] : $this->getContext($context, "form")), "retencionIva"), 'label');
         echo "</div>
                 <div class=\"col-md-4\">";
-        // line 329
+        // line 373
         echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["form"]) ? $context["form"] : $this->getContext($context, "form")), "retencionIva"), 'errors');
         echo "
                     -> <label id=\"retencion-iva\">0</label>
                     ";
-        // line 331
+        // line 375
         echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["form"]) ? $context["form"] : $this->getContext($context, "form")), "retencionIva"), 'widget');
         echo "
                 </div>
@@ -785,49 +839,49 @@ class __TwigTemplate_0b63c393f64a0429f8676987845e956f6e4ded406268166543ee82c37b8
         </div>
         <div class=\"col-md-6\">
             <div class=\"row\" ";
-        // line 336
+        // line 380
         if ((!($this->env->getExtension('security')->isGranted("ROLE_ADMINISTRADOR") || $this->env->getExtension('security')->isGranted("ROLE_COORDINADOR")))) {
             echo "style=\"display:none\"";
         }
         echo ">
                 <div class=\"col-md-4\">";
-        // line 337
+        // line 381
         echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["form"]) ? $context["form"] : $this->getContext($context, "form")), "financiamiento"), 'label');
         echo "</div>
                 <div class=\"col-md-4\">";
-        // line 338
+        // line 382
         echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["form"]) ? $context["form"] : $this->getContext($context, "form")), "financiamiento"), 'errors');
         echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["form"]) ? $context["form"] : $this->getContext($context, "form")), "financiamiento"), 'widget');
         echo "</div>
             </div>
             <div class=\"row\" ";
-        // line 340
+        // line 384
         if ((!($this->env->getExtension('security')->isGranted("ROLE_ADMINISTRADOR") || $this->env->getExtension('security')->isGranted("ROLE_COORDINADOR")))) {
             echo "style=\"display:none\"";
         }
         echo ">
                 <div class=\"col-md-4\">";
-        // line 341
+        // line 385
         echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["form"]) ? $context["form"] : $this->getContext($context, "form")), "facturaNum"), 'label');
         echo "</div>
                 <div class=\"col-md-4\">";
-        // line 342
+        // line 386
         echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["form"]) ? $context["form"] : $this->getContext($context, "form")), "facturaNum"), 'errors');
         echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["form"]) ? $context["form"] : $this->getContext($context, "form")), "facturaNum"), 'widget');
         echo "</div>
             </div>
             <div class=\"row\" ";
-        // line 344
+        // line 388
         if ((!($this->env->getExtension('security')->isGranted("ROLE_ADMINISTRADOR") || $this->env->getExtension('security')->isGranted("ROLE_COORDINADOR")))) {
             echo "style=\"display:none\"";
         }
         echo ">
                 <div class=\"col-md-4\">";
-        // line 345
+        // line 389
         echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["form"]) ? $context["form"] : $this->getContext($context, "form")), "banco"), 'label');
         echo "</div>
                 <div class=\"col-md-4\">";
-        // line 346
+        // line 390
         echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["form"]) ? $context["form"] : $this->getContext($context, "form")), "banco"), 'errors');
         echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["form"]) ? $context["form"] : $this->getContext($context, "form")), "banco"), 'widget');
         echo "</div>
@@ -838,14 +892,14 @@ class __TwigTemplate_0b63c393f64a0429f8676987845e956f6e4ded406268166543ee82c37b8
         <div class=\"col-md-2\">
             <br/>
             ";
-        // line 353
+        // line 397
         echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["form"]) ? $context["form"] : $this->getContext($context, "form")), "notas"), 'label');
         echo "
         </div>
         <div class=\"col-md-10\">
             <br/>
             ";
-        // line 357
+        // line 401
         echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["form"]) ? $context["form"] : $this->getContext($context, "form")), "notas"), 'errors');
         echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["form"]) ? $context["form"] : $this->getContext($context, "form")), "notas"), 'widget');
         echo "
@@ -853,7 +907,7 @@ class __TwigTemplate_0b63c393f64a0429f8676987845e956f6e4ded406268166543ee82c37b8
     </div>
     <div style=\"display: none\">
         ";
-        // line 361
+        // line 405
         echo $this->env->getExtension('form')->renderer->searchAndRenderBlock((isset($context["form"]) ? $context["form"] : $this->getContext($context, "form")), 'rest');
         echo "
     </div>
@@ -861,16 +915,16 @@ class __TwigTemplate_0b63c393f64a0429f8676987845e956f6e4ded406268166543ee82c37b8
     <br/>
     <input type=\"submit\" value=\"Guardar pedido\" class=\"btn btn-primary\"/>&nbsp;&nbsp;&nbsp;
     ";
-        // line 366
+        // line 410
         if ((!(null === $this->getAttribute((isset($context["entity"]) ? $context["entity"] : $this->getContext($context, "entity")), "id")))) {
-            // line 367
+            // line 411
             echo "    <input type=\"button\" value=\"Imprimir pedido\" id=\"imprimir\" class=\"btn btn-success\" ";
             if ((!($this->env->getExtension('security')->isGranted("ROLE_ADMINISTRADOR") || $this->env->getExtension('security')->isGranted("ROLE_COORDINADOR")))) {
                 echo "style=\"display: none\"";
             }
             echo "/>
     <div id=\"menu-imprimir\" data-content='<form action=\"";
-            // line 368
+            // line 412
             echo twig_escape_filter($this->env, $this->env->getExtension('routing')->getUrl("pedido_imprimir", array("id" => $this->getAttribute((isset($context["entity"]) ? $context["entity"] : $this->getContext($context, "entity")), "id"))), "html", null, true);
             echo "\" method=\"POST\" id=\"imprime-form\">\"Escoja la opción a imprimir:<br/><br/>
         <ol>
@@ -884,7 +938,7 @@ class __TwigTemplate_0b63c393f64a0429f8676987845e956f6e4ded406268166543ee82c37b8
     </div>
     ";
         }
-        // line 379
+        // line 423
         echo "    ";
         echo         $this->env->getExtension('form')->renderer->renderBlock((isset($context["form"]) ? $context["form"] : $this->getContext($context, "form")), 'form_end');
         echo "
@@ -898,10 +952,10 @@ class __TwigTemplate_0b63c393f64a0429f8676987845e956f6e4ded406268166543ee82c37b8
 ";
     }
 
-    // line 389
+    // line 433
     public function block_javascripts($context, array $blocks = array())
     {
-        // line 390
+        // line 434
         echo "        ";
         $this->displayParentBlock("javascripts", $context, $blocks);
         echo "
@@ -953,8 +1007,8 @@ class __TwigTemplate_0b63c393f64a0429f8676987845e956f6e4ded406268166543ee82c37b8
                     // prevent the link from creating a \"#\" on the URL
                     e.preventDefault();
                     anadirProducto('Agregar','";
-        // line 438
-        echo twig_escape_filter($this->env, $this->env->getExtension('routing')->getPath("pedidoproductoxml", array("productoSeleccionadoId" => "-", "nombreProducto" => "-", "cantidad" => "-", "dimensionId" => "-", "dimensionX" => "-", "dimensionY" => "-", "cortesia" => "-", "tipoCalidadId" => "-", "pedidoPk" => "-")), "html", null, true);
+        // line 482
+        echo twig_escape_filter($this->env, $this->env->getExtension('routing')->getPath("pedidoproductoxml", array("productoSeleccionadoId" => "-", "nombreProducto" => "-", "cantidad" => "-", "dimensionId" => "-", "dimensionX" => "-", "dimensionY" => "-", "cortesia" => "-", "tipoCalidadId" => "-", "posicion" => "-", "pedidoPk" => "-")), "html", null, true);
         echo "');
                 });
                 
@@ -962,8 +1016,8 @@ class __TwigTemplate_0b63c393f64a0429f8676987845e956f6e4ded406268166543ee82c37b8
                     // prevent the link from creating a \"#\" on the URL
                     e.preventDefault();
                     anadirProducto('Agregar','";
-        // line 444
-        echo twig_escape_filter($this->env, $this->env->getExtension('routing')->getPath("pedidoproductoxml", array("productoSeleccionadoId" => "-", "nombreProducto" => "-", "cantidad" => "-", "dimensionId" => "-", "dimensionX" => "-", "dimensionY" => "-", "cortesia" => "1", "tipoCalidadId" => "-", "pedidoPk" => "-")), "html", null, true);
+        // line 488
+        echo twig_escape_filter($this->env, $this->env->getExtension('routing')->getPath("pedidoproductoxml", array("productoSeleccionadoId" => "-", "nombreProducto" => "-", "cantidad" => "-", "dimensionId" => "-", "dimensionX" => "-", "dimensionY" => "-", "cortesia" => "1", "tipoCalidadId" => "-", "posicion" => "-", "pedidoPk" => "-")), "html", null, true);
         echo "');
                 });
                 
@@ -1008,13 +1062,35 @@ class __TwigTemplate_0b63c393f64a0429f8676987845e956f6e4ded406268166543ee82c37b8
                         if(opt1 || opt2){
                             //\$('#modal-base').modal(\"hide\");
                             muestraMenuReportePedidos(e,'";
-        // line 487
+        // line 531
         echo $this->env->getExtension('routing')->getUrl("menupedido");
         echo "');
                         }else{
                             \$(\"#imprime-form\").submit();
                         }
                     });
+                });
+                
+                window.dataTable4 = \$('#table-producto-pedidos').dataTable({
+                        \"aaSorting\": [[ 1, \"asc\" ]],   
+                        \"iDisplayLength\": 500,
+                        \"oLanguage\": {
+                            \"sUrl\": '";
+        // line 542
+        echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("js/datatables.spanish.txt"), "html", null, true);
+        echo "'
+                        }
+                });
+                
+                window.dataTable5 = \$('#table-producto-pedidos-cortesia').dataTable({
+                        \"aaSorting\": [[ 1, \"asc\" ]],  
+                        \"iDisplayLength\": 500,
+                        \"oLanguage\": {
+                            \"sUrl\": '";
+        // line 550
+        echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("js/datatables.spanish.txt"), "html", null, true);
+        echo "'
+                        }
                 });
             });
         </script>
@@ -1033,6 +1109,6 @@ class __TwigTemplate_0b63c393f64a0429f8676987845e956f6e4ded406268166543ee82c37b8
 
     public function getDebugInfo()
     {
-        return array (  1012 => 487,  966 => 444,  957 => 438,  905 => 390,  902 => 389,  888 => 379,  874 => 368,  867 => 367,  865 => 366,  857 => 361,  849 => 357,  842 => 353,  831 => 346,  827 => 345,  821 => 344,  815 => 342,  811 => 341,  805 => 340,  799 => 338,  795 => 337,  789 => 336,  781 => 331,  776 => 329,  772 => 328,  766 => 327,  760 => 324,  755 => 322,  751 => 321,  745 => 320,  739 => 318,  735 => 317,  728 => 314,  724 => 313,  718 => 312,  684 => 280,  678 => 279,  675 => 278,  672 => 277,  670 => 276,  665 => 273,  653 => 264,  649 => 263,  639 => 260,  632 => 257,  630 => 256,  623 => 254,  616 => 250,  613 => 249,  607 => 247,  605 => 246,  601 => 245,  594 => 243,  588 => 242,  582 => 241,  576 => 240,  570 => 239,  564 => 238,  558 => 237,  552 => 236,  548 => 235,  543 => 234,  540 => 233,  535 => 232,  532 => 231,  530 => 230,  505 => 210,  501 => 208,  497 => 206,  495 => 205,  464 => 178,  460 => 177,  447 => 168,  443 => 167,  437 => 166,  431 => 164,  427 => 163,  421 => 162,  415 => 160,  411 => 159,  403 => 153,  397 => 152,  395 => 151,  388 => 150,  383 => 149,  380 => 148,  376 => 146,  361 => 133,  355 => 132,  352 => 131,  349 => 130,  347 => 129,  342 => 126,  330 => 117,  326 => 116,  316 => 113,  310 => 110,  306 => 109,  299 => 107,  292 => 103,  289 => 102,  284 => 100,  280 => 99,  276 => 98,  269 => 96,  263 => 95,  257 => 94,  251 => 93,  245 => 92,  239 => 91,  233 => 90,  227 => 89,  223 => 88,  218 => 87,  215 => 86,  210 => 85,  207 => 84,  205 => 83,  187 => 69,  185 => 68,  172 => 58,  166 => 54,  147 => 52,  143 => 51,  140 => 50,  138 => 49,  134 => 48,  130 => 47,  116 => 35,  99 => 33,  95 => 32,  83 => 25,  79 => 24,  70 => 20,  66 => 19,  57 => 15,  53 => 14,  49 => 12,  43 => 9,  38 => 6,  36 => 5,  32 => 4,  29 => 3,);
+        return array (  1091 => 550,  1080 => 542,  1066 => 531,  1020 => 488,  1011 => 482,  959 => 434,  956 => 433,  942 => 423,  928 => 412,  921 => 411,  919 => 410,  911 => 405,  903 => 401,  896 => 397,  885 => 390,  881 => 389,  875 => 388,  869 => 386,  865 => 385,  859 => 384,  853 => 382,  849 => 381,  843 => 380,  835 => 375,  830 => 373,  826 => 372,  820 => 371,  814 => 368,  809 => 366,  805 => 365,  799 => 364,  793 => 362,  789 => 361,  782 => 358,  778 => 357,  772 => 356,  734 => 320,  715 => 306,  712 => 305,  709 => 304,  707 => 303,  702 => 300,  690 => 291,  686 => 290,  676 => 287,  669 => 284,  667 => 283,  660 => 281,  653 => 277,  650 => 276,  644 => 274,  642 => 273,  638 => 272,  631 => 270,  625 => 269,  619 => 268,  613 => 267,  607 => 266,  601 => 265,  595 => 264,  589 => 263,  583 => 262,  579 => 261,  574 => 260,  571 => 259,  566 => 258,  563 => 257,  561 => 256,  532 => 232,  528 => 230,  524 => 228,  522 => 227,  491 => 200,  487 => 199,  474 => 190,  470 => 189,  464 => 188,  458 => 186,  454 => 185,  448 => 184,  442 => 182,  438 => 181,  430 => 175,  424 => 174,  422 => 173,  415 => 172,  410 => 171,  407 => 170,  403 => 168,  371 => 138,  365 => 137,  362 => 136,  359 => 135,  357 => 134,  352 => 131,  340 => 122,  336 => 121,  326 => 118,  320 => 115,  316 => 114,  309 => 112,  302 => 108,  299 => 107,  294 => 105,  290 => 104,  286 => 103,  279 => 101,  273 => 100,  267 => 99,  261 => 98,  255 => 97,  249 => 96,  243 => 95,  237 => 94,  231 => 93,  227 => 92,  222 => 91,  219 => 90,  214 => 89,  211 => 88,  209 => 87,  187 => 69,  185 => 68,  172 => 58,  166 => 54,  147 => 52,  143 => 51,  140 => 50,  138 => 49,  134 => 48,  130 => 47,  116 => 35,  99 => 33,  95 => 32,  83 => 25,  79 => 24,  70 => 20,  66 => 19,  57 => 15,  53 => 14,  49 => 12,  43 => 9,  38 => 6,  36 => 5,  32 => 4,  29 => 3,);
     }
 }
