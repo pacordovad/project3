@@ -33,7 +33,7 @@ class Cargo
      *
      * @ORM\Column(name="POSICION", type="integer", nullable=false)
      */
-    private $posicion;
+    protected $posicion;
     
     public function getPosicion() {
         return $this->posicion;

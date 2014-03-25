@@ -111,9 +111,11 @@
     padding: 1px !important;    
 }
 
+/*
 .records_list td:last-child{
     text-align: right;
 }
+*/
 
 .crud-table{
     border: 10px solid #eeefff;
@@ -140,10 +142,26 @@
     color: #FFFFFF !important;
 }
 
-tr.odd td.highlighted {
+/*tr.odd td.highlighted {
     background-color: #D3D6FF;
-}
+}*/
 
 tr.even td.highlighted {
     background-color: #EAEBFF;
+}
+
+.t_control tr.even td, .t_control tr.odd td, table.t_control.dataTable tr.odd td.sorting_1, table.t_control.dataTable tr.even td.sorting_1{
+    background-color: #DBF7FF;        
+}
+
+.t_cobros tr.even td, .t_cobros tr.odd td, table.t_cobros.dataTable tr.odd td.sorting_1, table.t_cobros.dataTable tr.even td.sorting_1{
+    background-color: #FFE9C9;        
+}
+
+.t_produccion tr.even td, .t_produccion tr.odd td, table.t_produccion.dataTable tr.odd td.sorting_1, table.t_produccion.dataTable tr.even td.sorting_1{
+    background-color: #D6FFD6;        
+}
+
+.t_tareas tr.even td, .t_tareas tr.odd td, table.t_tareas.dataTable tr.odd td.sorting_1, table.t_tareas.dataTable tr.even td.sorting_1{
+    background-color: #EEE3FF;
 }
