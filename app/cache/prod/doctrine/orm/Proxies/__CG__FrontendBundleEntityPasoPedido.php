@@ -42,6 +42,30 @@ class PasoPedido extends \Frontend\Bundle\Entity\PasoPedido implements \Doctrine
     }
 
     
+    public function getPorDefecto()
+    {
+        $this->__load();
+        return parent::getPorDefecto();
+    }
+
+    public function setPorDefecto($porDefecto)
+    {
+        $this->__load();
+        return parent::setPorDefecto($porDefecto);
+    }
+
+    public function getVisibleWeb()
+    {
+        $this->__load();
+        return parent::getVisibleWeb();
+    }
+
+    public function setVisibleWeb($visibleWeb)
+    {
+        $this->__load();
+        return parent::setVisibleWeb($visibleWeb);
+    }
+
     public function getId()
     {
         if ($this->__isInitialized__ === false) {
@@ -84,7 +108,7 @@ class PasoPedido extends \Frontend\Bundle\Entity\PasoPedido implements \Doctrine
 
     public function __sleep()
     {
-        return array('__isInitialized__', 'id', 'nombrePaso', 'posicion');
+        return array('__isInitialized__', 'id', 'nombrePaso', 'posicion', 'porDefecto', 'visibleWeb');
     }
 
     public function __clone()

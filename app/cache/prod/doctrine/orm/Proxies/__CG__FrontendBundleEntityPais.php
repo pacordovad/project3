@@ -42,6 +42,18 @@ class Pais extends \Frontend\Bundle\Entity\Pais implements \Doctrine\ORM\Proxy\P
     }
 
     
+    public function getPosicion()
+    {
+        $this->__load();
+        return parent::getPosicion();
+    }
+
+    public function setPosicion($posicion)
+    {
+        $this->__load();
+        return parent::setPosicion($posicion);
+    }
+
     public function getId()
     {
         if ($this->__isInitialized__ === false) {
@@ -72,7 +84,7 @@ class Pais extends \Frontend\Bundle\Entity\Pais implements \Doctrine\ORM\Proxy\P
 
     public function __sleep()
     {
-        return array('__isInitialized__', 'id', 'nombrePais');
+        return array('__isInitialized__', 'id', 'nombrePais', 'posicion');
     }
 
     public function __clone()

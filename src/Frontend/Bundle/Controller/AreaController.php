@@ -236,16 +236,12 @@ class AreaController extends Controller
     public function etapaAction($areaId){
         $em = $this->getDoctrine()->getManager();
         $query = $em->createQuery("SELECT p 
-            FROM FrontendBundle:Pedido p, FrontendBundle:Contacto c, FrontendBundle:Area a 
-            WHERE p.contactoPk = c.id AND c.areaPk = a.id AND a.id = ?1");
+            FROM FrontendBundle:Pedido p, FrontendBundle:Contacto c, FrontendBundle:Area a, FrontendBundle:PasoPedido pp 
+            WHERE p.contactoPk = c.id AND c.areaPk = a.id AND p.pasoPedidosPk = pp.id AND a.id = ?1 AND pp.nombrePaso = ?2");
         $query->setParameter(1, $areaId);
+        $query->setParameter(2, "Cancelado");
         $pedidos = $query->getResult();
-        $contador = 0;
-        foreach($pedidos as $pedido){
-            if($pedido->getFinalizado()){
-                $contador++;                
-            }
-        }
+        $contador = count($pedidos);
         return $this->render('FrontendBundle:Area:etapa.html.twig', array('contador'=> $contador));
     }
 }

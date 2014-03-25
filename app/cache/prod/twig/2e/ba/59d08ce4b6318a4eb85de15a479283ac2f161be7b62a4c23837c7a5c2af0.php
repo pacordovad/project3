@@ -181,7 +181,11 @@ class __TwigTemplate_2eba59d08ce4b6318a4eb85de15a479283ac2f161be7b62a4c23837c7a5
             // line 79
             echo "                    <option value=\"";
             echo twig_escape_filter($this->env, (isset($context["paso"]) ? $context["paso"] : null), "html", null, true);
-            echo "\">";
+            echo "\" ";
+            if (($this->getAttribute((isset($context["paso"]) ? $context["paso"] : null), "porDefecto") == 1)) {
+                echo "selected";
+            }
+            echo ">";
             echo twig_escape_filter($this->env, (isset($context["paso"]) ? $context["paso"] : null), "html", null, true);
             echo "</option>
                 ";
@@ -201,7 +205,7 @@ class __TwigTemplate_2eba59d08ce4b6318a4eb85de15a479283ac2f161be7b62a4c23837c7a5
         // line 88
         echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("images/loader-small.gif"), "html", null, true);
         echo "\"/>
-    <table class=\"tColapse records_list\" id=\"datatable_crud\" style=\"font-size: 11px\">
+    <table class=\"tColapse records_list t_control\" id=\"datatable_crud_pedidos\" style=\"font-size: 11px\">
         <thead>
             <tr>
                 <th>#</th>
@@ -671,25 +675,25 @@ class __TwigTemplate_2eba59d08ce4b6318a4eb85de15a479283ac2f161be7b62a4c23837c7a5
             if ($this->env->getExtension('security')->isGranted("ROLE_COORDINADOR")) {
                 echo "<a class=\"btn btn-primary\" style=\"font-size: 10px; float: left\" href=\"";
                 echo twig_escape_filter($this->env, $this->env->getExtension('routing')->getPath("pedido_edit", array("id" => $this->getAttribute((isset($context["entity"]) ? $context["entity"] : null), "id"))), "html", null, true);
-                echo "\" title=\"Editar\"><span class=\"glyphicon glyphicon-edit\"></span></a>";
+                echo "\" title=\"Propuesta\"><span class=\"glyphicon glyphicon-edit\"></span></a>";
             }
             // line 223
             echo "                    ";
             if ($this->env->getExtension('security')->isGranted("ROLE_COORDINADOR")) {
                 echo "<a class=\"btn btn-primary\" style=\"font-size: 10px; float: left\" href=\"";
                 echo twig_escape_filter($this->env, $this->env->getExtension('routing')->getPath("pedido_productos", array("id" => $this->getAttribute((isset($context["entity"]) ? $context["entity"] : null), "id"))), "html", null, true);
-                echo "\" title=\"Productos\"><span class=\"glyphicon glyphicon-list\"></a>";
+                echo "\" title=\"Proceso\"><span class=\"glyphicon glyphicon-list\"></a>";
             }
             // line 224
             echo "                    <a class=\"btn btn-primary\" style=\"font-size: 10px; float: left\" href=\"";
             echo twig_escape_filter($this->env, $this->env->getExtension('routing')->getPath("pedido_esquema", array("id" => $this->getAttribute((isset($context["entity"]) ? $context["entity"] : null), "id"))), "html", null, true);
-            echo "\" title=\"Esquema\"><span class=\"glyphicon glyphicon-eye-open\"></a>
+            echo "\" title=\"Productos\"><span class=\"glyphicon glyphicon-eye-open\"></a>
                     ";
             // line 225
             if ($this->env->getExtension('security')->isGranted("ROLE_COORDINADOR")) {
-                echo "<a class=\"btn btn-primary\" style=\"font-size: 10px; float: left\" href=\"";
+                echo "<a class=\"btn btn-primary\" onclick=\"return confirmar()\" style=\"font-size: 10px; float: left\" href=\"";
                 echo twig_escape_filter($this->env, $this->env->getExtension('routing')->getPath("pedido_duplicar", array("id" => $this->getAttribute((isset($context["entity"]) ? $context["entity"] : null), "id"))), "html", null, true);
-                echo "\" title=\"Duplicar\"><span class=\"glyphicon glyphicon-random\"></a>";
+                echo "\" title=\"Copiar\"><span class=\"glyphicon glyphicon-random\"></a>";
             }
             // line 226
             echo "                </td>
@@ -705,7 +709,12 @@ class __TwigTemplate_2eba59d08ce4b6318a4eb85de15a479283ac2f161be7b62a4c23837c7a5
             echo $this->env->getExtension('routing')->getUrl("pedido_cambiaPaso");
             echo "','";
             echo twig_escape_filter($this->env, (($this->getAttribute($this->getAttribute((isset($context["entity"]) ? $context["entity"] : null), "pasoPedido", array(), "any", false, true), "id", array(), "any", true, true)) ? (_twig_default_filter($this->getAttribute($this->getAttribute((isset($context["entity"]) ? $context["entity"] : null), "pasoPedido", array(), "any", false, true), "id"), "-1")) : ("-1")), "html", null, true);
-            echo "')\">
+            echo "')\" ";
+            if (($this->env->getExtension('security')->isGranted("ROLE_COORDINADOR") || ($this->getAttribute($this->getAttribute((isset($context["app"]) ? $context["app"] : null), "user"), "id") == $this->getAttribute($this->getAttribute((isset($context["entity"]) ? $context["entity"] : null), "delegado3UsuarioPk"), "id")))) {
+            } else {
+                echo "disabled";
+            }
+            echo ">
                         <option value=\"-1\" data-label=\"\"></option>
                         ";
             // line 230
@@ -733,64 +742,72 @@ class __TwigTemplate_2eba59d08ce4b6318a4eb85de15a479283ac2f161be7b62a4c23837c7a5
             echo "                    </select>
                 </td>
                 <td>
-                ";
-            // line 236
-            if (($this->getAttribute((isset($context["entity"]) ? $context["entity"] : null), "notas", array(), "any", true, true) && ($this->getAttribute((isset($context["entity"]) ? $context["entity"] : null), "notas") != ""))) {
-                // line 237
-                echo "                    <!-- Button trigger modal -->
+                    <!-- Button trigger modal -->
                     <button style=\"font-size: 12px; padding: 5px 11px;\" class=\"btn btn-primary btn-lg\" data-toggle=\"modal\" data-target=\"#notas";
-                // line 238
-                echo twig_escape_filter($this->env, $this->getAttribute((isset($context["entity"]) ? $context["entity"] : null), "id"), "html", null, true);
-                echo "\">
+            // line 237
+            echo twig_escape_filter($this->env, $this->getAttribute((isset($context["entity"]) ? $context["entity"] : null), "id"), "html", null, true);
+            echo "\">
                       <span class=\"glyphicon glyphicon-list-alt\"></span>
                     </button>
 
                     <!-- Modal -->
                     <div class=\"modal fade\" id=\"notas";
-                // line 243
-                echo twig_escape_filter($this->env, $this->getAttribute((isset($context["entity"]) ? $context["entity"] : null), "id"), "html", null, true);
-                echo "\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"myModalLabel\" aria-hidden=\"true\">
+            // line 242
+            echo twig_escape_filter($this->env, $this->getAttribute((isset($context["entity"]) ? $context["entity"] : null), "id"), "html", null, true);
+            echo "\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"myModalLabel\" aria-hidden=\"true\">
                       <div class=\"modal-dialog\">
                         <div class=\"modal-content\">
                           <div class=\"modal-header\">
                             <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-hidden=\"true\">&times;</button>
                             <h4 class=\"modal-title\" id=\"myModalLabel\">Notas pedido <span style=\"color: #3276b1\">";
-                // line 248
-                echo twig_escape_filter($this->env, $this->getAttribute((isset($context["entity"]) ? $context["entity"] : null), "id"), "html", null, true);
-                echo "</span></h4>
+            // line 247
+            echo twig_escape_filter($this->env, $this->getAttribute((isset($context["entity"]) ? $context["entity"] : null), "id"), "html", null, true);
+            echo "</span></h4>
                           </div>
                           <div class=\"modal-body\" style=\"font-size: 150%\">
-                                ";
-                // line 251
-                echo twig_escape_filter($this->env, $this->getAttribute((isset($context["entity"]) ? $context["entity"] : null), "notas"), "html", null, true);
-                echo "
+                              <h4>
+                                  Notas:
+                              </h4>
+                              <textarea rows=\"5\" style=\"width: 100%\" id=\"notasPedido";
+            // line 253
+            echo twig_escape_filter($this->env, $this->getAttribute((isset($context["entity"]) ? $context["entity"] : null), "id"), "html", null, true);
+            echo "\">";
+            echo twig_escape_filter($this->env, $this->getAttribute((isset($context["entity"]) ? $context["entity"] : null), "notasControl"), "html", null, true);
+            echo "</textarea>
                           </div>
                           <div class=\"modal-footer\">
-                            <button type=\"button\" class=\"btn btn-default\" data-dismiss=\"modal\">Cerrar</button>
+                              <button type=\"button\" id=\"sendNotasControl";
+            // line 256
+            echo twig_escape_filter($this->env, $this->getAttribute((isset($context["entity"]) ? $context["entity"] : null), "id"), "html", null, true);
+            echo "\" data-modalid=\"notas";
+            echo twig_escape_filter($this->env, $this->getAttribute((isset($context["entity"]) ? $context["entity"] : null), "id"), "html", null, true);
+            echo "\" data-idnotas=\"notasPedido";
+            echo twig_escape_filter($this->env, $this->getAttribute((isset($context["entity"]) ? $context["entity"] : null), "id"), "html", null, true);
+            echo "\" class=\"btn btn-success enviaNotas\" data-url=\"";
+            echo twig_escape_filter($this->env, $this->env->getExtension('routing')->getPath("pedido_set_notas_control", array("id" => $this->getAttribute((isset($context["entity"]) ? $context["entity"] : null), "id"))), "html", null, true);
+            echo "\" data-dismiss=\"modal\">Guardar</button>
+                              <button type=\"button\" class=\"btn btn-default\" data-dismiss=\"modal\">Cerrar</button>
                           </div>
                         </div><!-- /.modal-content -->
                       </div><!-- /.modal-dialog -->
                     </div><!-- /.modal -->
-                ";
-            }
-            // line 260
-            echo "                </td>
+                </td>
             </tr>
         ";
         }
         $_parent = $context['_parent'];
         unset($context['_seq'], $context['_iterated'], $context['_key'], $context['entity'], $context['_parent'], $context['loop']);
         $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 263
+        // line 265
         echo "        </tbody>
     </table>
 ";
     }
 
-    // line 267
+    // line 269
     public function block_javascripts($context, array $blocks = array())
     {
-        // line 268
+        // line 270
         echo "    <script type=\"text/javascript\">
         /* Custom filtering function which will filter data in column four between two values */
         \$.fn.dataTableExt.afnFiltering.push(
@@ -893,13 +910,13 @@ class __TwigTemplate_2eba59d08ce4b6318a4eb85de15a479283ac2f161be7b62a4c23837c7a5
                 dateFormat: \"yy-mm-dd 00:00:00\",
                 yearRange: \"2012:2050\"
             });
-            \$('#empresa').change( function() { window.dataTable.fnDraw(); filtraAreas(); } );
-            \$('#area').change( function() { window.dataTable.fnDraw(); } );
-            \$('#paso').change( function() { window.dataTable.fnDraw(); } );
-            \$('#coordinador').change( function() { window.dataTable.fnDraw(); } );
-            \$('#codigo').keyup( function() { window.dataTable.fnDraw(); } );
-            \$('#fechadesde').on( \"keyup change\", function() { window.dataTable.fnDraw(); } );
-            \$('#fechahasta').on( \"keyup change\", function() { window.dataTable.fnDraw(); } );
+            \$('#empresa').change( function() { window.dataTable3.fnDraw(); filtraAreas(); } );
+            \$('#area').change( function() { window.dataTable3.fnDraw(); } );
+            \$('#paso').change( function() { window.dataTable3.fnDraw(); } );
+            \$('#coordinador').change( function() { window.dataTable3.fnDraw(); } );
+            \$('#codigo').keyup( function() { window.dataTable3.fnDraw(); } );
+            \$('#fechadesde').on( \"keyup change\", function() { window.dataTable3.fnDraw(); } );
+            \$('#fechahasta').on( \"keyup change\", function() { window.dataTable3.fnDraw(); } );
         } );
     </script>
 ";
@@ -917,6 +934,6 @@ class __TwigTemplate_2eba59d08ce4b6318a4eb85de15a479283ac2f161be7b62a4c23837c7a5
 
     public function getDebugInfo()
     {
-        return array (  794 => 268,  791 => 267,  785 => 263,  777 => 260,  765 => 251,  759 => 248,  751 => 243,  743 => 238,  740 => 237,  738 => 236,  733 => 233,  716 => 231,  712 => 230,  699 => 228,  695 => 226,  689 => 225,  684 => 224,  677 => 223,  671 => 222,  660 => 220,  656 => 218,  641 => 216,  637 => 215,  625 => 214,  614 => 212,  604 => 211,  594 => 210,  584 => 209,  580 => 207,  565 => 205,  561 => 204,  549 => 203,  538 => 201,  528 => 200,  518 => 199,  508 => 198,  498 => 197,  488 => 196,  478 => 195,  468 => 194,  458 => 193,  448 => 192,  438 => 191,  434 => 189,  419 => 187,  415 => 186,  403 => 185,  398 => 183,  394 => 182,  385 => 176,  379 => 173,  373 => 172,  364 => 166,  360 => 165,  356 => 164,  352 => 163,  348 => 162,  339 => 161,  335 => 160,  331 => 159,  327 => 158,  320 => 156,  313 => 154,  309 => 153,  305 => 152,  301 => 151,  297 => 150,  293 => 149,  284 => 143,  278 => 140,  272 => 139,  263 => 133,  259 => 132,  252 => 130,  248 => 128,  244 => 127,  202 => 88,  193 => 81,  182 => 79,  178 => 78,  160 => 62,  149 => 60,  145 => 59,  135 => 51,  122 => 49,  118 => 48,  113 => 45,  100 => 43,  96 => 42,  72 => 20,  59 => 18,  55 => 17,  43 => 8,  39 => 6,  36 => 5,  30 => 3,);
+        return array (  811 => 270,  808 => 269,  802 => 265,  781 => 256,  773 => 253,  764 => 247,  756 => 242,  748 => 237,  742 => 233,  725 => 231,  721 => 230,  703 => 228,  699 => 226,  693 => 225,  688 => 224,  681 => 223,  675 => 222,  664 => 220,  660 => 218,  645 => 216,  641 => 215,  629 => 214,  618 => 212,  608 => 211,  598 => 210,  588 => 209,  584 => 207,  569 => 205,  565 => 204,  553 => 203,  542 => 201,  532 => 200,  522 => 199,  512 => 198,  502 => 197,  492 => 196,  482 => 195,  472 => 194,  462 => 193,  452 => 192,  442 => 191,  438 => 189,  423 => 187,  419 => 186,  407 => 185,  402 => 183,  398 => 182,  389 => 176,  383 => 173,  377 => 172,  368 => 166,  364 => 165,  360 => 164,  356 => 163,  352 => 162,  343 => 161,  339 => 160,  335 => 159,  331 => 158,  324 => 156,  317 => 154,  313 => 153,  309 => 152,  305 => 151,  301 => 150,  297 => 149,  288 => 143,  282 => 140,  276 => 139,  267 => 133,  263 => 132,  256 => 130,  252 => 128,  248 => 127,  206 => 88,  197 => 81,  182 => 79,  178 => 78,  160 => 62,  149 => 60,  145 => 59,  135 => 51,  122 => 49,  118 => 48,  113 => 45,  100 => 43,  96 => 42,  72 => 20,  59 => 18,  55 => 17,  43 => 8,  39 => 6,  36 => 5,  30 => 3,);
     }
 }

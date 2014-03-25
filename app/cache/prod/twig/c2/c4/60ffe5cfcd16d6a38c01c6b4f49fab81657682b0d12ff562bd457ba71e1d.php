@@ -62,7 +62,7 @@ class __TwigTemplate_c2c460ffe5cfcd16d6a38c01c6b4f49fab81657682b0d12ff562bd457ba
         echo "\" />
     <body screen_capture_injected=\"true\">
         <div class=\"container\">
-            <h2 style=\"text-align: center\">Sistema de Control de Producción</h2>
+            <h2 style=\"text-align: center\">Sistema de control de proceso RRRS</h2>
             ";
         // line 18
         if ((isset($context["error"]) ? $context["error"] : null)) {

@@ -904,15 +904,59 @@ class appProdUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirecta
                 return $this->mergeDefaults(array_replace($matches, array('_route' => 'pedido_duplicar')), array (  '_controller' => 'Frontend\\Bundle\\Controller\\PedidoController::duplicaAction',));
             }
 
+            // pedido_get_notas_control
+            if (preg_match('#^/pedido/(?P<id>[^/]++)/getnotascontrol$#s', $pathinfo, $matches)) {
+                if ($this->context->getMethod() != 'POST') {
+                    $allow[] = 'POST';
+                    goto not_pedido_get_notas_control;
+                }
+
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'pedido_get_notas_control')), array (  '_controller' => 'Frontend\\Bundle\\Controller\\PedidoController::getPedidoNotasControlAction',));
+            }
+            not_pedido_get_notas_control:
+
+            // pedido_set_notas_control
+            if (preg_match('#^/pedido/(?P<id>[^/]++)/setnotascontrol$#s', $pathinfo, $matches)) {
+                if ($this->context->getMethod() != 'POST') {
+                    $allow[] = 'POST';
+                    goto not_pedido_set_notas_control;
+                }
+
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'pedido_set_notas_control')), array (  '_controller' => 'Frontend\\Bundle\\Controller\\PedidoController::setPedidoNotasControlAction',));
+            }
+            not_pedido_set_notas_control:
+
+            // pedido_get_notas_control_pp
+            if (preg_match('#^/pedido/(?P<id>[^/]++)/getnotascontrolpp$#s', $pathinfo, $matches)) {
+                if ($this->context->getMethod() != 'POST') {
+                    $allow[] = 'POST';
+                    goto not_pedido_get_notas_control_pp;
+                }
+
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'pedido_get_notas_control_pp')), array (  '_controller' => 'Frontend\\Bundle\\Controller\\PedidoController::getPPNotasControlAction',));
+            }
+            not_pedido_get_notas_control_pp:
+
+            // pedido_set_notas_control_pp
+            if (preg_match('#^/pedido/(?P<id>[^/]++)/setnotascontrolpp$#s', $pathinfo, $matches)) {
+                if ($this->context->getMethod() != 'POST') {
+                    $allow[] = 'POST';
+                    goto not_pedido_set_notas_control_pp;
+                }
+
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'pedido_set_notas_control_pp')), array (  '_controller' => 'Frontend\\Bundle\\Controller\\PedidoController::setPPNotasControlAction',));
+            }
+            not_pedido_set_notas_control_pp:
+
             if (0 === strpos($pathinfo, '/pedidoproducto')) {
                 // pedidoproductoxml
-                if (preg_match('#^/pedidoproducto/(?P<productoSeleccionadoId>[^/]++)/(?P<nombreProducto>[^/]++)/(?P<cantidad>[^/]++)/(?P<dimensionId>[^/]++)/(?P<dimensionX>[^/]++)/(?P<dimensionY>[^/]++)/(?P<cortesia>[^/]++)/(?P<tipoCalidadId>[^/]++)/(?P<pedidoPk>[^/]++)/seleccion$#s', $pathinfo, $matches)) {
-                    return $this->mergeDefaults(array_replace($matches, array('_route' => 'pedidoproductoxml')), array (  '_controller' => 'Frontend\\Bundle\\Controller\\PedidoProductoController::pedidoProductoAction',  'productoSeleccionadoId' => '-',  'nombreProducto' => '-',  'cantidad' => '-',  'dimensionId' => '-',  'dimensionX' => '-',  'dimensionY' => '-',  'cortesia' => '-',  'tipoCalidadId' => '-',  'pedidoPk' => '-',));
+                if (preg_match('#^/pedidoproducto/(?P<productoSeleccionadoId>[^/]++)/(?P<nombreProducto>[^/]++)/(?P<cantidad>[^/]++)/(?P<dimensionId>[^/]++)/(?P<dimensionX>[^/]++)/(?P<dimensionY>[^/]++)/(?P<cortesia>[^/]++)/(?P<tipoCalidadId>[^/]++)/(?P<posicion>[^/]++)/(?P<pedidoPk>[^/]++)/seleccion$#s', $pathinfo, $matches)) {
+                    return $this->mergeDefaults(array_replace($matches, array('_route' => 'pedidoproductoxml')), array (  '_controller' => 'Frontend\\Bundle\\Controller\\PedidoProductoController::pedidoProductoAction',  'productoSeleccionadoId' => '-',  'nombreProducto' => '-',  'cantidad' => '-',  'dimensionId' => '-',  'dimensionX' => '-',  'dimensionY' => '-',  'cortesia' => '-',  'tipoCalidadId' => '-',  'pedidoPk' => '-',  'posicion' => '-',));
                 }
 
                 // pedidoproductoeditlink
-                if (preg_match('#^/pedidoproducto/(?P<productoSeleccionadoId>[^/]++)/(?P<nombreProducto>[^/]++)/(?P<cantidad>[^/]++)/(?P<dimensionId>[^/]++)/(?P<dimensionX>[^/]++)/(?P<dimensionY>[^/]++)/(?P<cortesia>[^/]++)/(?P<tipoCalidadId>[^/]++)/(?P<pedidoPk>[^/]++)/editlink$#s', $pathinfo, $matches)) {
-                    return $this->mergeDefaults(array_replace($matches, array('_route' => 'pedidoproductoeditlink')), array (  '_controller' => 'Frontend\\Bundle\\Controller\\PedidoProductoController::getEditLinkAction',  'productoSeleccionadoId' => '-',  'nombreProducto' => '-',  'cantidad' => '-',  'dimensionId' => '-',  'dimensionX' => '-',  'dimensionY' => '-',  'cortesia' => '-',  'tipoCalidadId' => '-',  'pedidoPk' => '-',));
+                if (preg_match('#^/pedidoproducto/(?P<productoSeleccionadoId>[^/]++)/(?P<nombreProducto>[^/]++)/(?P<cantidad>[^/]++)/(?P<dimensionId>[^/]++)/(?P<dimensionX>[^/]++)/(?P<dimensionY>[^/]++)/(?P<cortesia>[^/]++)/(?P<tipoCalidadId>[^/]++)/(?P<posicion>[^/]++)/(?P<pedidoPk>[^/]++)/editlink$#s', $pathinfo, $matches)) {
+                    return $this->mergeDefaults(array_replace($matches, array('_route' => 'pedidoproductoeditlink')), array (  '_controller' => 'Frontend\\Bundle\\Controller\\PedidoProductoController::getEditLinkAction',  'productoSeleccionadoId' => '-',  'nombreProducto' => '-',  'cantidad' => '-',  'dimensionId' => '-',  'dimensionX' => '-',  'dimensionY' => '-',  'cortesia' => '-',  'tipoCalidadId' => '-',  'pedidoPk' => '-',  'posicion' => '-',));
                 }
 
             }

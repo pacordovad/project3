@@ -470,6 +470,11 @@
                     empresaCambio();
                 });
                 
+                $("#frontend_bundle_pedido_contactoPk").change(function(e){
+                    console.log("cambio");
+                    $("#frontend_bundle_pedido_etapa").val($("#frontend_bundle_pedido_contactoPk option:selected").data("etapa"));
+                });
+                
                 // count the current form inputs we have (e.g. 2), use that as the new
                 // index when inserting a new item (e.g. 2)
                 collectionHolder.data('index', collectionHolder.find('li').length);

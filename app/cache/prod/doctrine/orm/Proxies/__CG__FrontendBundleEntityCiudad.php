@@ -42,6 +42,18 @@ class Ciudad extends \Frontend\Bundle\Entity\Ciudad implements \Doctrine\ORM\Pro
     }
 
     
+    public function getPosicion()
+    {
+        $this->__load();
+        return parent::getPosicion();
+    }
+
+    public function setPosicion($posicion)
+    {
+        $this->__load();
+        return parent::setPosicion($posicion);
+    }
+
     public function getId()
     {
         if ($this->__isInitialized__ === false) {
@@ -90,7 +102,7 @@ class Ciudad extends \Frontend\Bundle\Entity\Ciudad implements \Doctrine\ORM\Pro
 
     public function __sleep()
     {
-        return array('__isInitialized__', 'id', 'nombreCiudad', 'provinciaPk');
+        return array('__isInitialized__', 'id', 'nombreCiudad', 'posicion', 'provinciaPk');
     }
 
     public function __clone()

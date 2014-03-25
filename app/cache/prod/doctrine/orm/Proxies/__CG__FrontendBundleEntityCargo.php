@@ -42,6 +42,18 @@ class Cargo extends \Frontend\Bundle\Entity\Cargo implements \Doctrine\ORM\Proxy
     }
 
     
+    public function getPosicion()
+    {
+        $this->__load();
+        return parent::getPosicion();
+    }
+
+    public function setPosicion($posicion)
+    {
+        $this->__load();
+        return parent::setPosicion($posicion);
+    }
+
     public function getId()
     {
         if ($this->__isInitialized__ === false) {
@@ -72,7 +84,7 @@ class Cargo extends \Frontend\Bundle\Entity\Cargo implements \Doctrine\ORM\Proxy
 
     public function __sleep()
     {
-        return array('__isInitialized__', 'id', 'nombreCargo');
+        return array('__isInitialized__', 'id', 'nombreCargo', 'posicion');
     }
 
     public function __clone()

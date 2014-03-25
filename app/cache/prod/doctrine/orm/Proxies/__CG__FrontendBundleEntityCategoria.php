@@ -42,6 +42,18 @@ class Categoria extends \Frontend\Bundle\Entity\Categoria implements \Doctrine\O
     }
 
     
+    public function getPosicion()
+    {
+        $this->__load();
+        return parent::getPosicion();
+    }
+
+    public function setPosicion($posicion)
+    {
+        $this->__load();
+        return parent::setPosicion($posicion);
+    }
+
     public function getId()
     {
         if ($this->__isInitialized__ === false) {
@@ -84,7 +96,7 @@ class Categoria extends \Frontend\Bundle\Entity\Categoria implements \Doctrine\O
 
     public function __sleep()
     {
-        return array('__isInitialized__', 'id', 'nombreCategoria', 'descripcion');
+        return array('__isInitialized__', 'id', 'nombreCategoria', 'descripcion', 'posicion');
     }
 
     public function __clone()

@@ -42,6 +42,18 @@ class Provincia extends \Frontend\Bundle\Entity\Provincia implements \Doctrine\O
     }
 
     
+    public function getPosicion()
+    {
+        $this->__load();
+        return parent::getPosicion();
+    }
+
+    public function setPosicion($posicion)
+    {
+        $this->__load();
+        return parent::setPosicion($posicion);
+    }
+
     public function getId()
     {
         if ($this->__isInitialized__ === false) {
@@ -84,7 +96,7 @@ class Provincia extends \Frontend\Bundle\Entity\Provincia implements \Doctrine\O
 
     public function __sleep()
     {
-        return array('__isInitialized__', 'id', 'nombreProvincia', 'regionPk');
+        return array('__isInitialized__', 'id', 'nombreProvincia', 'posicion', 'regionPk');
     }
 
     public function __clone()

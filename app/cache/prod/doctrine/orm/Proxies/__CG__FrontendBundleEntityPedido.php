@@ -60,6 +60,12 @@ class Pedido extends \Frontend\Bundle\Entity\Pedido implements \Doctrine\ORM\Pro
         return parent::getPedidoProducto();
     }
 
+    public function getNumPedidoProducto()
+    {
+        $this->__load();
+        return parent::getNumPedidoProducto();
+    }
+
     public function getId()
     {
         if ($this->__isInitialized__ === false) {
@@ -645,10 +651,22 @@ class Pedido extends \Frontend\Bundle\Entity\Pedido implements \Doctrine\ORM\Pro
         return parent::getPasoPorNum($num);
     }
 
+    public function getNotasControl()
+    {
+        $this->__load();
+        return parent::getNotasControl();
+    }
+
+    public function setNotasControl($notasControl)
+    {
+        $this->__load();
+        return parent::setNotasControl($notasControl);
+    }
+
 
     public function __sleep()
     {
-        return array('__isInitialized__', 'id', 'fechaRegistro', 'fechaActualizacion', 'conceptoFactura', 'descuento', 'aplicaConcepto1', 'aplicaConcepto2', 'fechaAprobacion', 'fechaMaximaEntrega', 'financiamiento', 'facturaNum', 'banco', 'notas', 'paso1', 'paso2', 'paso3', 'paso4', 'paso5', 'paso6', 'paso7', 'paso8', 'paso9', 'paso10', 'paso11', 'paso12', 'paso13', 'paso14', 'paso15', 'paso16', 'retencionRenta', 'retencionIva', 'etapa', 'coordinadorUsuarioPk', 'contactoPk', 'delegado1UsuarioPk', 'delegado2UsuarioPk', 'delegado3UsuarioPk', 'pasoPedidosPk', 'ultimaActualizacionUsuarioPk', 'pedidoProducto');
+        return array('__isInitialized__', 'id', 'fechaRegistro', 'fechaActualizacion', 'conceptoFactura', 'descuento', 'aplicaConcepto1', 'aplicaConcepto2', 'fechaAprobacion', 'fechaMaximaEntrega', 'financiamiento', 'facturaNum', 'banco', 'notas', 'notasControl', 'paso1', 'paso2', 'paso3', 'paso4', 'paso5', 'paso6', 'paso7', 'paso8', 'paso9', 'paso10', 'paso11', 'paso12', 'paso13', 'paso14', 'paso15', 'paso16', 'retencionRenta', 'retencionIva', 'etapa', 'coordinadorUsuarioPk', 'contactoPk', 'delegado1UsuarioPk', 'delegado2UsuarioPk', 'delegado3UsuarioPk', 'pasoPedidosPk', 'ultimaActualizacionUsuarioPk', 'pedidoProducto');
     }
 
     public function __clone()

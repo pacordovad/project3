@@ -42,6 +42,18 @@ class PedidoProducto extends \Frontend\Bundle\Entity\PedidoProducto implements \
     }
 
     
+    public function getPosicion()
+    {
+        $this->__load();
+        return parent::getPosicion();
+    }
+
+    public function setPosicion($posicion)
+    {
+        $this->__load();
+        return parent::setPosicion($posicion);
+    }
+
     public function getNumFacturados()
     {
         $this->__load();
@@ -423,10 +435,22 @@ class PedidoProducto extends \Frontend\Bundle\Entity\PedidoProducto implements \
         return parent::getPasoPorNum($num);
     }
 
+    public function getNotasControlPp()
+    {
+        $this->__load();
+        return parent::getNotasControlPp();
+    }
+
+    public function setNotasControlPp($notasControlPp)
+    {
+        $this->__load();
+        return parent::setNotasControlPp($notasControlPp);
+    }
+
 
     public function __sleep()
     {
-        return array('__isInitialized__', 'id', 'nombreProducto', 'cantidad', 'alto', 'ancho', 'cortesia', 'precioVenta', 'paso1', 'paso2', 'paso3', 'paso4', 'paso5', 'paso6', 'paso7', 'paso8', 'paso9', 'paso10', 'paso11', 'paso12', 'paso13', 'paso14', 'paso15', 'paso16', 'tipoCalidadPk', 'pedidoPk', 'productoPk', 'medidaPk');
+        return array('__isInitialized__', 'id', 'nombreProducto', 'cantidad', 'alto', 'ancho', 'cortesia', 'precioVenta', 'notasControlPp', 'paso1', 'paso2', 'paso3', 'paso4', 'paso5', 'paso6', 'paso7', 'paso8', 'paso9', 'paso10', 'paso11', 'paso12', 'paso13', 'paso14', 'paso15', 'paso16', 'posicion', 'tipoCalidadPk', 'pedidoPk', 'productoPk', 'medidaPk');
     }
 
     public function __clone()
